@@ -2039,10 +2039,17 @@ window.CapeStrings = {
   }
 
   // ------------------------------------------------------------------ patterns
+  const KEY = { B: "#10499c", b: "#10428e", Y: "#fed83d", P: "#4b2a7a", G: "#e0a92a", O: "#febd01", N: "#0b3575", C: "#00aef0", K: "#ed287f" };
+  const rows = (...r) => r.join("").split("").map((ch) => KEY[ch] || "");
   const grid = (fn) => Array.from({ length: N }, (_, i) => fn(i % W, (i / W) | 0) || "");
   const PATTERNS = [
-    { id: "cleverlike", name: "Cleverlike", px: grid((x, y) => y >= 13 ? (x < 6 ? "#174fa2" : x < 8 ? "#febd01" : "#ed287f") :
-        ((x === 4 || x === 5) && y >= 4 && y <= 8) || ((x === 3 || x === 6) && y >= 5 && y <= 7) ? "#00aef0" : "#10499c") },
+    // the Cleverlike book mascot (from cleverlike.school) above the brand stripe
+    { id: "cleverlike", name: "Cleverlike", px: rows(
+      "BBBBBBBBBB", "BBBBBBBBBB", "BBBBBBBBBB", "BBBBBBBBBB",
+      "BBBYBBYBBB", "BBBbPPbBBB", "BBBPPPPBBB", "BBBPPPPBBB",
+      "BBGOGOGOBB", "BBNNNNNNBB", "BBBBBBBBBB", "BBBBBBBBBB",
+      "BBBBBBBBBB", "CCCCCCOOKK", "CCCCCCOOKK", "CCCCCCOOKK",
+    ) },
     { id: "royal", name: "Royal", px: grid((x, y) => (x === 0 || x === 9 || y === 0 || y === 15) ? "#e0a92a" :
         (y === 2 && [2, 4, 5, 7].includes(x)) || ((y === 3 || y === 4) && x >= 2 && x <= 7) ? "#fed83d" : "#b02e26") },
     { id: "rainbow", name: "Rainbow", px: grid((x, y) => ["#b02e26", "#f9801d", "#fed83d", "#80c71f", "#3ab3da", "#3c44aa", "#6a3fa6", "#c74ebd"][Math.floor(y / 2)]) },
@@ -2066,7 +2073,7 @@ window.CapeStrings = {
   }
   function newProject() {
     const project = { format: 1, tool: "cleverlike-cape", pid: shortId(), packName: t("My Capes"), ids: freshIds(), version: [1, 0, 0], giveOnJoin: true, capes: [] };
-    project.capes.push(newCape(project, t("Cape {n}", { n: 1 }), "cleverlike"));
+    project.capes.push(newCape(project, t("Cape {n}", { n: 1 }), "blank"));
     return project;
   }
   /** Make an opened project safe to use (missing fields, wrong-sized grids) */
@@ -2652,8 +2659,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   }
   $("#add-cape").addEventListener("click", () => {
     if (project.capes.length >= P.MAX_CAPES) return;
-    const pat = P.PATTERNS[project.capes.length % (P.PATTERNS.length - 1)].id;
-    project.capes.push(P.newCape(project, uniqueName("Cape {n}"), pat));
+    project.capes.push(P.newCape(project, uniqueName("Cape {n}"), "blank"));
     changed(); select(project.capes.length - 1); renderProblems();
     $("#cape-name").focus(); $("#cape-name").select();
   });
