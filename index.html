@@ -536,6 +536,8 @@ dialog.confirm::backdrop { background: rgba(8, 15, 30, 0.6); }
 .btn.danger-solid:hover:not(:disabled) { background: color-mix(in srgb, var(--bad) 85%, #000); border-color: var(--bad); color: #fff; }
 :root[data-a11y-theme="contrast"] .btn.danger-solid, :root[data-theme="dark"] .btn.danger-solid { color: #000; }
 
+.capes-pane.drop-on { outline: 3px dashed var(--accent); outline-offset: -6px; background: var(--accent-soft); }
+
 </style>
 </head>
 <body>
@@ -549,8 +551,8 @@ dialog.confirm::backdrop { background: rgba(8, 15, 30, 0.6); }
     </div>
   </div>
   <button class="btn" id="prefs-btn" data-tip="Change the language, colors and text size." type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="prefs"><span aria-hidden="true" class="prefs-glyph">Aa</span> <span data-i18n>Display &amp; language</span></button>
-  <button class="btn" id="open-addon" data-tip="Open a .mcaddon you made here before to keep working on it." type="button" data-i18n>Open an add-on…</button>
-  <input type="file" id="open-addon-file" accept=".mcaddon,.mcpack,.zip" hidden>
+  <button class="btn" id="open-addon" data-tip="Open a .mcaddon you made here before to keep working on it. Pick several to combine them." type="button" data-i18n>Open an add-on…</button>
+  <input type="file" id="open-addon-file" accept=".mcaddon,.mcpack,.zip" multiple hidden>
  </div>
 </header>
 
@@ -584,6 +586,8 @@ dialog.confirm::backdrop { background: rgba(8, 15, 30, 0.6); }
         <ul class="cape-list" id="cape-list"></ul>
         <div class="list-actions">
           <button class="btn" type="button" id="add-cape" data-tip="Add another cape to this pack." data-i18n>New cape</button>
+          <button class="btn" type="button" id="merge-addon" data-tip="Bring capes from other add-ons made here into this pack. You can pick several at once, or drop them on this list."><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8M4.5 6.5L8 10l3.5-3.5M2.5 11v2.5h11V11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n>Add capes from add-ons…</span></button>
+          <input type="file" id="merge-addon-file" accept=".mcaddon,.mcpack,.zip" multiple hidden>
         </div>
       </div>
     </section>
@@ -969,7 +973,6 @@ window.CapeStrings = {
 "Night sky": "Cielo nocturno",
 "Normal": "Normal",
 "Only the preview uses this skin.": "Solo la vista previa usa este aspecto.",
-"Open a .mcaddon you made here before to keep working on it.": "Abre un .mcaddon que hiciste aquí para seguir trabajando en él.",
 "Open an add-on…": "Abrir un complemento…",
 "Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "Se abrió «{pack}» con {n} capa.|Se abrió «{pack}» con {n} capas.",
 "Outside": "Exterior",
@@ -1172,7 +1175,17 @@ window.CapeStrings = {
 "Showing: <b>{place}</b>": "Mostrando: <b>{place}</b>",
 "Delete “{name}”?": "¿Eliminar «{name}»?",
 "Are you sure? This can't be undone.": "¿Seguro? Esto no se puede deshacer.",
-"Keep it": "Conservarla"
+"Keep it": "Conservarla",
+"Open a .mcaddon you made here before to keep working on it. Pick several to combine them.": "Abre un .mcaddon que hiciste aquí para seguir trabajando en él. Elige varios para combinarlos.",
+"Add capes from add-ons…": "Añadir capas de complementos…",
+"Bring capes from other add-ons made here into this pack. You can pick several at once, or drop them on this list.": "Trae a este paquete capas de otros complementos hechos aquí. Puedes elegir varios a la vez o soltarlos en esta lista.",
+"Added {n} cape.|Added {n} capes.": "Se añadió {n} capa.|Se añadieron {n} capas.",
+"{n} was already here.|{n} were already here.": "{n} ya estaba aquí.|{n} ya estaban aquí.",
+"{n} didn't fit: a pack holds up to {max} capes.": "{n} no cupieron: un paquete admite hasta {max} capas.",
+"{n} file wasn't made with this tool.|{n} files weren't made with this tool.": "{n} archivo no se hizo con esta herramienta.|{n} archivos no se hicieron con esta herramienta.",
+"Opened “{pack}”.": "Se abrió «{pack}».",
+"Those files weren't made with Cleverlike CapeMaker, so no capes were added.": "Esos archivos no se hicieron con Cleverlike CapeMaker, así que no se añadieron capas.",
+"No new capes to add.": "No hay capas nuevas para añadir."
 },
 "fr": {
 "(no name)": "(sans nom)",
@@ -1266,7 +1279,6 @@ window.CapeStrings = {
 "Night sky": "Ciel étoilé",
 "Normal": "Normal",
 "Only the preview uses this skin.": "Seul l’aperçu utilise ce skin.",
-"Open a .mcaddon you made here before to keep working on it.": "Ouvre un .mcaddon que tu as créé ici pour continuer à travailler dessus.",
 "Open an add-on…": "Ouvrir un add-on…",
 "Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "« {pack} » ouvert avec {n} cape.|« {pack} » ouvert avec {n} capes.",
 "Outside": "Extérieur",
@@ -1469,7 +1481,17 @@ window.CapeStrings = {
 "Showing: <b>{place}</b>": "Affiché : <b>{place}</b>",
 "Delete “{name}”?": "Supprimer « {name} » ?",
 "Are you sure? This can't be undone.": "Tu es sûr ? Ça ne peut pas être annulé.",
-"Keep it": "La garder"
+"Keep it": "La garder",
+"Open a .mcaddon you made here before to keep working on it. Pick several to combine them.": "Ouvre un .mcaddon que tu as créé ici pour continuer à travailler dessus. Choisis-en plusieurs pour les combiner.",
+"Add capes from add-ons…": "Ajouter des capes d’add-ons…",
+"Bring capes from other add-ons made here into this pack. You can pick several at once, or drop them on this list.": "Ajoute à ce pack des capes d’autres add-ons créés ici. Tu peux en choisir plusieurs à la fois ou les déposer sur cette liste.",
+"Added {n} cape.|Added {n} capes.": "{n} cape ajoutée.|{n} capes ajoutées.",
+"{n} was already here.|{n} were already here.": "{n} était déjà là.|{n} étaient déjà là.",
+"{n} didn't fit: a pack holds up to {max} capes.": "{n} n’ont pas pu être ajoutées : un pack contient jusqu’à {max} capes.",
+"{n} file wasn't made with this tool.|{n} files weren't made with this tool.": "{n} fichier n’a pas été créé avec cet outil.|{n} fichiers n’ont pas été créés avec cet outil.",
+"Opened “{pack}”.": "« {pack} » ouvert.",
+"Those files weren't made with Cleverlike CapeMaker, so no capes were added.": "Ces fichiers n’ont pas été créés avec Cleverlike CapeMaker, aucune cape n’a donc été ajoutée.",
+"No new capes to add.": "Aucune nouvelle cape à ajouter."
 },
 "pt": {
 "(no name)": "(sem nome)",
@@ -1563,7 +1585,6 @@ window.CapeStrings = {
 "Night sky": "Céu noturno",
 "Normal": "Normal",
 "Only the preview uses this skin.": "Só a pré-visualização usa esta skin.",
-"Open a .mcaddon you made here before to keep working on it.": "Abra um .mcaddon que você fez aqui para continuar trabalhando nele.",
 "Open an add-on…": "Abrir um complemento…",
 "Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "“{pack}” aberto com {n} capa.|“{pack}” aberto com {n} capas.",
 "Outside": "Lado de fora",
@@ -1766,7 +1787,17 @@ window.CapeStrings = {
 "Showing: <b>{place}</b>": "Mostrando: <b>{place}</b>",
 "Delete “{name}”?": "Excluir “{name}”?",
 "Are you sure? This can't be undone.": "Tem certeza? Isso não pode ser desfeito.",
-"Keep it": "Manter"
+"Keep it": "Manter",
+"Open a .mcaddon you made here before to keep working on it. Pick several to combine them.": "Abra um .mcaddon que você fez aqui para continuar trabalhando nele. Escolha vários para combiná-los.",
+"Add capes from add-ons…": "Adicionar capas de complementos…",
+"Bring capes from other add-ons made here into this pack. You can pick several at once, or drop them on this list.": "Traga para este pacote capas de outros complementos feitos aqui. Você pode escolher vários de uma vez ou soltá-los nesta lista.",
+"Added {n} cape.|Added {n} capes.": "{n} capa adicionada.|{n} capas adicionadas.",
+"{n} was already here.|{n} were already here.": "{n} já estava aqui.|{n} já estavam aqui.",
+"{n} didn't fit: a pack holds up to {max} capes.": "{n} não couberam: um pacote comporta até {max} capas.",
+"{n} file wasn't made with this tool.|{n} files weren't made with this tool.": "{n} arquivo não foi feito com esta ferramenta.|{n} arquivos não foram feitos com esta ferramenta.",
+"Opened “{pack}”.": "“{pack}” aberto.",
+"Those files weren't made with Cleverlike CapeMaker, so no capes were added.": "Esses arquivos não foram feitos com o Cleverlike CapeMaker, então nenhuma capa foi adicionada.",
+"No new capes to add.": "Nenhuma capa nova para adicionar."
 },
 "de": {
 "(no name)": "(kein Name)",
@@ -1860,7 +1891,6 @@ window.CapeStrings = {
 "Night sky": "Nachthimmel",
 "Normal": "Normal",
 "Only the preview uses this skin.": "Nur die Vorschau verwendet diesen Skin.",
-"Open a .mcaddon you made here before to keep working on it.": "Öffne eine hier erstellte .mcaddon-Datei, um daran weiterzuarbeiten.",
 "Open an add-on…": "Add-on öffnen…",
 "Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "„{pack}“ mit {n} Umhang geöffnet.|„{pack}“ mit {n} Umhängen geöffnet.",
 "Outside": "Außenseite",
@@ -2063,7 +2093,17 @@ window.CapeStrings = {
 "Showing: <b>{place}</b>": "Angezeigt: <b>{place}</b>",
 "Delete “{name}”?": "„{name}“ löschen?",
 "Are you sure? This can't be undone.": "Bist du sicher? Das kann nicht rückgängig gemacht werden.",
-"Keep it": "Behalten"
+"Keep it": "Behalten",
+"Open a .mcaddon you made here before to keep working on it. Pick several to combine them.": "Öffne eine hier erstellte .mcaddon-Datei, um daran weiterzuarbeiten. Wähle mehrere, um sie zu kombinieren.",
+"Add capes from add-ons…": "Umhänge aus Add-ons hinzufügen…",
+"Bring capes from other add-ons made here into this pack. You can pick several at once, or drop them on this list.": "Hol Umhänge aus anderen hier erstellten Add-ons in dieses Paket. Du kannst mehrere auf einmal wählen oder sie auf diese Liste ziehen.",
+"Added {n} cape.|Added {n} capes.": "{n} Umhang hinzugefügt.|{n} Umhänge hinzugefügt.",
+"{n} was already here.|{n} were already here.": "{n} war schon da.|{n} waren schon da.",
+"{n} didn't fit: a pack holds up to {max} capes.": "{n} passten nicht: Ein Paket fasst bis zu {max} Umhänge.",
+"{n} file wasn't made with this tool.|{n} files weren't made with this tool.": "{n} Datei wurde nicht mit diesem Tool erstellt.|{n} Dateien wurden nicht mit diesem Tool erstellt.",
+"Opened “{pack}”.": "„{pack}“ geöffnet.",
+"Those files weren't made with Cleverlike CapeMaker, so no capes were added.": "Diese Dateien wurden nicht mit Cleverlike CapeMaker erstellt, daher wurden keine Umhänge hinzugefügt.",
+"No new capes to add.": "Keine neuen Umhänge zum Hinzufügen."
 },
 "zh": {
 "(no name)": "（未命名）",
@@ -2157,7 +2197,6 @@ window.CapeStrings = {
 "Night sky": "夜空",
 "Normal": "正常",
 "Only the preview uses this skin.": "只有预览会使用此皮肤。",
-"Open a .mcaddon you made here before to keep working on it.": "打开你之前在这里制作的 .mcaddon，继续编辑。",
 "Open an add-on…": "打开附加包…",
 "Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "已打开“{pack}”，共 {n} 件披风。",
 "Outside": "外侧",
@@ -2360,7 +2399,17 @@ window.CapeStrings = {
 "Showing: <b>{place}</b>": "正在显示：<b>{place}</b>",
 "Delete “{name}”?": "删除“{name}”？",
 "Are you sure? This can't be undone.": "确定吗？此操作无法撤销。",
-"Keep it": "保留"
+"Keep it": "保留",
+"Open a .mcaddon you made here before to keep working on it. Pick several to combine them.": "打开你之前在这里制作的 .mcaddon，继续编辑。选择多个可以把它们合并。",
+"Add capes from add-ons…": "从附加包添加披风…",
+"Bring capes from other add-ons made here into this pack. You can pick several at once, or drop them on this list.": "把在这里制作的其他附加包里的披风加入这个包。可以一次选择多个，或把它们拖到这个列表上。",
+"Added {n} cape.|Added {n} capes.": "已添加 {n} 件披风。",
+"{n} was already here.|{n} were already here.": "{n} 件已经在这里了。",
+"{n} didn't fit: a pack holds up to {max} capes.": "{n} 件放不下：一个包最多可包含 {max} 件披风。",
+"{n} file wasn't made with this tool.|{n} files weren't made with this tool.": "{n} 个文件不是用本工具制作的。",
+"Opened “{pack}”.": "已打开“{pack}”。",
+"Those files weren't made with Cleverlike CapeMaker, so no capes were added.": "这些文件不是用 Cleverlike CapeMaker 制作的，所以没有添加披风。",
+"No new capes to add.": "没有新的披风可以添加。"
 }
 };
 
@@ -4109,21 +4158,85 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   });
 
   // open an add-on made here before
+  /** Read several add-ons: {projects: [...], notOurs: n, broken: n} */
+  async function readAddons(files) {
+    const out = { projects: [], notOurs: 0, broken: 0 };
+    for (const f of files) {
+      try { const p = await P.readAddon(G.JSZip, f); if (p) out.projects.push(p); else out.notOurs++; }
+      catch { out.broken++; }
+    }
+    return out;
+  }
+  /** Add capes from other packs into this one. Item IDs come from this pack, so nothing clashes in Minecraft.
+   *  Exact copies already in the pack are skipped; repeated names get a number. Returns {added, same, full}. */
+  function mergeCapes(projects) {
+    const r = { added: 0, same: 0, full: 0 };
+    const sig = (c) => c.name.trim().toLowerCase() + "|" + c.outside.join() + "|" + c.inside.join() + "|" + JSON.stringify(c.edges || null);
+    const have = new Set(project.capes.map(sig)), keys = new Set(project.capes.map((c) => c.key));
+    for (const p of projects) for (const c of p.capes) {
+      if (have.has(sig(c))) { r.same++; continue; }
+      if (project.capes.length >= P.MAX_CAPES) { r.full++; continue; }
+      const copy = JSON.parse(JSON.stringify(c));
+      while (keys.has(copy.key)) copy.key = P.shortId();
+      const base = copy.name.trim() || t("Cape {n}", { n: project.capes.length + 1 });
+      const names = new Set(project.capes.map((x) => x.name.trim().toLowerCase()));
+      let name = base; for (let k = 2; names.has(name.toLowerCase()); k++) name = `${base} (${k})`.slice(0, 32);
+      copy.name = name;
+      project.capes.push(copy); keys.add(copy.key); have.add(sig(copy)); r.added++;
+    }
+    return r;
+  }
+  function combineReport(r, info) {
+    const parts = [r.added ? t("Added {n} cape.|Added {n} capes.", { n: r.added }) : t("No new capes to add.")];
+    if (r.same) parts.push(t("{n} was already here.|{n} were already here.", { n: r.same }));
+    if (r.full) parts.push(t("{n} didn't fit: a pack holds up to {max} capes.", { n: r.full, max: P.MAX_CAPES }));
+    if (info.notOurs + info.broken) parts.push(t("{n} file wasn't made with this tool.|{n} files weren't made with this tool.", { n: info.notOurs + info.broken }));
+    return parts.join(" ");
+  }
+
+  // Open: one add-on replaces the current pack; picking several opens the first and adds the capes of the rest
   $("#open-addon").addEventListener("click", () => $("#open-addon-file").click());
   $("#open-addon-file").addEventListener("change", async (e) => {
-    const f = e.target.files[0]; e.target.value = "";
-    if (!f || !G.JSZip) return;
-    try {
-      const opened = await P.readAddon(G.JSZip, f);
-      if (!opened) { toast(t("This add-on wasn't made with Cleverlike CapeMaker, so it can't be opened here.")); return; }
-      P.bumpVersion(opened);          // the opened version is already installed somewhere; continue from the next one
-      const before = project, wasUnsaved = unsaved;
-      project = opened; unsaved = false; for (const k in history) delete history[k];
-      sel = 0; renderAll(); updatePreviewCape();
-      toast(t("Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.", { pack: project.packName, n: project.capes.length }), t("Undo"), () => { project = before; unsaved = wasUnsaved; sel = 0; renderAll(); updatePreviewCape(); });
-    } catch {
-      toast(t("That file couldn't be opened. Choose a .mcaddon downloaded from this tool."));
+    const files = [...e.target.files]; e.target.value = "";
+    if (!files.length || !G.JSZip) return;
+    const info = await readAddons(files);
+    if (!info.projects.length) {
+      toast(t(info.notOurs ? "This add-on wasn't made with Cleverlike CapeMaker, so it can't be opened here." : "That file couldn't be opened. Choose a .mcaddon downloaded from this tool."));
+      return;
     }
+    const [first, ...rest] = info.projects;
+    P.bumpVersion(first);          // the opened version is already installed somewhere; continue from the next one
+    const before = project, wasUnsaved = unsaved;
+    project = first; unsaved = false; for (const k in history) delete history[k];
+    const undo = () => { project = before; unsaved = wasUnsaved; sel = 0; renderAll(); updatePreviewCape(); };
+    if (rest.length) {
+      const r = mergeCapes(rest); unsaved = true;
+      sel = 0; renderAll(); updatePreviewCape();
+      toast(t("Opened “{pack}”.", { pack: project.packName }) + " " + combineReport(r, info), t("Undo"), undo);
+    } else {
+      sel = 0; renderAll(); updatePreviewCape();
+      toast(t("Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.", { pack: project.packName, n: project.capes.length }), t("Undo"), undo);
+    }
+  });
+
+  // Add capes from other add-ons into this pack (button, or drop .mcaddon files on the cape list)
+  async function addFromAddons(files) {
+    if (!files.length || !G.JSZip) return;
+    const info = await readAddons(files);
+    if (!info.projects.length) { toast(t("Those files weren't made with Cleverlike CapeMaker, so no capes were added.")); return; }
+    const before = project.capes.slice(), wasSel = sel;
+    const r = mergeCapes(info.projects);
+    if (r.added) { changed(); select(project.capes.length - 1); renderProblems(); }
+    toast(combineReport(r, info), r.added ? t("Undo") : null, () => { project.capes = before; select(Math.min(wasSel, before.length - 1)); renderProblems(); });
+  }
+  $("#merge-addon").addEventListener("click", () => $("#merge-addon-file").click());
+  $("#merge-addon-file").addEventListener("change", (e) => { const files = [...e.target.files]; e.target.value = ""; addFromAddons(files); });
+  const capesPane = document.querySelector(".capes-pane");
+  capesPane.addEventListener("dragover", (e) => { if ([...e.dataTransfer.items].some((i) => i.kind === "file")) { e.preventDefault(); capesPane.classList.add("drop-on"); } });
+  capesPane.addEventListener("dragleave", (e) => { if (!capesPane.contains(e.relatedTarget)) capesPane.classList.remove("drop-on"); });
+  capesPane.addEventListener("drop", (e) => {
+    e.preventDefault(); capesPane.classList.remove("drop-on");
+    addFromAddons([...e.dataTransfer.files].filter((f) => /\.(mcaddon|mcpack|zip)$/i.test(f.name)));
   });
 
   // ------------------------------------------------------------------ look inside the add-on: a short slideshow
