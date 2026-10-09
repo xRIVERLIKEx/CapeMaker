@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cleverlike Cape Tool</title>
+<title>Cleverlike CapeMaker</title>
 <meta name="description" content="Design capes and download them as a Minecraft Education add-on.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect x='4' y='2' width='8' height='1' fill='%23e0a92a'/%3E%3Crect x='4' y='3' width='8' height='9' fill='%232b7fff'/%3E%3Crect x='3' y='9' width='10' height='4' fill='%232b7fff'/%3E%3Crect x='3' y='12' width='10' height='1' fill='%23ed287f'/%3E%3Crect x='3' y='13' width='10' height='1' fill='%23174fa2'/%3E%3Crect x='6' y='6' width='4' height='2' fill='%23febd01'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-3 0 18 18' shape-rendering='crispEdges'%3E%3Crect x='0' y='0' width='12' height='18' rx='1' fill='%23dce8fb'/%3E%3Crect x='1' y='1' width='10' height='1' fill='%2310499c'/%3E%3Crect x='1' y='2' width='10' height='1' fill='%2310499c'/%3E%3Crect x='1' y='3' width='10' height='1' fill='%2310499c'/%3E%3Crect x='1' y='4' width='10' height='1' fill='%2310499c'/%3E%3Crect x='1' y='5' width='3' height='1' fill='%2310499c'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%23fed83d'/%3E%3Crect x='5' y='5' width='2' height='1' fill='%2310499c'/%3E%3Crect x='7' y='5' width='1' height='1' fill='%23fed83d'/%3E%3Crect x='8' y='5' width='3' height='1' fill='%2310499c'/%3E%3Crect x='1' y='6' width='3' height='1' fill='%2310499c'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%2310428e'/%3E%3Crect x='5' y='6' width='2' height='1' fill='%234b2a7a'/%3E%3Crect x='7' y='6' width='1' height='1' fill='%2310428e'/%3E%3Crect x='8' y='6' width='3' height='1' fill='%2310499c'/%3E%3Crect x='1' y='7' width='3' height='1' fill='%2310499c'/%3E%3Crect x='4' y='7' width='4' height='1' fill='%234b2a7a'/%3E%3Crect x='8' y='7' width='3' height='1' fill='%2310499c'/%3E%3Crect x='1' y='8' width='3' height='1' fill='%2310499c'/%3E%3Crect x='4' y='8' width='4' height='1' fill='%234b2a7a'/%3E%3Crect x='8' y='8' width='3' height='1' fill='%2310499c'/%3E%3Crect x='1' y='9' width='2' height='1' fill='%2310499c'/%3E%3Crect x='3' y='9' width='1' height='1' fill='%23e0a92a'/%3E%3Crect x='4' y='9' width='1' height='1' fill='%23febd01'/%3E%3Crect x='5' y='9' width='1' height='1' fill='%23e0a92a'/%3E%3Crect x='6' y='9' width='1' height='1' fill='%23febd01'/%3E%3Crect x='7' y='9' width='1' height='1' fill='%23e0a92a'/%3E%3Crect x='8' y='9' width='1' height='1' fill='%23febd01'/%3E%3Crect x='9' y='9' width='2' height='1' fill='%2310499c'/%3E%3Crect x='1' y='10' width='2' height='1' fill='%2310499c'/%3E%3Crect x='3' y='10' width='6' height='1' fill='%230b3575'/%3E%3Crect x='9' y='10' width='2' height='1' fill='%2310499c'/%3E%3Crect x='1' y='11' width='10' height='1' fill='%2310499c'/%3E%3Crect x='1' y='12' width='10' height='1' fill='%2310499c'/%3E%3Crect x='1' y='13' width='10' height='1' fill='%2310499c'/%3E%3Crect x='1' y='14' width='6' height='1' fill='%2300aef0'/%3E%3Crect x='7' y='14' width='2' height='1' fill='%23febd01'/%3E%3Crect x='9' y='14' width='2' height='1' fill='%23ed287f'/%3E%3Crect x='1' y='15' width='6' height='1' fill='%2300aef0'/%3E%3Crect x='7' y='15' width='2' height='1' fill='%23febd01'/%3E%3Crect x='9' y='15' width='2' height='1' fill='%23ed287f'/%3E%3Crect x='1' y='16' width='6' height='1' fill='%2300aef0'/%3E%3Crect x='7' y='16' width='2' height='1' fill='%23febd01'/%3E%3Crect x='9' y='16' width='2' height='1' fill='%23ed287f'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Nunito:wght@400;600;700;800&display=swap">
@@ -95,7 +95,7 @@ button, input, select { font: inherit; color: inherit; }
 .topbar { background: var(--nav); color: var(--nav-ink); box-shadow: 0 2px 10px rgba(15, 23, 42, 0.18); position: relative; z-index: 1; }
 .topbar-inner { max-width: 1760px; margin-inline: auto; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 20px; }
 .brand { display: flex; align-items: center; gap: 12px; min-width: 0; margin-right: auto; }
-.brand svg { width: 36px; height: 36px; flex: none; image-rendering: pixelated; }
+.brand svg { width: 28px; height: 42px; flex: none; image-rendering: pixelated; }
 .brand h1 { font: 800 1.3rem/1.1 var(--f-display); margin: 0; letter-spacing: 0.005em; }
 .brand h1 span { color: var(--cyan); }
 .brand p { margin: 2px 0 0; color: var(--nav-soft); font-size: 0.86rem; font-weight: 600; }
@@ -365,20 +365,9 @@ dialog.sheet-panel[open] { display: grid; }
 <header class="topbar">
  <div class="topbar-inner">
   <div class="brand">
-    <svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges">
-      <rect x="4" y="2" width="8" height="1" fill="#e0a92a"/>
-      <rect x="4" y="3" width="8" height="9" fill="#2b7fff"/>
-      <rect x="3" y="9" width="10" height="4" fill="#2b7fff"/>
-      <rect x="4" y="3" width="1" height="6" fill="#174fa2"/>
-      <rect x="3" y="9" width="1" height="4" fill="#174fa2"/>
-      <rect x="3" y="12" width="10" height="1" fill="#ed287f"/>
-      <rect x="3" y="13" width="10" height="1" fill="#174fa2"/>
-      <rect x="7" y="5" width="2" height="1" fill="#febd01"/>
-      <rect x="6" y="6" width="4" height="2" fill="#febd01"/>
-      <rect x="7" y="8" width="2" height="1" fill="#febd01"/>
-    </svg>
+    <svg viewBox="0 0 12 18" aria-hidden="true" shape-rendering="crispEdges"><rect x="0" y="0" width="12" height="18" fill="#dce8fb"/><rect x="1" y="1" width="10" height="1" fill="#10499c"/><rect x="1" y="2" width="10" height="1" fill="#10499c"/><rect x="1" y="3" width="10" height="1" fill="#10499c"/><rect x="1" y="4" width="10" height="1" fill="#10499c"/><rect x="1" y="5" width="3" height="1" fill="#10499c"/><rect x="4" y="5" width="1" height="1" fill="#fed83d"/><rect x="5" y="5" width="2" height="1" fill="#10499c"/><rect x="7" y="5" width="1" height="1" fill="#fed83d"/><rect x="8" y="5" width="3" height="1" fill="#10499c"/><rect x="1" y="6" width="3" height="1" fill="#10499c"/><rect x="4" y="6" width="1" height="1" fill="#10428e"/><rect x="5" y="6" width="2" height="1" fill="#4b2a7a"/><rect x="7" y="6" width="1" height="1" fill="#10428e"/><rect x="8" y="6" width="3" height="1" fill="#10499c"/><rect x="1" y="7" width="3" height="1" fill="#10499c"/><rect x="4" y="7" width="4" height="1" fill="#4b2a7a"/><rect x="8" y="7" width="3" height="1" fill="#10499c"/><rect x="1" y="8" width="3" height="1" fill="#10499c"/><rect x="4" y="8" width="4" height="1" fill="#4b2a7a"/><rect x="8" y="8" width="3" height="1" fill="#10499c"/><rect x="1" y="9" width="2" height="1" fill="#10499c"/><rect x="3" y="9" width="1" height="1" fill="#e0a92a"/><rect x="4" y="9" width="1" height="1" fill="#febd01"/><rect x="5" y="9" width="1" height="1" fill="#e0a92a"/><rect x="6" y="9" width="1" height="1" fill="#febd01"/><rect x="7" y="9" width="1" height="1" fill="#e0a92a"/><rect x="8" y="9" width="1" height="1" fill="#febd01"/><rect x="9" y="9" width="2" height="1" fill="#10499c"/><rect x="1" y="10" width="2" height="1" fill="#10499c"/><rect x="3" y="10" width="6" height="1" fill="#0b3575"/><rect x="9" y="10" width="2" height="1" fill="#10499c"/><rect x="1" y="11" width="10" height="1" fill="#10499c"/><rect x="1" y="12" width="10" height="1" fill="#10499c"/><rect x="1" y="13" width="10" height="1" fill="#10499c"/><rect x="1" y="14" width="6" height="1" fill="#00aef0"/><rect x="7" y="14" width="2" height="1" fill="#febd01"/><rect x="9" y="14" width="2" height="1" fill="#ed287f"/><rect x="1" y="15" width="6" height="1" fill="#00aef0"/><rect x="7" y="15" width="2" height="1" fill="#febd01"/><rect x="9" y="15" width="2" height="1" fill="#ed287f"/><rect x="1" y="16" width="6" height="1" fill="#00aef0"/><rect x="7" y="16" width="2" height="1" fill="#febd01"/><rect x="9" y="16" width="2" height="1" fill="#ed287f"/></svg>
     <div>
-      <h1>Cleverlike <span>Cape Tool</span></h1>
+      <h1>Cleverlike <span>CapeMaker</span></h1>
       <p data-i18n>Design capes, wear them in Minecraft Education</p>
     </div>
   </div>
@@ -629,7 +618,7 @@ dialog.sheet-panel[open] { display: grid; }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
-/* Cleverlike Cape Tool — translations (same system as Cleverlike Emote Tool)
+/* Cleverlike CapeMaker — translations (same system as Cleverlike Emote Tool)
  * English text is the key (gettext style), so the code stays readable and a missing translation
  * simply shows English. "{name}" placeholders are filled from params. "one|other" picks a plural
  * form from params.n. Dictionaries live in CapeStrings. */
@@ -842,7 +831,7 @@ window.CapeStrings = {
 "The side against your back. It shows when the cape lifts.": "El lado que toca tu espalda. Se ve cuando la capa se levanta.",
 "The side everyone sees on your back.": "El lado que todos ven en tu espalda.",
 "Theme": "Tema",
-"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "Este complemento no se hizo con Cleverlike Cape Tool, así que no se puede abrir aquí.",
+"This add-on wasn't made with Cleverlike CapeMaker, so it can't be opened here.": "Este complemento no se hizo con Cleverlike CapeMaker, así que no se puede abrir aquí.",
 "This drawing can't be used on a cape. Please draw something else.": "Este dibujo no se puede usar en una capa. Dibuja otra cosa.",
 "This drawing is marked for a teacher to check.": "Este dibujo queda marcado para que lo revise un docente.",
 "Tools": "Herramientas",
@@ -1099,7 +1088,7 @@ window.CapeStrings = {
 "The side against your back. It shows when the cape lifts.": "Le côté contre ton dos. Il se voit quand la cape se soulève.",
 "The side everyone sees on your back.": "Le côté que tout le monde voit dans ton dos.",
 "Theme": "Thème",
-"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "Cet add-on n’a pas été créé avec Cleverlike Cape Tool, il ne peut donc pas être ouvert ici.",
+"This add-on wasn't made with Cleverlike CapeMaker, so it can't be opened here.": "Cet add-on n’a pas été créé avec Cleverlike CapeMaker, il ne peut donc pas être ouvert ici.",
 "This drawing can't be used on a cape. Please draw something else.": "Ce dessin ne peut pas être utilisé sur une cape. Dessine autre chose.",
 "This drawing is marked for a teacher to check.": "Ce dessin est signalé pour qu’un enseignant le vérifie.",
 "Tools": "Outils",
@@ -1356,7 +1345,7 @@ window.CapeStrings = {
 "The side against your back. It shows when the cape lifts.": "O lado que fica nas suas costas. Ele aparece quando a capa sobe.",
 "The side everyone sees on your back.": "O lado que todos veem nas suas costas.",
 "Theme": "Tema",
-"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "Este complemento não foi feito com o Cleverlike Cape Tool, então não pode ser aberto aqui.",
+"This add-on wasn't made with Cleverlike CapeMaker, so it can't be opened here.": "Este complemento não foi feito com o Cleverlike CapeMaker, então não pode ser aberto aqui.",
 "This drawing can't be used on a cape. Please draw something else.": "Este desenho não pode ser usado em uma capa. Desenhe outra coisa.",
 "This drawing is marked for a teacher to check.": "Este desenho foi marcado para um professor verificar.",
 "Tools": "Ferramentas",
@@ -1613,7 +1602,7 @@ window.CapeStrings = {
 "The side against your back. It shows when the cape lifts.": "Die Seite an deinem Rücken. Sie ist zu sehen, wenn sich der Umhang hebt.",
 "The side everyone sees on your back.": "Die Seite, die alle auf deinem Rücken sehen.",
 "Theme": "Design",
-"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "Dieses Add-on wurde nicht mit Cleverlike Cape Tool erstellt und kann hier nicht geöffnet werden.",
+"This add-on wasn't made with Cleverlike CapeMaker, so it can't be opened here.": "Dieses Add-on wurde nicht mit Cleverlike CapeMaker erstellt und kann hier nicht geöffnet werden.",
 "This drawing can't be used on a cape. Please draw something else.": "Diese Zeichnung kann nicht auf einem Umhang verwendet werden. Bitte zeichne etwas anderes.",
 "This drawing is marked for a teacher to check.": "Diese Zeichnung ist zur Prüfung durch eine Lehrkraft markiert.",
 "Tools": "Werkzeuge",
@@ -1870,7 +1859,7 @@ window.CapeStrings = {
 "The side against your back. It shows when the cape lifts.": "贴着你后背的那一面。披风飘起时会看到它。",
 "The side everyone sees on your back.": "大家在你背后看到的那一面。",
 "Theme": "主题",
-"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "此附加包不是用 Cleverlike Cape Tool 制作的，无法在这里打开。",
+"This add-on wasn't made with Cleverlike CapeMaker, so it can't be opened here.": "此附加包不是用 Cleverlike CapeMaker 制作的，无法在这里打开。",
 "This drawing can't be used on a cape. Please draw something else.": "这个图案不能用在披风上。请画点别的。",
 "This drawing is marked for a teacher to check.": "这个图案已标记，需由老师检查。",
 "Tools": "工具",
@@ -1981,7 +1970,7 @@ window.CapeStrings = {
 };
 
 
-/* Cleverlike Cape Tool — hover explanations (from Cleverlike Emote Tool)
+/* Cleverlike CapeMaker — hover explanations (from Cleverlike Emote Tool)
  * Any element with data-tip="English text" gets a small pop-up after the pointer rests on it
  * (or after it gets keyboard focus). The text is translated when shown. */
 (function (G) {
@@ -2054,7 +2043,7 @@ window.CapeStrings = {
 })(typeof window !== "undefined" ? window : globalThis);
 
 
-/* Cleverlike Cape Tool — content checks for student work (from Cleverlike Emote Tool)
+/* Cleverlike CapeMaker — content checks for student work (from Cleverlike Emote Tool)
  * Text: blocks profanity, slurs, violence, sexual and drug terms, self-harm phrases and contact info in names.
  * Drawings: shape check for crude doodles (run on each cape side, padded to 16×16).
  * Word lists are stored ROT13-encoded so they aren't readable at a glance in the page source.
@@ -2356,7 +2345,7 @@ window.CapeStrings = {
 })(typeof window !== "undefined" ? window : globalThis);
 
 
-/* Cleverlike Cape Tool — 3D preview
+/* Cleverlike CapeMaker — 3D preview
  * The Bedrock player rig from Cleverlike Emote Tool (geometry.humanoid.custom / customSlim) with three.js,
  * plus the cape exactly as the add-on builds it: a 10×16×1 box on the body bone, pivot [0, 24, 2],
  * per-face UVs into the 64×32 cape texture. Coordinates follow Blockbench: Bedrock X is mirrored,
@@ -2679,7 +2668,7 @@ window.CapeStrings = {
 })(typeof window !== "undefined" ? window : globalThis);
 
 
-/* Cleverlike Cape Tool — capes, textures and the add-on packager
+/* Cleverlike CapeMaker — capes, textures and the add-on packager
  * A cape design is two 10×16 pixel grids ("#rrggbb" or "" for see-through), row by row:
  * the outside (seen on the player's back) and the inside (seen when the cape lifts).
  * The add-on layout is the one proven in Minecraft Education during the cape spike test:
@@ -2879,7 +2868,7 @@ window.CapeStrings = {
 
   const SCRIPT = `import { world, ItemStack } from "@minecraft/server";
 
-// Cleverlike Cape Tool: hands each player the capes they don't have yet, the first time they join
+// Cleverlike CapeMaker: hands each player the capes they don't have yet, the first time they join
 // (and again after an update adds new capes). One tag per cape remembers who already got it.
 const CAPES = __CAPES__;
 
@@ -2994,7 +2983,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
       put(`${BP}/scripts/main.js`, SCRIPT.replace("__CAPES__", JSON.stringify(list, null, 2)));
     }
     put(`${BP}/pack_icon.png`, packIcon);
-    // The whole project, so the add-on can be re-opened in Cleverlike Cape Tool later
+    // The whole project, so the add-on can be re-opened in Cleverlike CapeMaker later
     put(`${BP}/cape_project.json`, project);
 
     return zip.generateAsync({ type: "blob", compression: "DEFLATE", mimeType: "application/octet-stream" });
@@ -3020,7 +3009,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
 })(typeof window !== "undefined" ? window : globalThis);
 
 
-/* Cleverlike Cape Tool — page logic */
+/* Cleverlike CapeMaker — page logic */
 (function (G) {
   "use strict";
   const I = G.CapeI18n, t = I.t, P = G.CapePack, F = G.CapeFilter;
@@ -3645,7 +3634,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     if (!f || !G.JSZip) return;
     try {
       const opened = await P.readAddon(G.JSZip, f);
-      if (!opened) { toast(t("This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.")); return; }
+      if (!opened) { toast(t("This add-on wasn't made with Cleverlike CapeMaker, so it can't be opened here.")); return; }
       P.bumpVersion(opened);          // the opened version is already installed somewhere; continue from the next one
       const before = project, wasUnsaved = unsaved;
       project = opened; unsaved = false; for (const k in history) delete history[k];
