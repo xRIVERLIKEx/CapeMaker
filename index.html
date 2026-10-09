@@ -1,0 +1,2786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cleverlike Cape Tool</title>
+<meta name="description" content="Design capes and download them as a Minecraft Education add-on.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect x='4' y='2' width='8' height='1' fill='%23e0a92a'/%3E%3Crect x='4' y='3' width='8' height='9' fill='%232b7fff'/%3E%3Crect x='3' y='9' width='10' height='4' fill='%232b7fff'/%3E%3Crect x='3' y='12' width='10' height='1' fill='%23ed287f'/%3E%3Crect x='3' y='13' width='10' height='1' fill='%23174fa2'/%3E%3Crect x='6' y='6' width='4' height='2' fill='%23febd01'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: a three-pane workbench — cape list + pack | live 3D stage | cape designer —
+   under a Cleverlike navy bar. Collapses to two panes, then one column on phones.
+   Palette and components match Cleverlike Emote Tool (sampled from cleverlike.school). */
+:root {
+  --bg: #dde2e9; --panel: #eceff3; --sunk: #e0e5eb; --ink: #1d293d; --muted: #55667e; --soft: #4a5565;
+  --line: #cbd3dd; --line-strong: #aeb9c9; --sunk-hover: #d8e3f3;
+  --nav: #10499c; --nav-ink: #ffffff; --nav-soft: #b8d0f2; --cyan: #00aef0;
+  --accent: #2b7fff; --accent-hover: #1665e8; --accent-ink: #ffffff; --accent-soft: #dce8fb;
+  --stripe-blue: #174fa2; --stripe-yellow: #febd01; --stripe-pink: #ed287f;
+  --ok: #15803d; --ok-soft: #dcfce7; --warn: #a16207; --warn-soft: #fef3c7; --bad: #c81e1e; --bad-soft: #fee2e2;
+  --stage: #cdd5e0; --stage-line: #a9b5c6;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.05);
+  --slot: #475569; --slot-edge: #334155;
+  --check-a: #d2d9e2; --check-b: #e9edf2;
+  --grid-line: rgba(15, 23, 42, 0.12); --grid-major: rgba(15, 23, 42, 0.32);
+  --f-display: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --hover: #d3e0f4; --hover-line: #7fa6e3; --hover-ink: var(--ink); --field: #f6f8fa;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1120; --panel: #111a2e; --sunk: #1a2540; --ink: #e2e8f0; --muted: #94a3b8; --soft: #cbd5e1; --line: #24324d; --line-strong: #3a4b6b; --sunk-hover: #22305a;
+    --nav: #0c3a7d; --nav-soft: #a9c4ee; --accent: #4d94ff; --accent-hover: #75acff; --accent-ink: #06122a; --accent-soft: #15284a;
+    --ok: #4ade80; --ok-soft: #12301f; --warn: #fbbf24; --warn-soft: #33270b; --bad: #f87171; --bad-soft: #3b1515;
+    --stage: #0a1324; --stage-line: #2b3b58; --shadow: 0 1px 3px rgba(0, 0, 0, 0.4); --hover: #26396a; --hover-line: #5b86cf; --hover-ink: var(--ink); --tip-bg: #e2e8f0; --tip-ink: #0b1120; --field: var(--panel);
+    --slot: #1e293b; --slot-edge: #0f172a; --check-a: #1e293b; --check-b: #273449; --grid-line: rgba(226, 232, 240, 0.12); --grid-major: rgba(226, 232, 240, 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1120; --panel: #111a2e; --sunk: #1a2540; --ink: #e2e8f0; --muted: #94a3b8; --soft: #cbd5e1; --line: #24324d; --line-strong: #3a4b6b; --sunk-hover: #22305a;
+  --nav: #0c3a7d; --nav-soft: #a9c4ee; --accent: #4d94ff; --accent-hover: #75acff; --accent-ink: #06122a; --accent-soft: #15284a;
+  --ok: #4ade80; --ok-soft: #12301f; --warn: #fbbf24; --warn-soft: #33270b; --bad: #f87171; --bad-soft: #3b1515;
+  --stage: #0a1324; --stage-line: #2b3b58; --shadow: 0 1px 3px rgba(0, 0, 0, 0.4); --hover: #26396a; --hover-line: #5b86cf; --hover-ink: var(--ink); --tip-bg: #e2e8f0; --tip-ink: #0b1120; --field: var(--panel);
+  --slot: #1e293b; --slot-edge: #0f172a; --check-a: #1e293b; --check-b: #273449; --grid-line: rgba(226, 232, 240, 0.12); --grid-major: rgba(226, 232, 240, 0.35);
+  color-scheme: dark;
+}
+
+/* ---------- display preferences (set from the Display & language panel) ---------- */
+:root[data-a11y-theme="light"] { --bg: #dde2e9;--panel: #eceff3;--sunk: #e0e5eb;--ink: #1d293d;--muted: #55667e;--soft: #4a5565;--line: #cbd3dd;--line-strong: #aeb9c9; --sunk-hover: #d8e3f3;--nav: #10499c;--nav-ink: #ffffff;--nav-soft: #b8d0f2;--cyan: #00aef0;--accent: #2b7fff;--accent-hover: #1665e8;--accent-ink: #ffffff;--accent-soft: #dce8fb;--stripe-blue: #174fa2; --stripe-yellow: #febd01; --stripe-pink: #ed287f;--ok: #15803d; --ok-soft: #dcfce7;--warn: #a16207; --warn-soft: #fef3c7;--bad: #c81e1e; --bad-soft: #fee2e2;--stage: #cdd5e0; --stage-line: #a9b5c6;--shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.05);--slot: #475569; --slot-edge: #334155;--check-a: #d2d9e2; --check-b: #e9edf2;--grid-line: rgba(15, 23, 42, 0.12); --grid-major: rgba(15, 23, 42, 0.32); --hover: #d3e0f4; --hover-line: #7fa6e3; --hover-ink: var(--ink); --field: #f6f8fa; --tip-bg: #1d293d; --tip-ink: #ffffff; color-scheme: light; }
+:root[data-a11y-theme="dark"] { --bg: #0b1120; --panel: #111a2e; --sunk: #1a2540; --ink: #e2e8f0; --muted: #94a3b8; --soft: #cbd5e1; --line: #24324d; --line-strong: #3a4b6b; --sunk-hover: #22305a;
+  --nav: #0c3a7d; --nav-soft: #a9c4ee; --accent: #4d94ff; --accent-hover: #75acff; --accent-ink: #06122a; --accent-soft: #15284a;
+  --ok: #4ade80; --ok-soft: #12301f; --warn: #fbbf24; --warn-soft: #33270b; --bad: #f87171; --bad-soft: #3b1515;
+  --stage: #0a1324; --stage-line: #2b3b58; --shadow: 0 1px 3px rgba(0, 0, 0, 0.4); --hover: #26396a; --hover-line: #5b86cf; --hover-ink: var(--ink); --tip-bg: #e2e8f0; --tip-ink: #0b1120; --field: var(--panel);
+  --slot: #1e293b; --slot-edge: #0f172a; --check-a: #1e293b; --check-b: #273449; --grid-line: rgba(226, 232, 240, 0.12); --grid-major: rgba(226, 232, 240, 0.35); color-scheme: dark; }
+/* High contrast: pure black and white, bright yellow actions, thick borders, strong focus */
+:root[data-a11y-theme="contrast"] {
+  --bg: #000000; --panel: #000000; --sunk: #000000; --ink: #ffffff; --muted: #ffffff; --soft: #ffffff;
+  --line: #ffffff; --line-strong: #ffffff; --sunk-hover: #1a1a1a;
+  --nav: #000000; --nav-ink: #ffffff; --nav-soft: #ffffff; --cyan: #00e5ff;
+  --accent: #ffe600; --accent-hover: #fff27a; --accent-ink: #000000; --accent-soft: #000000;
+  --ok: #7dff9a; --ok-soft: #000000; --warn: #ffe600; --warn-soft: #000000; --bad: #ff8a8a; --bad-soft: #000000;
+  --stage: #000000; --stage-line: #ffffff; --shadow: none;
+  --slot: #000000; --slot-edge: #ffffff; --check-a: #000000; --check-b: #333333; --grid-line: rgba(255,255,255,0.35); --grid-major: #ffffff;
+  --hover: #3a3a3a; --hover-line: #ffe600; --hover-ink: #ffffff; --field: #000000; --tip-bg: #ffffff; --tip-ink: #000000;
+  color-scheme: dark;
+}
+:root[data-a11y-theme="contrast"] .pane, :root[data-a11y-theme="contrast"] .btn, :root[data-a11y-theme="contrast"] input[type="text"],
+:root[data-a11y-theme="contrast"] select, :root[data-a11y-theme="contrast"] .seg, :root[data-a11y-theme="contrast"] .note,
+:root[data-a11y-theme="contrast"] .pill, :root[data-a11y-theme="contrast"] .patterns button { border: 2px solid var(--line); }
+:root[data-a11y-theme="contrast"] .topbar { border-bottom: 2px solid #ffffff; box-shadow: none; }
+:root[data-a11y-theme="contrast"] :focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+:root[data-a11y-theme="contrast"] .cape[aria-current="true"] { outline: 3px solid var(--accent); }
+:root[data-a11y-theme="contrast"] .seg button[aria-pressed="true"], :root[data-a11y-theme="contrast"] .seg button[aria-checked="true"] { text-decoration: underline; text-underline-offset: 3px; }
+:root[data-a11y-theme="contrast"] .stripe { display: none; }
+:root[data-a11y-theme="contrast"] .tip { border: 2px solid var(--accent); box-shadow: none; }
+:root[data-a11y-theme="contrast"] .muted, :root[data-a11y-theme="contrast"] small { color: var(--ink); }
+:root[data-text="large"] { font-size: 118.75%; }
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 0.9375rem/1.5 var(--f-body); }
+[hidden] { display: none !important; }
+h1, h2, h3 { text-wrap: balance; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.mono { font-family: var(--f-mono); font-size: 0.86em; }
+.muted { color: var(--muted); }
+
+/* ---------- top bar ---------- */
+.topbar { background: var(--nav); color: var(--nav-ink); box-shadow: 0 2px 10px rgba(15, 23, 42, 0.18); position: relative; z-index: 1; }
+.topbar-inner { max-width: 1760px; margin-inline: auto; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 20px; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; margin-right: auto; }
+.brand svg { width: 36px; height: 36px; flex: none; image-rendering: pixelated; }
+.brand h1 { font: 800 1.3rem/1.1 var(--f-display); margin: 0; letter-spacing: 0.005em; }
+.brand h1 span { color: var(--cyan); }
+.brand p { margin: 2px 0 0; color: var(--nav-soft); font-size: 0.86rem; font-weight: 600; }
+.topbar .btn { background: transparent; color: var(--nav-ink); border-color: rgba(255, 255, 255, 0.45); }
+.topbar .btn:hover:not(:disabled) { color: var(--nav-ink); background: rgba(255, 255, 255, 0.12); border-color: #ffffff; }
+
+/* ---------- buttons ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--line); background: var(--sunk); color: var(--ink); border-radius: var(--r); padding: 8px 14px; cursor: pointer; font-weight: 700; font-size: 0.9rem; line-height: 1.2; text-decoration: none; transition: background 0.12s, border-color 0.12s; }
+.btn:hover:not(:disabled) { border-color: var(--hover-line); background: var(--hover); color: var(--hover-ink); }
+.tip { position: fixed; z-index: 1000; max-width: min(280px, calc(100vw - 12px)); padding: 7px 10px; border-radius: 6px; background: var(--tip-bg, #1d293d); color: var(--tip-ink, #ffffff); font-size: 0.8rem; font-weight: 600; line-height: 1.35; pointer-events: none; box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25); animation: tip-in 0.12s ease-out; }
+.tip::after { content: ""; position: absolute; left: var(--arrow-x, 50%); width: 8px; height: 8px; background: inherit; transform: translateX(-50%) rotate(45deg); }
+.tip[data-side="above"]::after { bottom: -4px; } .tip[data-side="below"]::after { top: -4px; }
+@keyframes tip-in { from { opacity: 0; transform: translateY(2px); } }
+@media (prefers-reduced-motion: reduce) { .tip { animation: none; } }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover:not(:disabled) { color: var(--accent-ink); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn.big { padding: 12px 16px; font-size: 1rem; width: 100%; }
+.btn.ghost { border-color: transparent; background: transparent; }
+.btn.ghost:hover:not(:disabled) { background: var(--hover); border-color: transparent; }
+.btn.icon { padding: 6px 8px; }
+.btn.danger { background: transparent; color: var(--bad); }
+.btn.danger:hover:not(:disabled) { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
+.seg button:not([aria-pressed="true"]):not([aria-checked="true"]):hover { background: var(--hover); color: var(--hover-ink); }
+.toolset .btn[aria-pressed="true"]:hover { background: var(--accent-hover); color: var(--accent-ink); border-color: var(--accent-hover); }
+.swatches button:hover { outline: 2px solid var(--hover-line); outline-offset: 1px; }
+
+/* ---------- workspace grid ---------- */
+.workspace { max-width: 1760px; margin-inline: auto; width: 100%; display: grid; gap: 16px; padding: 16px 20px 24px;
+  grid-template-columns: minmax(270px, 320px) minmax(0, 1fr) minmax(330px, 400px); grid-template-areas: "left stage right"; align-items: start; }
+.col-left { grid-area: left; } .stage { grid-area: stage; } .col-right { grid-area: right; }
+.scroll { min-height: 0; }
+@media (min-width: 1181px) and (min-height: 680px) {
+  html, body { height: 100%; }
+  body { display: flex; flex-direction: column; }
+  .topbar { flex: none; }
+  .workspace { flex: 1; min-height: 0; align-items: stretch; grid-template-rows: minmax(0, 1fr); }
+  .col { min-height: 0; }
+  .capes-pane, .designer { flex: 1 1 0; min-height: 160px; display: flex; flex-direction: column; }
+  .capes-pane > .scroll, .designer > .scroll { flex: 1; overflow: auto; }
+  .pack-pane, .export-pane { flex: none; }
+  .stage { display: flex; flex-direction: column; min-height: 0; }
+  .stage .stage-wrap { flex: 1; height: auto; min-height: 260px; }
+}
+@media (max-width: 1180px) {
+  .workspace { grid-template-columns: minmax(260px, 310px) minmax(0, 1fr); grid-template-areas: "left stage" "left right"; }
+}
+@media (max-width: 760px) {
+  .workspace { grid-template-columns: minmax(0, 1fr); grid-template-areas: none; padding-inline: 16px; }
+  .workspace > .col { display: contents; }
+  .stage, .col > .pane { grid-area: auto; }
+  .stage { order: 1; } .designer { order: 2; } .capes-pane { order: 3; } .pack-pane { order: 4; } .export-pane { order: 5; }
+  .topbar-inner { padding-inline: 16px; }
+}
+.pane { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); min-width: 0; box-shadow: var(--shadow); }
+.pane > header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 16px; padding: 16px 2px 12px; border-bottom: 1px solid var(--line); }
+.label { font: 800 1.15rem/1.2 var(--f-display); color: var(--ink); margin: 0; }
+.eyebrow { font: 800 0.74rem/1 var(--f-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+/* ---------- form fields ---------- */
+.fields { display: grid; gap: 12px; padding: 12px 16px 16px; }
+.pack-pane .fields { gap: 10px; padding-block: 10px 14px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > legend { font-size: 0.82rem; font-weight: 700; }
+.field small { color: var(--muted); font-size: 0.78rem; }
+fieldset.field { border: 0; padding: 0; margin: 0; }
+input[type="text"], select { width: 100%; min-width: 0; background: var(--field, var(--panel)); border: 1px solid var(--line); border-radius: var(--r); padding: 7px 10px; }
+input[type="text"]:focus, select:focus { border-color: var(--accent); }
+.field-error, .field .field-error { color: var(--bad); font-size: 0.8rem; font-weight: 700; }
+input[aria-invalid="true"] { border-color: var(--bad); }
+
+/* ---------- cape list ---------- */
+.cape-list { list-style: none; margin: 0; padding: 10px 8px 4px; display: grid; gap: 4px; }
+.cape { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px; border-radius: var(--r); border: 1px solid transparent; }
+.cape > button.pick { all: unset; cursor: pointer; display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 10px; row-gap: 2px; align-items: center; padding: 6px 10px; min-width: 0; border-radius: var(--r); }
+.cape > button.pick:focus-visible { outline: 2px solid var(--cyan); }
+.cape:hover { background: var(--hover); }
+.cape[aria-current="true"], .cape[aria-current="true"]:hover { background: var(--accent-soft); border-color: var(--accent); }
+.cape .slot { grid-row: span 2; width: 40px; height: 40px; }
+.cape .slot canvas { width: 32px; height: 32px; }
+.cape .name { font-weight: 700; overflow-wrap: anywhere; grid-column: 2; }
+.cape .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 0.78rem; color: var(--muted); grid-column: 2; }
+.cape .order { display: flex; flex-direction: column; padding-right: 4px; }
+.cape .order button { all: unset; cursor: pointer; padding: 0 6px; color: var(--muted); font-size: 0.75rem; line-height: 1.3; border-radius: 3px; }
+.cape .order button:hover:not(:disabled) { color: var(--hover-ink); background: var(--hover-line); }
+.cape .order button:disabled { visibility: hidden; }
+.pill { display: inline-flex; align-items: center; gap: 4px; padding: 1px 7px; border-radius: 99px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.list-actions { margin: 8px 16px 16px; display: grid; gap: 6px; justify-items: center; text-align: center; }
+.list-actions p { margin: 0; font-size: 0.8rem; color: var(--muted); }
+.list-actions .btn { width: 100%; }
+
+/* ---------- stage ---------- */
+.stage-wrap { position: relative; height: clamp(320px, 58vh, 620px); border-radius: var(--r) var(--r) 0 0; overflow: hidden; background: var(--stage); }
+.stripe { height: 7px; background: linear-gradient(100deg, var(--stripe-blue) 0 63.5%, var(--stripe-yellow) 63.5% 81%, var(--stripe-pink) 81% 100%); }
+.stage-wrap canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.stage-wrap canvas:active { cursor: grabbing; }
+.stage-title { position: absolute; left: 14px; top: 12px; right: 14px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; pointer-events: none; }
+.stage-title strong { font: 800 1.3rem/1.1 var(--f-display); color: var(--ink); overflow-wrap: anywhere; }
+.stage-hint { position: absolute; right: 12px; bottom: 10px; font-size: 0.75rem; color: var(--muted); pointer-events: none; }
+.transport, .skinbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 12px; border-top: 1px solid var(--line); font-size: 0.86rem; }
+.transport .spacer { flex: 1; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.seg button { all: unset; cursor: pointer; padding: 5px 10px; font-size: 0.82rem; font-weight: 700; }
+.seg button[aria-pressed="true"], .seg button[aria-checked="true"] { background: var(--accent); color: var(--accent-ink); }
+.seg button:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+.seg-wrap { display: flex; flex-wrap: wrap; }
+.skin-note { color: var(--warn); font-size: 0.8rem; font-weight: 700; }
+
+/* ---------- switches + notes ---------- */
+.switch { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.switch input { appearance: none; flex: none; width: 38px; height: 22px; border-radius: 99px; background: var(--line); position: relative; cursor: pointer; margin: 1px 0 0; transition: background 0.15s; }
+.switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--panel); transition: transform 0.15s; }
+.switch input:checked { background: var(--accent); }
+.switch input:checked::after { transform: translateX(16px); }
+.switch b { display: block; font-size: 0.9rem; }
+.switch small { color: var(--muted); font-size: 0.8rem; }
+.note { border-radius: var(--r); padding: 9px 11px; font-size: 0.84rem; display: grid; gap: 6px; }
+.note.warn { background: var(--warn-soft); color: var(--ink); border-left: 3px solid var(--warn); }
+.note.bad { background: var(--bad-soft); color: var(--ink); border-left: 3px solid var(--bad); }
+.note.info { background: var(--accent-soft); color: var(--ink); border-left: 3px solid var(--accent); }
+
+/* ---------- designer ---------- */
+.paint-row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: start; }
+@media (max-width: 420px) { .paint-row { grid-template-columns: minmax(0, 1fr); } }
+#paint { display: block; width: 200px; max-width: 100%; aspect-ratio: 10 / 16; image-rendering: pixelated; touch-action: none; cursor: crosshair; border: 1px solid var(--line); border-radius: 4px; }
+.tool-col { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.mini { font-weight: 800; font-size: 0.8rem; margin: 0 0 6px; }
+.toolset { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+.toolset .btn { justify-content: flex-start; padding: 6px 10px; font-size: 0.84rem; }
+.toolset .btn kbd { margin-left: auto; font: 600 0.72rem var(--f-mono); color: inherit; opacity: 0.7; }
+.toolset .btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.cur { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+input[type="color"] { width: 44px; height: 32px; border: 1px solid var(--line); border-radius: 4px; padding: 2px; background: var(--panel); cursor: pointer; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(24px, 1fr)); gap: 4px; }
+.swatches button { all: unset; aspect-ratio: 1; border-radius: 4px; background: var(--sw); box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.18); cursor: pointer; }
+.swatches button[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 1px; }
+.swatches button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 1px; }
+#recent { margin-top: 6px; min-height: 24px; }
+#recent:empty::before { content: attr(data-empty); font-size: 0.78rem; color: var(--muted); grid-column: 1 / -1; align-self: center; }
+.row-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.row-btns .btn { padding: 6px 10px; font-size: 0.82rem; }
+.previews { display: flex; gap: 18px; align-items: flex-end; }
+.previews figure { margin: 0; display: grid; gap: 4px; justify-items: center; font-size: 0.75rem; color: var(--muted); }
+.slot { display: inline-grid; place-items: center; width: 52px; height: 52px; flex: none; background: var(--slot); border-radius: 4px; box-shadow: inset 0 0 0 2px var(--slot-edge); }
+.slot canvas { width: 32px; height: 32px; image-rendering: pixelated; }
+#icon-actual { width: 16px; height: 16px; image-rendering: pixelated; }
+details.help summary { cursor: pointer; font-weight: 700; font-size: 0.86rem; }
+details.help[open] summary { margin-bottom: 8px; }
+.patterns { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 6px; }
+.patterns button { all: unset; cursor: pointer; display: grid; justify-items: center; gap: 4px; padding: 6px 4px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); font-size: 0.72rem; font-weight: 700; text-align: center; }
+.patterns button:hover { border-color: var(--hover-line); background: var(--hover); }
+.patterns button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 1px; }
+.patterns canvas { width: 20px; height: 32px; image-rendering: pixelated; box-shadow: 0 0 0 1px var(--line); }
+.danger-row { border-top: 1px solid var(--line); padding-top: 12px; }
+
+/* ---------- export ---------- */
+.export { padding: 12px 16px 16px; display: grid; gap: 10px; }
+.problems { margin: 0; padding-left: 18px; color: var(--bad); font-size: 0.84rem; display: grid; gap: 3px; }
+.steps { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 0.84rem; color: var(--muted); }
+.steps b { color: var(--ink); }
+.version-box { display: inline-flex; align-items: center; gap: 8px; }
+.version-box .btn { padding: 4px 10px; font-size: 0.8rem; }
+.pack-id { margin: 0; font-size: 0.78rem; color: var(--muted); display: flex; gap: 6px; flex-wrap: wrap; }
+.pack-id .mono { color: var(--soft); overflow-wrap: anywhere; }
+.pack-id.flash .mono { background: var(--accent-soft); border-radius: 3px; }
+
+/* ---------- display & language panel ---------- */
+.prefs-glyph { font-weight: 800; letter-spacing: -0.02em; }
+.prefs { position: absolute; z-index: 20; top: calc(64px + env(safe-area-inset-top, 0px)); right: max(16px, calc((100% - 1760px) / 2 + 20px)); width: min(360px, calc(100% - 32px));
+  background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25); padding: 14px 16px 16px; display: grid; gap: 12px; }
+.prefs-head { display: flex; align-items: center; justify-content: space-between; }
+.prefs fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.prefs legend { font-size: 0.82rem; font-weight: 700; padding: 0; margin-bottom: 5px; }
+.prefs-note { margin: 0; font-size: 0.8rem; }
+
+/* ---------- toast ---------- */
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: #1d293d; color: #ffffff; border: 1px solid #334155; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; display: flex; gap: 12px; align-items: center; max-width: calc(100% - 32px); box-shadow: 0 6px 24px rgba(0,0,0,0.25); z-index: 10; }
+.toast button { all: unset; cursor: pointer; font-weight: 800; color: var(--cyan); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="topbar-inner">
+  <div class="brand">
+    <svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges">
+      <rect x="4" y="2" width="8" height="1" fill="#e0a92a"/>
+      <rect x="4" y="3" width="8" height="9" fill="#2b7fff"/>
+      <rect x="3" y="9" width="10" height="4" fill="#2b7fff"/>
+      <rect x="4" y="3" width="1" height="6" fill="#174fa2"/>
+      <rect x="3" y="9" width="1" height="4" fill="#174fa2"/>
+      <rect x="3" y="12" width="10" height="1" fill="#ed287f"/>
+      <rect x="3" y="13" width="10" height="1" fill="#174fa2"/>
+      <rect x="7" y="5" width="2" height="1" fill="#febd01"/>
+      <rect x="6" y="6" width="4" height="2" fill="#febd01"/>
+      <rect x="7" y="8" width="2" height="1" fill="#febd01"/>
+    </svg>
+    <div>
+      <h1>Cleverlike <span>Cape Tool</span></h1>
+      <p data-i18n>Design capes, wear them in Minecraft Education</p>
+    </div>
+  </div>
+  <button class="btn" id="prefs-btn" data-tip="Change the language, colors and text size." type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="prefs"><span aria-hidden="true" class="prefs-glyph">Aa</span> <span data-i18n>Display &amp; language</span></button>
+  <button class="btn" id="open-addon" data-tip="Open a .mcaddon you made here before to keep working on it." type="button" data-i18n>Open an add-on…</button>
+  <input type="file" id="open-addon-file" accept=".mcaddon,.mcpack,.zip" hidden>
+ </div>
+</header>
+
+<div class="prefs" id="prefs" role="dialog" aria-modal="false" aria-labelledby="prefs-h" hidden>
+  <div class="prefs-head"><h2 class="label" id="prefs-h" data-i18n>Display &amp; language</h2>
+    <button class="btn ghost icon" type="button" id="prefs-close" data-tip="Close this panel." aria-label="Close" data-i18n-attr="aria-label">✕</button></div>
+  <label class="field"><span data-i18n>Language</span><select id="pref-lang"></select></label>
+  <fieldset class="field"><legend data-i18n>Theme</legend>
+    <div class="seg seg-wrap" role="radiogroup" id="pref-theme">
+      <button type="button" role="radio" data-theme-opt="system" data-tip="Match your device's light or dark setting." data-i18n aria-checked="true">System</button>
+      <button type="button" role="radio" data-theme-opt="light" data-tip="Soft light gray background." data-i18n aria-checked="false">Light</button>
+      <button type="button" role="radio" data-theme-opt="dark" data-tip="Dark background, easier on the eyes in a dim room." data-i18n aria-checked="false">Dark</button>
+      <button type="button" role="radio" data-theme-opt="contrast" data-tip="Black and white with bold outlines, the easiest to read." data-i18n aria-checked="false">High contrast</button>
+    </div>
+  </fieldset>
+  <fieldset class="field"><legend data-i18n>Text size</legend>
+    <div class="seg" role="radiogroup" id="pref-text">
+      <button type="button" role="radio" data-text-opt="normal" data-tip="Standard text size." data-i18n aria-checked="true">Normal</button>
+      <button type="button" role="radio" data-text-opt="large" data-tip="Make all text bigger." data-i18n aria-checked="false">Large</button>
+    </div>
+  </fieldset>
+  <p class="muted prefs-note" data-i18n>Cape names show in Minecraft exactly as you type them.</p>
+</div>
+
+<main class="workspace">
+  <!-- ======== Left: capes, pack settings, download ======== -->
+  <div class="col col-left">
+    <section class="pane capes-pane" aria-labelledby="capes-h">
+      <header><h2 class="label" id="capes-h" data-i18n>Capes</h2><span class="muted" id="cape-count" style="font-size:.8rem"></span></header>
+      <div class="scroll">
+        <ul class="cape-list" id="cape-list"></ul>
+        <div class="list-actions">
+          <button class="btn" type="button" id="add-cape" data-tip="Add another cape to this pack." data-i18n>New cape</button>
+          <p id="list-help" data-i18n>Every cape becomes its own item in Minecraft.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pane pack-pane" aria-labelledby="pack-h">
+      <header><h2 class="label" id="pack-h" data-i18n>Pack</h2>
+        <span class="version-box"><span class="pill ok mono" id="version-pill" data-tip="Goes up by one each time you download">v1.0.0</span>
+        <button class="btn" type="button" id="version-up" data-tip="Start a new version with new pack IDs. Use it if Minecraft keeps showing an old copy." data-i18n>Version up</button></span></header>
+      <div class="fields">
+        <p class="pack-id"><span data-i18n>Pack ID</span> <span class="mono" id="pack-uuid"></span></p>
+        <label class="field"><span data-i18n>Pack name</span><input type="text" id="pack-name" maxlength="40" autocomplete="off" data-tip="Shown in Minecraft's Behavior Packs list"><small class="field-error" role="alert" hidden></small></label>
+        <label class="switch"><input type="checkbox" id="give-join" checked>
+          <span><b data-i18n>Hand out capes on join</b><small data-i18n>Each player gets every cape the first time they join, and any new ones after an update.</small></span></label>
+      </div>
+    </section>
+
+    <section class="pane export-pane" aria-labelledby="export-h">
+      <header><h2 class="label" id="export-h" data-i18n>Download</h2></header>
+      <div class="export">
+        <ul class="problems" id="problems" hidden></ul>
+        <button class="btn primary big" type="button" id="download" data-tip="Build the add-on with all your capes and save it." data-i18n>Download add-on</button>
+        <p class="muted" id="export-status" style="margin:0;font-size:.82rem" aria-live="polite"></p>
+        <details class="help" id="install-help">
+          <summary data-i18n>How to install in Minecraft Education</summary>
+          <ol class="steps" id="install-steps"></ol>
+        </details>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======== Stage: 3D preview ======== -->
+  <section class="stage pane" aria-label="Preview" data-i18n-attr="aria-label">
+    <div class="stage-wrap" id="stage-wrap">
+      <canvas id="stage" aria-label="3D preview of the selected cape on a player model" data-i18n-attr="aria-label"></canvas>
+      <div class="stage-title"><strong id="stage-name"></strong></div>
+      <span class="stage-hint" data-i18n>Drag to turn · scroll to zoom</span>
+    </div>
+    <div class="stripe" aria-hidden="true"></div>
+    <div class="transport">
+      <div class="seg" role="group" aria-label="Movement" data-i18n-attr="aria-label">
+        <button type="button" id="move-stand" data-tip="The cape hangs down, like when you stand still." aria-pressed="true" data-i18n>Standing</button>
+        <button type="button" id="move-walk" data-tip="The cape lifts behind you, like when you walk." aria-pressed="false" data-i18n>Walking</button>
+      </div>
+      <span class="spacer"></span>
+      <button class="btn" type="button" id="turn" data-tip="Swap between the front and the back of the player." data-i18n>Turn around</button>
+      <button class="btn ghost" type="button" id="reset-view" data-tip="Put the camera back where it started." data-i18n>Reset view</button>
+    </div>
+    <div class="skinbar">
+      <span class="muted" data-i18n>Preview skin</span>
+      <div class="seg" role="group" aria-label="Arm width" data-i18n-attr="aria-label">
+        <button type="button" id="arms-classic" data-tip="Preview with wide arms, like Steve." aria-pressed="true" data-i18n>Classic arms</button>
+        <button type="button" id="arms-slim" data-tip="Preview with slim arms, like Alex." aria-pressed="false" data-i18n>Slim arms</button>
+      </div>
+      <button class="btn" type="button" id="skin-upload" data-tip="Preview the cape on your own Minecraft skin (a PNG file). It stays on this computer." data-i18n>Use my skin…</button>
+      <button class="btn ghost" type="button" id="skin-reset" data-tip="Go back to the default skin." hidden data-i18n>Default skin</button>
+      <input type="file" id="skin-file" accept="image/png" hidden>
+      <small class="skin-note" id="skin-note" hidden></small>
+    </div>
+  </section>
+
+  <!-- ======== Right: designer ======== -->
+  <div class="col col-right">
+    <section class="pane designer" aria-labelledby="design-h">
+      <header><h2 class="label" id="design-h" data-i18n>Design</h2></header>
+      <div class="scroll">
+        <div class="fields">
+          <label class="field"><span data-i18n>Cape name</span><input type="text" id="cape-name" maxlength="32" autocomplete="off" data-tip="The item's name in Minecraft."><small class="field-error" role="alert" hidden></small></label>
+
+          <fieldset class="field"><legend data-i18n>Side</legend>
+            <div class="seg" role="group" aria-label="Side to paint" data-i18n-attr="aria-label">
+              <button type="button" id="side-out" data-tip="The side everyone sees on your back." aria-pressed="true" data-i18n>Outside</button>
+              <button type="button" id="side-in" data-tip="The side against your back. It shows when the cape lifts." aria-pressed="false" data-i18n>Inside</button>
+            </div>
+          </fieldset>
+
+          <div class="paint-row">
+            <canvas id="paint" width="240" height="384" aria-label="Pixel drawing grid for the cape" data-i18n-attr="aria-label"></canvas>
+            <div class="tool-col">
+              <div>
+                <p class="mini" data-i18n>Tools</p>
+                <div class="toolset" id="tools" role="group" aria-label="Drawing tools" data-i18n-attr="aria-label">
+                  <button class="btn" type="button" data-tool="pencil" data-tip="Color one square at a time. Right-click to erase." aria-pressed="true" data-i18n="html">Pencil <kbd>B</kbd></button>
+                  <button class="btn" type="button" data-tool="eraser" data-tip="Make squares see-through." aria-pressed="false" data-i18n="html">Eraser <kbd>E</kbd></button>
+                  <button class="btn" type="button" data-tool="fill" data-tip="Fill a whole area of one color." aria-pressed="false" data-i18n="html">Fill <kbd>G</kbd></button>
+                  <button class="btn" type="button" data-tool="picker" data-tip="Click a square to copy its color." aria-pressed="false" data-i18n="html">Pick color <kbd>I</kbd></button>
+                </div>
+              </div>
+              <label class="switch" data-tip="Whatever you draw on one half is copied to the other half. Shortcut: M."><input type="checkbox" id="mirror">
+                <span><b data-i18n>Mirror</b><small data-i18n>Draw both halves at once</small></span></label>
+            </div>
+          </div>
+
+          <div>
+            <p class="mini" data-i18n>Color</p>
+            <div class="cur"><input type="color" id="color" value="#2b7fff" aria-label="Custom color" data-i18n-attr="aria-label"><span class="mono" id="color-hex"></span></div>
+            <div class="swatches" id="palette"></div>
+            <div class="swatches" id="recent" aria-label="Recent colors" data-empty="Colors you draw with show up here." data-i18n-attr="aria-label data-empty"></div>
+          </div>
+
+          <div class="row-btns">
+            <button class="btn" type="button" id="undo" data-tip="Undo your last change. Ctrl+Z works too." data-i18n>Undo</button>
+            <button class="btn" type="button" id="redo" data-tip="Redo what you undid. Ctrl+Y works too." data-i18n>Redo</button>
+            <button class="btn" type="button" id="clear" data-tip="Erase this side of the cape." data-i18n>Clear</button>
+            <button class="btn" type="button" id="copy-out" data-tip="Copy the outside design onto the inside, lined up like real fabric." hidden data-i18n>Copy the outside</button>
+          </div>
+
+          <div class="note warn" id="design-note" role="status" hidden></div>
+
+          <details class="help" id="patterns-box">
+            <summary data-i18n>Start from a pattern</summary>
+            <div class="patterns" id="patterns"></div>
+            <p class="muted" style="margin:8px 0 0;font-size:.8rem" data-i18n>Picking a pattern replaces both sides. Undo brings your drawing back.</p>
+          </details>
+
+          <div>
+            <p class="mini" data-i18n>Item icon</p>
+            <div class="previews">
+              <figure><span class="slot"><canvas id="icon-slot" width="16" height="16"></canvas></span><figcaption data-i18n>In the hotbar</figcaption></figure>
+              <figure><canvas id="icon-actual" width="16" height="16"></canvas><figcaption data-i18n>Actual size</figcaption></figure>
+            </div>
+          </div>
+
+          <div class="row-btns danger-row">
+            <button class="btn" type="button" id="dup-cape" data-tip="Make a copy of this cape to try a different version." data-i18n>Duplicate</button>
+            <button class="btn danger" type="button" id="del-cape" data-tip="Remove this cape from the pack." data-i18n>Delete cape</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" hidden><span id="toast-msg"></span><button type="button" id="toast-action" hidden></button></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+/* Cleverlike Cape Tool — translations (same system as Cleverlike Emote Tool)
+ * English text is the key (gettext style), so the code stays readable and a missing translation
+ * simply shows English. "{name}" placeholders are filled from params. "one|other" picks a plural
+ * form from params.n. Dictionaries live in CapeStrings. */
+(function (G) {
+  "use strict";
+  const LANGS = [
+    { code: "en", name: "English" },
+    { code: "es", name: "Español" },
+    { code: "fr", name: "Français" },
+    { code: "pt", name: "Português" },
+    { code: "de", name: "Deutsch" },
+    { code: "zh", name: "简体中文" },
+  ];
+  let lang = "en";
+  const norm = (s) => String(s).replace(/\s+/g, " ").trim();
+  const missing = new Set();
+
+  function t(key, params) {
+    const k = norm(key);
+    const dict = (G.CapeStrings || {})[lang];
+    let s = lang === "en" ? k : dict && dict[k];
+    if (s === undefined) { if (lang !== "en") missing.add(k); s = k; }
+    if (s.includes("|")) {
+      const forms = s.split("|");
+      s = forms.length > 1 ? (params && params.n === 1 ? forms[0] : forms[forms.length - 1]) : forms[0];
+    }
+    if (params) s = s.replace(/\{(\w+)\}/g, (m, p) => (p in params ? String(params[p]) : m));
+    return s;
+  }
+
+  /** Translate everything marked in the page: data-i18n (text), data-i18n="html", data-i18n-attr="title aria-label" */
+  function applyStatic(root) {
+    root = root || document;
+    root.querySelectorAll("[data-i18n]").forEach((el) => {
+      const html = el.dataset.i18n === "html";
+      if (el._i18nSrc === undefined) el._i18nSrc = html ? el.innerHTML : el.textContent;
+      if (html) el.innerHTML = t(el._i18nSrc); else el.textContent = t(el._i18nSrc);
+    });
+    root.querySelectorAll("[data-i18n-attr]").forEach((el) => {
+      el._i18nAttr = el._i18nAttr || {};
+      for (const a of el.dataset.i18nAttr.split(/\s+/)) {
+        if (!(a in el._i18nAttr)) el._i18nAttr[a] = el.getAttribute(a) || "";
+        el.setAttribute(a, t(el._i18nAttr[a]));
+      }
+    });
+    document.documentElement.lang = lang === "zh" ? "zh-Hans" : lang;
+  }
+
+  function setLang(code) { lang = LANGS.some((l) => l.code === code) ? code : "en"; }
+  function guess() {
+    for (const l of navigator.languages || [navigator.language || "en"]) {
+      const c = String(l).slice(0, 2).toLowerCase();
+      if (LANGS.some((x) => x.code === c)) return c;
+    }
+    return "en";
+  }
+
+  G.CapeI18n = { LANGS, t, applyStatic, setLang, guess, get lang() { return lang; }, missing };
+})(typeof window !== "undefined" ? window : globalThis);
+
+
+/* Generated by i18n/gen.py from i18n/table.py. Edit the table, not this file. */
+window.CapeStrings = {
+"es": {
+"(no name)": "(sin nombre)",
+"3D preview of the selected cape on a player model": "Vista previa 3D de la capa seleccionada en un modelo de jugador",
+"<b>Open the downloaded .mcaddon</b> on the computer with Minecraft Education. It imports both packs.": "<b>Abre el .mcaddon descargado</b> en el ordenador que tiene Minecraft Education. Importa ambos paquetes.",
+"<b>Wear a cape</b> by putting it in the chestplate slot. Press F5 to see it on your back.": "<b>Ponte una capa</b> colocándola en la ranura del peto. Pulsa F5 para verla en tu espalda.",
+"A pack holds up to {max} capes.": "Un paquete admite hasta {max} capas.",
+"Actual size": "Tamaño real",
+"Add another cape to this pack.": "Añade otra capa a este paquete.",
+"Add at least one cape.": "Añade al menos una capa.",
+"Arm width": "Ancho de brazos",
+"Behavior pack": "Paquete de comportamiento",
+"Black and white with bold outlines, the easiest to read.": "Blanco y negro con bordes gruesos, lo más fácil de leer.",
+"Blank": "En blanco",
+"Build the add-on with all your capes and save it.": "Crea el complemento con todas tus capas y guárdalo.",
+"Cape name": "Nombre de la capa",
+"Cape names show in Minecraft exactly as you type them.": "Los nombres de las capas aparecen en Minecraft tal como los escribes.",
+"Cape {n}": "Capa {n}",
+"Capes": "Capas",
+"Capes for {pack}": "Capas para {pack}",
+"Change the language, colors and text size.": "Cambia el idioma, los colores y el tamaño del texto.",
+"Checker": "Ajedrez",
+"Classic arms": "Brazos clásicos",
+"Clear": "Borrar",
+"Cleverlike": "Cleverlike",
+"Click a square to copy its color.": "Haz clic en un cuadro para copiar su color.",
+"Close": "Cerrar",
+"Close this panel.": "Cierra este panel.",
+"Color": "Color",
+"Color one square at a time. Right-click to erase.": "Colorea un cuadro cada vez. Clic derecho para borrar.",
+"Color {hex}": "Color {hex}",
+"Colors you draw with show up here.": "Aquí aparecen los colores con los que dibujas.",
+"Copy the outside": "Copiar el exterior",
+"Copy the outside design onto the inside, lined up like real fabric.": "Copia el diseño exterior en el interior, alineado como una tela de verdad.",
+"Create or edit a world. Under <b>Behavior Packs</b>, activate <b>{bp}</b>. The resource pack is added with it.": "Crea o edita un mundo. En <b>Paquetes de comportamiento</b>, activa <b>{bp}</b>. El paquete de recursos se añade con él.",
+"Custom color": "Color personalizado",
+"Dark": "Oscuro",
+"Dark background, easier on the eyes in a dim room.": "Fondo oscuro, más cómodo para la vista con poca luz.",
+"Default skin": "Aspecto predeterminado",
+"Delete cape": "Eliminar capa",
+"Deleted “{name}”.": "Se eliminó «{name}».",
+"Design": "Diseño",
+"Design capes, wear them in Minecraft Education": "Diseña capas y póntelas en Minecraft Education",
+"Display & language": "Pantalla e idioma",
+"Download": "Descargar",
+"Download add-on": "Descargar complemento",
+"Downloaded version {v}. Open it on the computer with Minecraft Education.": "Se descargó la versión {v}. Ábrela en el ordenador que tiene Minecraft Education.",
+"Drag to turn · scroll to zoom": "Arrastra para girar · desplaza para acercar",
+"Draw both halves at once": "Dibuja las dos mitades a la vez",
+"Drawing tools": "Herramientas de dibujo",
+"Duplicate": "Duplicar",
+"Each player gets every cape the first time they join, and any new ones after an update.": "Cada jugador recibe todas las capas la primera vez que entra, y las nuevas después de una actualización.",
+"Empty": "Vacía",
+"Erase the inside of the cape.": "Borra el interior de la capa.",
+"Erase the outside of the cape.": "Borra el exterior de la capa.",
+"Erase this side of the cape.": "Borra este lado de la capa.",
+"Eraser <kbd>E</kbd>": "Goma <kbd>E</kbd>",
+"Every cape becomes its own item in Minecraft.": "Cada capa se convierte en su propio objeto en Minecraft.",
+"Every cape needs a name.": "Todas las capas necesitan un nombre.",
+"Fill <kbd>G</kbd>": "Rellenar <kbd>G</kbd>",
+"Fill a whole area of one color.": "Rellena toda una zona de un mismo color.",
+"Fix the items above to download.": "Corrige los puntos de arriba para descargar.",
+"Forest": "Bosque",
+"Give the pack a name.": "Ponle un nombre al paquete.",
+"Go back to the default skin.": "Vuelve al aspecto predeterminado.",
+"Goes up by one each time you download": "Sube en uno cada vez que descargas",
+"Hand out capes on join": "Entregar capas al entrar",
+"High contrast": "Alto contraste",
+"How to install in Minecraft Education": "Cómo instalarlo en Minecraft Education",
+"In the hotbar": "En la barra rápida",
+"Inside": "Interior",
+"Item icon": "Icono del objeto",
+"Join the world. Everyone gets the capes the first time they join. They are also in the creative inventory under Equipment, and with cheats on, <span class=\"mono\">{fn}</span> gives them all.": "Entra al mundo. Todos reciben las capas la primera vez que entran. También están en el inventario creativo, en Equipamiento, y con los trucos activados, <span class=\"mono\">{fn}</span> las da todas.",
+"Join the world. The capes are in the creative inventory under Equipment. With cheats on, <span class=\"mono\">{fn}</span> gives them all.": "Entra al mundo. Las capas están en el inventario creativo, en Equipamiento. Con los trucos activados, <span class=\"mono\">{fn}</span> las da todas.",
+"Language": "Idioma",
+"Large": "Grande",
+"Light": "Claro",
+"Make a copy of this cape to try a different version.": "Haz una copia de esta capa para probar otra versión.",
+"Make all text bigger.": "Agranda todo el texto.",
+"Make squares see-through.": "Hace que los cuadros sean transparentes.",
+"Match your device's light or dark setting.": "Usa la configuración clara u oscura de tu dispositivo.",
+"Mirror": "Espejo",
+"Move down": "Bajar",
+"Move up": "Subir",
+"Movement": "Movimiento",
+"My Capes": "Mis capas",
+"Names can't include emails or links.": "Los nombres no pueden incluir correos ni enlaces.",
+"Names can't include phone numbers.": "Los nombres no pueden incluir números de teléfono.",
+"Needs a name": "Falta el nombre",
+"New cape": "Nueva capa",
+"New pack IDs. The next download is v{v}.": "Nuevos ID de paquete. La próxima descarga será la v{v}.",
+"Night sky": "Cielo nocturno",
+"Normal": "Normal",
+"Only the preview uses this skin.": "Solo la vista previa usa este aspecto.",
+"Open a .mcaddon you made here before to keep working on it.": "Abre un .mcaddon que hiciste aquí para seguir trabajando en él.",
+"Open an add-on…": "Abrir un complemento…",
+"Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "Se abrió «{pack}» con {n} capa.|Se abrió «{pack}» con {n} capas.",
+"Outside": "Exterior",
+"Pack": "Paquete",
+"Pack ID": "ID del paquete",
+"Pack name": "Nombre del paquete",
+"Pack name: {why}": "Nombre del paquete: {why}",
+"Pattern applied. Undo brings your drawing back.": "Patrón aplicado. Deshacer recupera tu dibujo.",
+"Pencil <kbd>B</kbd>": "Lápiz <kbd>B</kbd>",
+"Pick color <kbd>I</kbd>": "Tomar color <kbd>I</kbd>",
+"Picking a pattern replaces both sides. Undo brings your drawing back.": "Elegir un patrón reemplaza los dos lados. Deshacer recupera tu dibujo.",
+"Pixel drawing grid for the cape": "Cuadrícula de píxeles para la capa",
+"Pixel drawing grid for the inside of the cape": "Cuadrícula de píxeles para el interior de la capa",
+"Pixel drawing grid for the outside of the cape": "Cuadrícula de píxeles para el exterior de la capa",
+"Preview": "Vista previa",
+"Preview skin": "Aspecto de la vista previa",
+"Preview the cape on your own Minecraft skin (a PNG file). It stays on this computer.": "Prueba la capa con tu propio aspecto de Minecraft (un archivo PNG). Se queda en este ordenador.",
+"Preview with slim arms, like Alex.": "Vista previa con brazos delgados, como Alex.",
+"Preview with wide arms, like Steve.": "Vista previa con brazos anchos, como Steve.",
+"Put the camera back where it started.": "Devuelve la cámara a su posición inicial.",
+"Rainbow": "Arcoíris",
+"Ready": "Lista",
+"Recent colors": "Colores recientes",
+"Redo": "Rehacer",
+"Redo what you undid. Ctrl+Y works too.": "Rehace lo que deshiciste. También funciona Ctrl+Y.",
+"Redraw it": "Vuelve a dibujarla",
+"Remove this cape from the pack.": "Quita esta capa del paquete.",
+"Rename it": "Cámbiale el nombre",
+"Rename the cape “{name}”: {why}": "Cambia el nombre de la capa «{name}»: {why}",
+"Reset view": "Restablecer vista",
+"Resource pack": "Paquete de recursos",
+"Royal": "Real",
+"Shown in Minecraft's Behavior Packs list": "Se muestra en la lista de paquetes de comportamiento de Minecraft",
+"Side": "Lado",
+"Side to paint": "Lado que pintas",
+"Slim arms": "Brazos delgados",
+"Soft light gray background.": "Fondo gris claro y suave.",
+"Something went wrong building the add-on. Please try again.": "Algo salió mal al crear el complemento. Inténtalo de nuevo.",
+"Split": "Dividida",
+"Standard text size.": "Tamaño de texto estándar.",
+"Standing": "Quieto",
+"Start a new version with new pack IDs. Use it if Minecraft keeps showing an old copy.": "Empieza una versión nueva con ID de paquete nuevos. Úsalo si Minecraft sigue mostrando una copia antigua.",
+"Start from a pattern": "Empezar con un patrón",
+"Swap between the front and the back of the player.": "Cambia entre la parte delantera y la trasera del jugador.",
+"System": "Sistema",
+"Teacher check": "Revisión docente",
+"Text size": "Tamaño del texto",
+"That doesn't look like a Minecraft skin. Skins are 64×64 PNG files.": "Eso no parece un aspecto de Minecraft. Los aspectos son archivos PNG de 64×64.",
+"That file couldn't be opened. Choose a .mcaddon downloaded from this tool.": "No se pudo abrir ese archivo. Elige un .mcaddon descargado de esta herramienta.",
+"That name includes a word that isn't allowed. Please choose a different name.": "Ese nombre incluye una palabra que no está permitida. Elige otro nombre.",
+"That name includes words that aren't allowed. Please choose a different name.": "Ese nombre incluye palabras que no están permitidas. Elige otro nombre.",
+"The cape hangs down, like when you stand still.": "La capa cuelga, como cuando estás quieto.",
+"The cape lifts behind you, like when you walk.": "La capa se levanta detrás de ti, como cuando caminas.",
+"The download tool couldn't load. Check the internet connection and reload the page.": "No se pudo cargar la herramienta de descarga. Revisa la conexión a internet y vuelve a cargar la página.",
+"The item's name in Minecraft.": "El nombre del objeto en Minecraft.",
+"The side against your back. It shows when the cape lifts.": "El lado que toca tu espalda. Se ve cuando la capa se levanta.",
+"The side everyone sees on your back.": "El lado que todos ven en tu espalda.",
+"Theme": "Tema",
+"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "Este complemento no se hizo con Cleverlike Cape Tool, así que no se puede abrir aquí.",
+"This drawing can't be used on a cape. Please draw something else.": "Este dibujo no se puede usar en una capa. Dibuja otra cosa.",
+"This drawing is marked for a teacher to check.": "Este dibujo queda marcado para que lo revise un docente.",
+"Tools": "Herramientas",
+"Turn around": "Dar la vuelta",
+"Undo": "Deshacer",
+"Undo your last change. Ctrl+Z works too.": "Deshace tu último cambio. También funciona Ctrl+Z.",
+"Updating? Download again here; the version goes up by one so Minecraft replaces the old copy.": "¿Vas a actualizar? Descárgalo de nuevo aquí; la versión sube en uno para que Minecraft reemplace la copia antigua.",
+"Use my skin…": "Usar mi aspecto…",
+"Use this pattern for both sides.": "Usa este patrón en los dos lados.",
+"Version up": "Nueva versión",
+"Walking": "Caminando",
+"Whatever you draw on one half is copied to the other half. Shortcut: M.": "Lo que dibujes en una mitad se copia en la otra. Atajo: M.",
+"{name} copy": "{name} copia",
+"{n} cape for {pack}|{n} capes for {pack}": "{n} capa para {pack}|{n} capas para {pack}",
+"{n} cape, version {v}.|{n} capes, version {v}.": "{n} capa, versión {v}.|{n} capas, versión {v}.",
+"{n} of {max}": "{n} de {max}",
+"“{name}” has nothing painted on the outside.": "«{name}» no tiene nada pintado en el exterior.",
+"“{name}”: {why}": "«{name}»: {why}"
+},
+"fr": {
+"(no name)": "(sans nom)",
+"3D preview of the selected cape on a player model": "Aperçu 3D de la cape sélectionnée sur un modèle de joueur",
+"<b>Open the downloaded .mcaddon</b> on the computer with Minecraft Education. It imports both packs.": "<b>Ouvre le fichier .mcaddon téléchargé</b> sur l’ordinateur qui a Minecraft Education. Il importe les deux packs.",
+"<b>Wear a cape</b> by putting it in the chestplate slot. Press F5 to see it on your back.": "<b>Porte une cape</b> en la mettant dans l’emplacement du plastron. Appuie sur F5 pour la voir dans ton dos.",
+"A pack holds up to {max} capes.": "Un pack peut contenir jusqu’à {max} capes.",
+"Actual size": "Taille réelle",
+"Add another cape to this pack.": "Ajoute une autre cape à ce pack.",
+"Add at least one cape.": "Ajoute au moins une cape.",
+"Arm width": "Largeur des bras",
+"Behavior pack": "Pack de comportement",
+"Black and white with bold outlines, the easiest to read.": "Noir et blanc avec des contours épais, le plus facile à lire.",
+"Blank": "Vierge",
+"Build the add-on with all your capes and save it.": "Crée l’add-on avec toutes tes capes et enregistre-le.",
+"Cape name": "Nom de la cape",
+"Cape names show in Minecraft exactly as you type them.": "Les noms des capes s’affichent dans Minecraft exactement comme tu les écris.",
+"Cape {n}": "Cape {n}",
+"Capes": "Capes",
+"Capes for {pack}": "Capes pour {pack}",
+"Change the language, colors and text size.": "Change la langue, les couleurs et la taille du texte.",
+"Checker": "Damier",
+"Classic arms": "Bras classiques",
+"Clear": "Effacer",
+"Cleverlike": "Cleverlike",
+"Click a square to copy its color.": "Clique sur un carré pour copier sa couleur.",
+"Close": "Fermer",
+"Close this panel.": "Ferme ce panneau.",
+"Color": "Couleur",
+"Color one square at a time. Right-click to erase.": "Colorie un carré à la fois. Clic droit pour effacer.",
+"Color {hex}": "Couleur {hex}",
+"Colors you draw with show up here.": "Les couleurs que tu utilises apparaissent ici.",
+"Copy the outside": "Copier l’extérieur",
+"Copy the outside design onto the inside, lined up like real fabric.": "Copie le motif extérieur à l’intérieur, aligné comme un vrai tissu.",
+"Create or edit a world. Under <b>Behavior Packs</b>, activate <b>{bp}</b>. The resource pack is added with it.": "Crée ou modifie un monde. Dans <b>Packs de comportement</b>, active <b>{bp}</b>. Le pack de ressources est ajouté avec lui.",
+"Custom color": "Couleur personnalisée",
+"Dark": "Sombre",
+"Dark background, easier on the eyes in a dim room.": "Fond sombre, plus doux pour les yeux dans une pièce peu éclairée.",
+"Default skin": "Skin par défaut",
+"Delete cape": "Supprimer la cape",
+"Deleted “{name}”.": "« {name} » a été supprimée.",
+"Design": "Motif",
+"Design capes, wear them in Minecraft Education": "Crée des capes et porte-les dans Minecraft Education",
+"Display & language": "Affichage et langue",
+"Download": "Télécharger",
+"Download add-on": "Télécharger l’add-on",
+"Downloaded version {v}. Open it on the computer with Minecraft Education.": "Version {v} téléchargée. Ouvre-la sur l’ordinateur qui a Minecraft Education.",
+"Drag to turn · scroll to zoom": "Fais glisser pour tourner · fais défiler pour zoomer",
+"Draw both halves at once": "Dessine les deux moitiés à la fois",
+"Drawing tools": "Outils de dessin",
+"Duplicate": "Dupliquer",
+"Each player gets every cape the first time they join, and any new ones after an update.": "Chaque joueur reçoit toutes les capes à sa première connexion, puis les nouvelles après une mise à jour.",
+"Empty": "Vide",
+"Erase the inside of the cape.": "Efface l’intérieur de la cape.",
+"Erase the outside of the cape.": "Efface l’extérieur de la cape.",
+"Erase this side of the cape.": "Efface ce côté de la cape.",
+"Eraser <kbd>E</kbd>": "Gomme <kbd>E</kbd>",
+"Every cape becomes its own item in Minecraft.": "Chaque cape devient un objet à part dans Minecraft.",
+"Every cape needs a name.": "Chaque cape a besoin d’un nom.",
+"Fill <kbd>G</kbd>": "Remplir <kbd>G</kbd>",
+"Fill a whole area of one color.": "Remplis toute une zone d’une même couleur.",
+"Fix the items above to download.": "Corrige les points ci-dessus pour télécharger.",
+"Forest": "Forêt",
+"Give the pack a name.": "Donne un nom au pack.",
+"Go back to the default skin.": "Reviens au skin par défaut.",
+"Goes up by one each time you download": "Augmente d’un à chaque téléchargement",
+"Hand out capes on join": "Donner les capes à la connexion",
+"High contrast": "Contraste élevé",
+"How to install in Minecraft Education": "Comment l’installer dans Minecraft Education",
+"In the hotbar": "Dans la barre d’action",
+"Inside": "Intérieur",
+"Item icon": "Icône de l’objet",
+"Join the world. Everyone gets the capes the first time they join. They are also in the creative inventory under Equipment, and with cheats on, <span class=\"mono\">{fn}</span> gives them all.": "Rejoins le monde. Tout le monde reçoit les capes à sa première connexion. Elles sont aussi dans l’inventaire créatif, sous Équipement, et avec les triches activées, <span class=\"mono\">{fn}</span> les donne toutes.",
+"Join the world. The capes are in the creative inventory under Equipment. With cheats on, <span class=\"mono\">{fn}</span> gives them all.": "Rejoins le monde. Les capes sont dans l’inventaire créatif, sous Équipement. Avec les triches activées, <span class=\"mono\">{fn}</span> les donne toutes.",
+"Language": "Langue",
+"Large": "Grand",
+"Light": "Clair",
+"Make a copy of this cape to try a different version.": "Fais une copie de cette cape pour essayer une autre version.",
+"Make all text bigger.": "Agrandit tout le texte.",
+"Make squares see-through.": "Rend les carrés transparents.",
+"Match your device's light or dark setting.": "Suit le réglage clair ou sombre de ton appareil.",
+"Mirror": "Miroir",
+"Move down": "Descendre",
+"Move up": "Monter",
+"Movement": "Mouvement",
+"My Capes": "Mes capes",
+"Names can't include emails or links.": "Les noms ne peuvent pas contenir d’e-mails ni de liens.",
+"Names can't include phone numbers.": "Les noms ne peuvent pas contenir de numéros de téléphone.",
+"Needs a name": "Nom manquant",
+"New cape": "Nouvelle cape",
+"New pack IDs. The next download is v{v}.": "Nouveaux identifiants de pack. Le prochain téléchargement sera la v{v}.",
+"Night sky": "Ciel étoilé",
+"Normal": "Normal",
+"Only the preview uses this skin.": "Seul l’aperçu utilise ce skin.",
+"Open a .mcaddon you made here before to keep working on it.": "Ouvre un .mcaddon que tu as créé ici pour continuer à travailler dessus.",
+"Open an add-on…": "Ouvrir un add-on…",
+"Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "« {pack} » ouvert avec {n} cape.|« {pack} » ouvert avec {n} capes.",
+"Outside": "Extérieur",
+"Pack": "Pack",
+"Pack ID": "ID du pack",
+"Pack name": "Nom du pack",
+"Pack name: {why}": "Nom du pack : {why}",
+"Pattern applied. Undo brings your drawing back.": "Motif appliqué. Annuler ramène ton dessin.",
+"Pencil <kbd>B</kbd>": "Crayon <kbd>B</kbd>",
+"Pick color <kbd>I</kbd>": "Pipette <kbd>I</kbd>",
+"Picking a pattern replaces both sides. Undo brings your drawing back.": "Choisir un motif remplace les deux côtés. Annuler ramène ton dessin.",
+"Pixel drawing grid for the cape": "Grille de pixels pour la cape",
+"Pixel drawing grid for the inside of the cape": "Grille de pixels pour l’intérieur de la cape",
+"Pixel drawing grid for the outside of the cape": "Grille de pixels pour l’extérieur de la cape",
+"Preview": "Aperçu",
+"Preview skin": "Skin de l’aperçu",
+"Preview the cape on your own Minecraft skin (a PNG file). It stays on this computer.": "Essaie la cape sur ton propre skin Minecraft (un fichier PNG). Il reste sur cet ordinateur.",
+"Preview with slim arms, like Alex.": "Aperçu avec des bras fins, comme Alex.",
+"Preview with wide arms, like Steve.": "Aperçu avec des bras larges, comme Steve.",
+"Put the camera back where it started.": "Remet la caméra à sa place de départ.",
+"Rainbow": "Arc-en-ciel",
+"Ready": "Prête",
+"Recent colors": "Couleurs récentes",
+"Redo": "Rétablir",
+"Redo what you undid. Ctrl+Y works too.": "Rétablit ce que tu as annulé. Ctrl+Y fonctionne aussi.",
+"Redraw it": "À redessiner",
+"Remove this cape from the pack.": "Retire cette cape du pack.",
+"Rename it": "À renommer",
+"Rename the cape “{name}”: {why}": "Renomme la cape « {name} » : {why}",
+"Reset view": "Réinitialiser la vue",
+"Resource pack": "Pack de ressources",
+"Royal": "Royal",
+"Shown in Minecraft's Behavior Packs list": "Affiché dans la liste des packs de comportement de Minecraft",
+"Side": "Côté",
+"Side to paint": "Côté à peindre",
+"Slim arms": "Bras fins",
+"Soft light gray background.": "Fond gris clair et doux.",
+"Something went wrong building the add-on. Please try again.": "Un problème est survenu pendant la création de l’add-on. Réessaie.",
+"Split": "Partagée",
+"Standard text size.": "Taille de texte standard.",
+"Standing": "Immobile",
+"Start a new version with new pack IDs. Use it if Minecraft keeps showing an old copy.": "Commence une nouvelle version avec de nouveaux identifiants de pack. Utilise-le si Minecraft affiche toujours une ancienne copie.",
+"Start from a pattern": "Partir d’un motif",
+"Swap between the front and the back of the player.": "Passe de l’avant à l’arrière du joueur.",
+"System": "Système",
+"Teacher check": "À vérifier",
+"Text size": "Taille du texte",
+"That doesn't look like a Minecraft skin. Skins are 64×64 PNG files.": "Ça ne ressemble pas à un skin Minecraft. Les skins sont des fichiers PNG de 64×64.",
+"That file couldn't be opened. Choose a .mcaddon downloaded from this tool.": "Impossible d’ouvrir ce fichier. Choisis un .mcaddon téléchargé avec cet outil.",
+"That name includes a word that isn't allowed. Please choose a different name.": "Ce nom contient un mot qui n’est pas autorisé. Choisis un autre nom.",
+"That name includes words that aren't allowed. Please choose a different name.": "Ce nom contient des mots qui ne sont pas autorisés. Choisis un autre nom.",
+"The cape hangs down, like when you stand still.": "La cape pend, comme quand tu restes immobile.",
+"The cape lifts behind you, like when you walk.": "La cape se soulève derrière toi, comme quand tu marches.",
+"The download tool couldn't load. Check the internet connection and reload the page.": "L’outil de téléchargement n’a pas pu se charger. Vérifie la connexion Internet et recharge la page.",
+"The item's name in Minecraft.": "Le nom de l’objet dans Minecraft.",
+"The side against your back. It shows when the cape lifts.": "Le côté contre ton dos. Il se voit quand la cape se soulève.",
+"The side everyone sees on your back.": "Le côté que tout le monde voit dans ton dos.",
+"Theme": "Thème",
+"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "Cet add-on n’a pas été créé avec Cleverlike Cape Tool, il ne peut donc pas être ouvert ici.",
+"This drawing can't be used on a cape. Please draw something else.": "Ce dessin ne peut pas être utilisé sur une cape. Dessine autre chose.",
+"This drawing is marked for a teacher to check.": "Ce dessin est signalé pour qu’un enseignant le vérifie.",
+"Tools": "Outils",
+"Turn around": "Faire demi-tour",
+"Undo": "Annuler",
+"Undo your last change. Ctrl+Z works too.": "Annule ta dernière modification. Ctrl+Z fonctionne aussi.",
+"Updating? Download again here; the version goes up by one so Minecraft replaces the old copy.": "Une mise à jour ? Télécharge à nouveau ici ; la version augmente d’un pour que Minecraft remplace l’ancienne copie.",
+"Use my skin…": "Utiliser mon skin…",
+"Use this pattern for both sides.": "Utilise ce motif pour les deux côtés.",
+"Version up": "Nouvelle version",
+"Walking": "En marche",
+"Whatever you draw on one half is copied to the other half. Shortcut: M.": "Ce que tu dessines sur une moitié est copié sur l’autre. Raccourci : M.",
+"{name} copy": "{name} copie",
+"{n} cape for {pack}|{n} capes for {pack}": "{n} cape pour {pack}|{n} capes pour {pack}",
+"{n} cape, version {v}.|{n} capes, version {v}.": "{n} cape, version {v}.|{n} capes, version {v}.",
+"{n} of {max}": "{n} sur {max}",
+"“{name}” has nothing painted on the outside.": "« {name} » n’a rien de peint à l’extérieur.",
+"“{name}”: {why}": "« {name} » : {why}"
+},
+"pt": {
+"(no name)": "(sem nome)",
+"3D preview of the selected cape on a player model": "Pré-visualização 3D da capa selecionada em um modelo de jogador",
+"<b>Open the downloaded .mcaddon</b> on the computer with Minecraft Education. It imports both packs.": "<b>Abra o .mcaddon baixado</b> no computador que tem o Minecraft Education. Ele importa os dois pacotes.",
+"<b>Wear a cape</b> by putting it in the chestplate slot. Press F5 to see it on your back.": "<b>Vista uma capa</b> colocando-a no espaço do peitoral. Pressione F5 para vê-la nas suas costas.",
+"A pack holds up to {max} capes.": "Um pacote comporta até {max} capas.",
+"Actual size": "Tamanho real",
+"Add another cape to this pack.": "Adicione outra capa a este pacote.",
+"Add at least one cape.": "Adicione pelo menos uma capa.",
+"Arm width": "Largura dos braços",
+"Behavior pack": "Pacote de comportamento",
+"Black and white with bold outlines, the easiest to read.": "Preto e branco com contornos grossos, o mais fácil de ler.",
+"Blank": "Em branco",
+"Build the add-on with all your capes and save it.": "Crie o complemento com todas as suas capas e salve-o.",
+"Cape name": "Nome da capa",
+"Cape names show in Minecraft exactly as you type them.": "Os nomes das capas aparecem no Minecraft exatamente como você os digita.",
+"Cape {n}": "Capa {n}",
+"Capes": "Capas",
+"Capes for {pack}": "Capas para {pack}",
+"Change the language, colors and text size.": "Altere o idioma, as cores e o tamanho do texto.",
+"Checker": "Xadrez",
+"Classic arms": "Braços clássicos",
+"Clear": "Limpar",
+"Cleverlike": "Cleverlike",
+"Click a square to copy its color.": "Clique em um quadrado para copiar a cor dele.",
+"Close": "Fechar",
+"Close this panel.": "Feche este painel.",
+"Color": "Cor",
+"Color one square at a time. Right-click to erase.": "Pinte um quadrado de cada vez. Clique com o botão direito para apagar.",
+"Color {hex}": "Cor {hex}",
+"Colors you draw with show up here.": "As cores que você usa aparecem aqui.",
+"Copy the outside": "Copiar o lado de fora",
+"Copy the outside design onto the inside, lined up like real fabric.": "Copie o desenho de fora para o lado de dentro, alinhado como um tecido de verdade.",
+"Create or edit a world. Under <b>Behavior Packs</b>, activate <b>{bp}</b>. The resource pack is added with it.": "Crie ou edite um mundo. Em <b>Pacotes de comportamento</b>, ative <b>{bp}</b>. O pacote de recursos é adicionado junto.",
+"Custom color": "Cor personalizada",
+"Dark": "Escuro",
+"Dark background, easier on the eyes in a dim room.": "Fundo escuro, mais confortável para os olhos em ambientes com pouca luz.",
+"Default skin": "Skin padrão",
+"Delete cape": "Excluir capa",
+"Deleted “{name}”.": "“{name}” foi excluída.",
+"Design": "Desenho",
+"Design capes, wear them in Minecraft Education": "Crie capas e use-as no Minecraft Education",
+"Display & language": "Exibição e idioma",
+"Download": "Baixar",
+"Download add-on": "Baixar complemento",
+"Downloaded version {v}. Open it on the computer with Minecraft Education.": "Versão {v} baixada. Abra-a no computador que tem o Minecraft Education.",
+"Drag to turn · scroll to zoom": "Arraste para girar · role para ampliar",
+"Draw both halves at once": "Desenhe as duas metades ao mesmo tempo",
+"Drawing tools": "Ferramentas de desenho",
+"Duplicate": "Duplicar",
+"Each player gets every cape the first time they join, and any new ones after an update.": "Cada jogador recebe todas as capas na primeira vez que entra, e as novas depois de uma atualização.",
+"Empty": "Vazia",
+"Erase the inside of the cape.": "Apague o lado de dentro da capa.",
+"Erase the outside of the cape.": "Apague o lado de fora da capa.",
+"Erase this side of the cape.": "Apague este lado da capa.",
+"Eraser <kbd>E</kbd>": "Borracha <kbd>E</kbd>",
+"Every cape becomes its own item in Minecraft.": "Cada capa vira um item próprio no Minecraft.",
+"Every cape needs a name.": "Toda capa precisa de um nome.",
+"Fill <kbd>G</kbd>": "Preencher <kbd>G</kbd>",
+"Fill a whole area of one color.": "Preencha uma área inteira de uma só cor.",
+"Fix the items above to download.": "Corrija os itens acima para baixar.",
+"Forest": "Floresta",
+"Give the pack a name.": "Dê um nome ao pacote.",
+"Go back to the default skin.": "Volte para a skin padrão.",
+"Goes up by one each time you download": "Aumenta em um a cada download",
+"Hand out capes on join": "Entregar capas ao entrar",
+"High contrast": "Alto contraste",
+"How to install in Minecraft Education": "Como instalar no Minecraft Education",
+"In the hotbar": "Na barra de atalhos",
+"Inside": "Lado de dentro",
+"Item icon": "Ícone do item",
+"Join the world. Everyone gets the capes the first time they join. They are also in the creative inventory under Equipment, and with cheats on, <span class=\"mono\">{fn}</span> gives them all.": "Entre no mundo. Todos recebem as capas na primeira vez que entram. Elas também ficam no inventário criativo, em Equipamento, e com as trapaças ativadas, <span class=\"mono\">{fn}</span> entrega todas.",
+"Join the world. The capes are in the creative inventory under Equipment. With cheats on, <span class=\"mono\">{fn}</span> gives them all.": "Entre no mundo. As capas ficam no inventário criativo, em Equipamento. Com as trapaças ativadas, <span class=\"mono\">{fn}</span> entrega todas.",
+"Language": "Idioma",
+"Large": "Grande",
+"Light": "Claro",
+"Make a copy of this cape to try a different version.": "Faça uma cópia desta capa para testar outra versão.",
+"Make all text bigger.": "Aumenta todo o texto.",
+"Make squares see-through.": "Deixa os quadrados transparentes.",
+"Match your device's light or dark setting.": "Segue a configuração clara ou escura do seu dispositivo.",
+"Mirror": "Espelhar",
+"Move down": "Mover para baixo",
+"Move up": "Mover para cima",
+"Movement": "Movimento",
+"My Capes": "Minhas capas",
+"Names can't include emails or links.": "Os nomes não podem conter e-mails nem links.",
+"Names can't include phone numbers.": "Os nomes não podem conter números de telefone.",
+"Needs a name": "Falta o nome",
+"New cape": "Nova capa",
+"New pack IDs. The next download is v{v}.": "Novos IDs de pacote. O próximo download será a v{v}.",
+"Night sky": "Céu noturno",
+"Normal": "Normal",
+"Only the preview uses this skin.": "Só a pré-visualização usa esta skin.",
+"Open a .mcaddon you made here before to keep working on it.": "Abra um .mcaddon que você fez aqui para continuar trabalhando nele.",
+"Open an add-on…": "Abrir um complemento…",
+"Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "“{pack}” aberto com {n} capa.|“{pack}” aberto com {n} capas.",
+"Outside": "Lado de fora",
+"Pack": "Pacote",
+"Pack ID": "ID do pacote",
+"Pack name": "Nome do pacote",
+"Pack name: {why}": "Nome do pacote: {why}",
+"Pattern applied. Undo brings your drawing back.": "Padrão aplicado. Desfazer traz seu desenho de volta.",
+"Pencil <kbd>B</kbd>": "Lápis <kbd>B</kbd>",
+"Pick color <kbd>I</kbd>": "Conta-gotas <kbd>I</kbd>",
+"Picking a pattern replaces both sides. Undo brings your drawing back.": "Escolher um padrão substitui os dois lados. Desfazer traz seu desenho de volta.",
+"Pixel drawing grid for the cape": "Grade de pixels da capa",
+"Pixel drawing grid for the inside of the cape": "Grade de pixels do lado de dentro da capa",
+"Pixel drawing grid for the outside of the cape": "Grade de pixels do lado de fora da capa",
+"Preview": "Pré-visualização",
+"Preview skin": "Skin da pré-visualização",
+"Preview the cape on your own Minecraft skin (a PNG file). It stays on this computer.": "Veja a capa na sua própria skin do Minecraft (um arquivo PNG). Ela fica neste computador.",
+"Preview with slim arms, like Alex.": "Pré-visualização com braços finos, como a Alex.",
+"Preview with wide arms, like Steve.": "Pré-visualização com braços largos, como o Steve.",
+"Put the camera back where it started.": "Volta a câmera para a posição inicial.",
+"Rainbow": "Arco-íris",
+"Ready": "Pronta",
+"Recent colors": "Cores recentes",
+"Redo": "Refazer",
+"Redo what you undid. Ctrl+Y works too.": "Refaz o que você desfez. Ctrl+Y também funciona.",
+"Redraw it": "Redesenhe",
+"Remove this cape from the pack.": "Remova esta capa do pacote.",
+"Rename it": "Renomeie",
+"Rename the cape “{name}”: {why}": "Renomeie a capa “{name}”: {why}",
+"Reset view": "Redefinir vista",
+"Resource pack": "Pacote de recursos",
+"Royal": "Real",
+"Shown in Minecraft's Behavior Packs list": "Aparece na lista de pacotes de comportamento do Minecraft",
+"Side": "Lado",
+"Side to paint": "Lado a pintar",
+"Slim arms": "Braços finos",
+"Soft light gray background.": "Fundo cinza-claro suave.",
+"Something went wrong building the add-on. Please try again.": "Algo deu errado ao criar o complemento. Tente novamente.",
+"Split": "Dividida",
+"Standard text size.": "Tamanho de texto padrão.",
+"Standing": "Parado",
+"Start a new version with new pack IDs. Use it if Minecraft keeps showing an old copy.": "Comece uma nova versão com novos IDs de pacote. Use isto se o Minecraft continuar mostrando uma cópia antiga.",
+"Start from a pattern": "Começar com um padrão",
+"Swap between the front and the back of the player.": "Alterna entre a frente e as costas do jogador.",
+"System": "Sistema",
+"Teacher check": "Revisão do professor",
+"Text size": "Tamanho do texto",
+"That doesn't look like a Minecraft skin. Skins are 64×64 PNG files.": "Isso não parece uma skin do Minecraft. Skins são arquivos PNG de 64×64.",
+"That file couldn't be opened. Choose a .mcaddon downloaded from this tool.": "Não foi possível abrir esse arquivo. Escolha um .mcaddon baixado desta ferramenta.",
+"That name includes a word that isn't allowed. Please choose a different name.": "Esse nome tem uma palavra que não é permitida. Escolha outro nome.",
+"That name includes words that aren't allowed. Please choose a different name.": "Esse nome tem palavras que não são permitidas. Escolha outro nome.",
+"The cape hangs down, like when you stand still.": "A capa fica pendurada, como quando você está parado.",
+"The cape lifts behind you, like when you walk.": "A capa sobe atrás de você, como quando você anda.",
+"The download tool couldn't load. Check the internet connection and reload the page.": "Não foi possível carregar a ferramenta de download. Verifique a conexão com a internet e recarregue a página.",
+"The item's name in Minecraft.": "O nome do item no Minecraft.",
+"The side against your back. It shows when the cape lifts.": "O lado que fica nas suas costas. Ele aparece quando a capa sobe.",
+"The side everyone sees on your back.": "O lado que todos veem nas suas costas.",
+"Theme": "Tema",
+"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "Este complemento não foi feito com o Cleverlike Cape Tool, então não pode ser aberto aqui.",
+"This drawing can't be used on a cape. Please draw something else.": "Este desenho não pode ser usado em uma capa. Desenhe outra coisa.",
+"This drawing is marked for a teacher to check.": "Este desenho foi marcado para um professor verificar.",
+"Tools": "Ferramentas",
+"Turn around": "Virar",
+"Undo": "Desfazer",
+"Undo your last change. Ctrl+Z works too.": "Desfaz sua última alteração. Ctrl+Z também funciona.",
+"Updating? Download again here; the version goes up by one so Minecraft replaces the old copy.": "Vai atualizar? Baixe de novo aqui; a versão aumenta em um para o Minecraft substituir a cópia antiga.",
+"Use my skin…": "Usar minha skin…",
+"Use this pattern for both sides.": "Use este padrão nos dois lados.",
+"Version up": "Nova versão",
+"Walking": "Andando",
+"Whatever you draw on one half is copied to the other half. Shortcut: M.": "O que você desenhar em uma metade é copiado para a outra. Atalho: M.",
+"{name} copy": "{name} cópia",
+"{n} cape for {pack}|{n} capes for {pack}": "{n} capa para {pack}|{n} capas para {pack}",
+"{n} cape, version {v}.|{n} capes, version {v}.": "{n} capa, versão {v}.|{n} capas, versão {v}.",
+"{n} of {max}": "{n} de {max}",
+"“{name}” has nothing painted on the outside.": "“{name}” não tem nada pintado do lado de fora.",
+"“{name}”: {why}": "“{name}”: {why}"
+},
+"de": {
+"(no name)": "(kein Name)",
+"3D preview of the selected cape on a player model": "3D-Vorschau des ausgewählten Umhangs an einem Spielermodell",
+"<b>Open the downloaded .mcaddon</b> on the computer with Minecraft Education. It imports both packs.": "<b>Öffne die heruntergeladene .mcaddon-Datei</b> auf dem Computer mit Minecraft Education. Sie importiert beide Pakete.",
+"<b>Wear a cape</b> by putting it in the chestplate slot. Press F5 to see it on your back.": "<b>Trage einen Umhang</b>, indem du ihn in den Brustplatten-Slot legst. Drücke F5, um ihn auf deinem Rücken zu sehen.",
+"A pack holds up to {max} capes.": "Ein Paket fasst bis zu {max} Umhänge.",
+"Actual size": "Originalgröße",
+"Add another cape to this pack.": "Füge diesem Paket einen weiteren Umhang hinzu.",
+"Add at least one cape.": "Füge mindestens einen Umhang hinzu.",
+"Arm width": "Armbreite",
+"Behavior pack": "Verhaltenspaket",
+"Black and white with bold outlines, the easiest to read.": "Schwarz-weiß mit kräftigen Umrissen, am leichtesten zu lesen.",
+"Blank": "Leer",
+"Build the add-on with all your capes and save it.": "Erstelle das Add-on mit all deinen Umhängen und speichere es.",
+"Cape name": "Name des Umhangs",
+"Cape names show in Minecraft exactly as you type them.": "Die Namen der Umhänge erscheinen in Minecraft genau so, wie du sie eingibst.",
+"Cape {n}": "Umhang {n}",
+"Capes": "Umhänge",
+"Capes for {pack}": "Umhänge für {pack}",
+"Change the language, colors and text size.": "Ändere Sprache, Farben und Textgröße.",
+"Checker": "Schachbrett",
+"Classic arms": "Klassische Arme",
+"Clear": "Leeren",
+"Cleverlike": "Cleverlike",
+"Click a square to copy its color.": "Klicke auf ein Feld, um seine Farbe zu übernehmen.",
+"Close": "Schließen",
+"Close this panel.": "Dieses Fenster schließen.",
+"Color": "Farbe",
+"Color one square at a time. Right-click to erase.": "Färbe ein Feld nach dem anderen. Rechtsklick radiert.",
+"Color {hex}": "Farbe {hex}",
+"Colors you draw with show up here.": "Hier erscheinen die Farben, mit denen du malst.",
+"Copy the outside": "Außenseite kopieren",
+"Copy the outside design onto the inside, lined up like real fabric.": "Kopiert das Außenmuster auf die Innenseite, ausgerichtet wie echter Stoff.",
+"Create or edit a world. Under <b>Behavior Packs</b>, activate <b>{bp}</b>. The resource pack is added with it.": "Erstelle oder bearbeite eine Welt. Aktiviere unter <b>Verhaltenspakete</b> <b>{bp}</b>. Das Ressourcenpaket wird mit hinzugefügt.",
+"Custom color": "Eigene Farbe",
+"Dark": "Dunkel",
+"Dark background, easier on the eyes in a dim room.": "Dunkler Hintergrund, angenehmer für die Augen in einem dunklen Raum.",
+"Default skin": "Standard-Skin",
+"Delete cape": "Umhang löschen",
+"Deleted “{name}”.": "„{name}“ wurde gelöscht.",
+"Design": "Design",
+"Design capes, wear them in Minecraft Education": "Gestalte Umhänge und trage sie in Minecraft Education",
+"Display & language": "Anzeige & Sprache",
+"Download": "Herunterladen",
+"Download add-on": "Add-on herunterladen",
+"Downloaded version {v}. Open it on the computer with Minecraft Education.": "Version {v} heruntergeladen. Öffne sie auf dem Computer mit Minecraft Education.",
+"Drag to turn · scroll to zoom": "Ziehen zum Drehen · scrollen zum Zoomen",
+"Draw both halves at once": "Beide Hälften gleichzeitig malen",
+"Drawing tools": "Malwerkzeuge",
+"Duplicate": "Duplizieren",
+"Each player gets every cape the first time they join, and any new ones after an update.": "Jeder Spieler bekommt beim ersten Betreten alle Umhänge und nach einem Update die neuen.",
+"Empty": "Leer",
+"Erase the inside of the cape.": "Radiert die Innenseite des Umhangs.",
+"Erase the outside of the cape.": "Radiert die Außenseite des Umhangs.",
+"Erase this side of the cape.": "Radiert diese Seite des Umhangs.",
+"Eraser <kbd>E</kbd>": "Radierer <kbd>E</kbd>",
+"Every cape becomes its own item in Minecraft.": "Jeder Umhang wird ein eigener Gegenstand in Minecraft.",
+"Every cape needs a name.": "Jeder Umhang braucht einen Namen.",
+"Fill <kbd>G</kbd>": "Füllen <kbd>G</kbd>",
+"Fill a whole area of one color.": "Füllt eine ganze Fläche einer Farbe.",
+"Fix the items above to download.": "Behebe die Punkte oben, um herunterzuladen.",
+"Forest": "Wald",
+"Give the pack a name.": "Gib dem Paket einen Namen.",
+"Go back to the default skin.": "Zurück zum Standard-Skin.",
+"Goes up by one each time you download": "Steigt bei jedem Download um eins",
+"Hand out capes on join": "Umhänge beim Betreten verteilen",
+"High contrast": "Hoher Kontrast",
+"How to install in Minecraft Education": "So installierst du es in Minecraft Education",
+"In the hotbar": "In der Schnellleiste",
+"Inside": "Innenseite",
+"Item icon": "Gegenstandssymbol",
+"Join the world. Everyone gets the capes the first time they join. They are also in the creative inventory under Equipment, and with cheats on, <span class=\"mono\">{fn}</span> gives them all.": "Betritt die Welt. Alle bekommen die Umhänge beim ersten Betreten. Sie sind auch im Kreativinventar unter Ausrüstung, und mit aktivierten Cheats gibt <span class=\"mono\">{fn}</span> alle aus.",
+"Join the world. The capes are in the creative inventory under Equipment. With cheats on, <span class=\"mono\">{fn}</span> gives them all.": "Betritt die Welt. Die Umhänge sind im Kreativinventar unter Ausrüstung. Mit aktivierten Cheats gibt <span class=\"mono\">{fn}</span> alle aus.",
+"Language": "Sprache",
+"Large": "Groß",
+"Light": "Hell",
+"Make a copy of this cape to try a different version.": "Erstelle eine Kopie dieses Umhangs, um eine andere Version auszuprobieren.",
+"Make all text bigger.": "Macht den ganzen Text größer.",
+"Make squares see-through.": "Macht Felder durchsichtig.",
+"Match your device's light or dark setting.": "Folgt der Hell- oder Dunkel-Einstellung deines Geräts.",
+"Mirror": "Spiegeln",
+"Move down": "Nach unten",
+"Move up": "Nach oben",
+"Movement": "Bewegung",
+"My Capes": "Meine Umhänge",
+"Names can't include emails or links.": "Namen dürfen keine E-Mail-Adressen oder Links enthalten.",
+"Names can't include phone numbers.": "Namen dürfen keine Telefonnummern enthalten.",
+"Needs a name": "Name fehlt",
+"New cape": "Neuer Umhang",
+"New pack IDs. The next download is v{v}.": "Neue Paket-IDs. Der nächste Download ist v{v}.",
+"Night sky": "Nachthimmel",
+"Normal": "Normal",
+"Only the preview uses this skin.": "Nur die Vorschau verwendet diesen Skin.",
+"Open a .mcaddon you made here before to keep working on it.": "Öffne eine hier erstellte .mcaddon-Datei, um daran weiterzuarbeiten.",
+"Open an add-on…": "Add-on öffnen…",
+"Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "„{pack}“ mit {n} Umhang geöffnet.|„{pack}“ mit {n} Umhängen geöffnet.",
+"Outside": "Außenseite",
+"Pack": "Paket",
+"Pack ID": "Paket-ID",
+"Pack name": "Paketname",
+"Pack name: {why}": "Paketname: {why}",
+"Pattern applied. Undo brings your drawing back.": "Muster angewendet. Rückgängig holt deine Zeichnung zurück.",
+"Pencil <kbd>B</kbd>": "Stift <kbd>B</kbd>",
+"Pick color <kbd>I</kbd>": "Farbe aufnehmen <kbd>I</kbd>",
+"Picking a pattern replaces both sides. Undo brings your drawing back.": "Ein Muster ersetzt beide Seiten. Rückgängig holt deine Zeichnung zurück.",
+"Pixel drawing grid for the cape": "Pixelraster für den Umhang",
+"Pixel drawing grid for the inside of the cape": "Pixelraster für die Innenseite des Umhangs",
+"Pixel drawing grid for the outside of the cape": "Pixelraster für die Außenseite des Umhangs",
+"Preview": "Vorschau",
+"Preview skin": "Vorschau-Skin",
+"Preview the cape on your own Minecraft skin (a PNG file). It stays on this computer.": "Zeige den Umhang auf deinem eigenen Minecraft-Skin (eine PNG-Datei). Er bleibt auf diesem Computer.",
+"Preview with slim arms, like Alex.": "Vorschau mit schmalen Armen, wie Alex.",
+"Preview with wide arms, like Steve.": "Vorschau mit breiten Armen, wie Steve.",
+"Put the camera back where it started.": "Setzt die Kamera an den Anfang zurück.",
+"Rainbow": "Regenbogen",
+"Ready": "Fertig",
+"Recent colors": "Zuletzt verwendete Farben",
+"Redo": "Wiederholen",
+"Redo what you undid. Ctrl+Y works too.": "Stellt Rückgängiggemachtes wieder her. Strg+Y geht auch.",
+"Redraw it": "Neu zeichnen",
+"Remove this cape from the pack.": "Entfernt diesen Umhang aus dem Paket.",
+"Rename it": "Umbenennen",
+"Rename the cape “{name}”: {why}": "Benenne den Umhang „{name}“ um: {why}",
+"Reset view": "Ansicht zurücksetzen",
+"Resource pack": "Ressourcenpaket",
+"Royal": "Königlich",
+"Shown in Minecraft's Behavior Packs list": "Wird in der Liste der Verhaltenspakete von Minecraft angezeigt",
+"Side": "Seite",
+"Side to paint": "Seite zum Bemalen",
+"Slim arms": "Schmale Arme",
+"Soft light gray background.": "Sanfter hellgrauer Hintergrund.",
+"Something went wrong building the add-on. Please try again.": "Beim Erstellen des Add-ons ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
+"Split": "Geteilt",
+"Standard text size.": "Normale Textgröße.",
+"Standing": "Stehen",
+"Start a new version with new pack IDs. Use it if Minecraft keeps showing an old copy.": "Startet eine neue Version mit neuen Paket-IDs. Nutze das, wenn Minecraft immer noch eine alte Kopie zeigt.",
+"Start from a pattern": "Mit einem Muster beginnen",
+"Swap between the front and the back of the player.": "Wechselt zwischen Vorder- und Rückseite des Spielers.",
+"System": "System",
+"Teacher check": "Lehrkraft prüft",
+"Text size": "Textgröße",
+"That doesn't look like a Minecraft skin. Skins are 64×64 PNG files.": "Das sieht nicht nach einem Minecraft-Skin aus. Skins sind PNG-Dateien mit 64×64 Pixeln.",
+"That file couldn't be opened. Choose a .mcaddon downloaded from this tool.": "Diese Datei ließ sich nicht öffnen. Wähle eine .mcaddon-Datei, die mit diesem Tool heruntergeladen wurde.",
+"That name includes a word that isn't allowed. Please choose a different name.": "Dieser Name enthält ein Wort, das nicht erlaubt ist. Bitte wähle einen anderen Namen.",
+"That name includes words that aren't allowed. Please choose a different name.": "Dieser Name enthält Wörter, die nicht erlaubt sind. Bitte wähle einen anderen Namen.",
+"The cape hangs down, like when you stand still.": "Der Umhang hängt herab, wie wenn du stillstehst.",
+"The cape lifts behind you, like when you walk.": "Der Umhang hebt sich hinter dir, wie beim Gehen.",
+"The download tool couldn't load. Check the internet connection and reload the page.": "Das Download-Werkzeug konnte nicht geladen werden. Prüfe die Internetverbindung und lade die Seite neu.",
+"The item's name in Minecraft.": "Der Name des Gegenstands in Minecraft.",
+"The side against your back. It shows when the cape lifts.": "Die Seite an deinem Rücken. Sie ist zu sehen, wenn sich der Umhang hebt.",
+"The side everyone sees on your back.": "Die Seite, die alle auf deinem Rücken sehen.",
+"Theme": "Design",
+"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "Dieses Add-on wurde nicht mit Cleverlike Cape Tool erstellt und kann hier nicht geöffnet werden.",
+"This drawing can't be used on a cape. Please draw something else.": "Diese Zeichnung kann nicht auf einem Umhang verwendet werden. Bitte zeichne etwas anderes.",
+"This drawing is marked for a teacher to check.": "Diese Zeichnung ist zur Prüfung durch eine Lehrkraft markiert.",
+"Tools": "Werkzeuge",
+"Turn around": "Umdrehen",
+"Undo": "Rückgängig",
+"Undo your last change. Ctrl+Z works too.": "Macht deine letzte Änderung rückgängig. Strg+Z geht auch.",
+"Updating? Download again here; the version goes up by one so Minecraft replaces the old copy.": "Aktualisieren? Lade hier erneut herunter; die Version steigt um eins, damit Minecraft die alte Kopie ersetzt.",
+"Use my skin…": "Meinen Skin verwenden…",
+"Use this pattern for both sides.": "Dieses Muster für beide Seiten verwenden.",
+"Version up": "Neue Version",
+"Walking": "Gehen",
+"Whatever you draw on one half is copied to the other half. Shortcut: M.": "Was du auf einer Hälfte malst, wird auf die andere kopiert. Kürzel: M.",
+"{name} copy": "{name} Kopie",
+"{n} cape for {pack}|{n} capes for {pack}": "{n} Umhang für {pack}|{n} Umhänge für {pack}",
+"{n} cape, version {v}.|{n} capes, version {v}.": "{n} Umhang, Version {v}.|{n} Umhänge, Version {v}.",
+"{n} of {max}": "{n} von {max}",
+"“{name}” has nothing painted on the outside.": "„{name}“ hat auf der Außenseite nichts gemalt.",
+"“{name}”: {why}": "„{name}“: {why}"
+},
+"zh": {
+"(no name)": "（未命名）",
+"3D preview of the selected cape on a player model": "所选披风在玩家模型上的 3D 预览",
+"<b>Open the downloaded .mcaddon</b> on the computer with Minecraft Education. It imports both packs.": "在装有 Minecraft Education 的电脑上<b>打开下载的 .mcaddon</b>。它会导入两个包。",
+"<b>Wear a cape</b> by putting it in the chestplate slot. Press F5 to see it on your back.": "把披风放进胸甲栏即可<b>穿上披风</b>。按 F5 可以在背后看到它。",
+"A pack holds up to {max} capes.": "一个包最多可包含 {max} 件披风。",
+"Actual size": "实际大小",
+"Add another cape to this pack.": "向这个包再添加一件披风。",
+"Add at least one cape.": "请至少添加一件披风。",
+"Arm width": "手臂宽度",
+"Behavior pack": "行为包",
+"Black and white with bold outlines, the easiest to read.": "黑白配色加粗轮廓，最容易阅读。",
+"Blank": "空白",
+"Build the add-on with all your capes and save it.": "用你所有的披风生成附加包并保存。",
+"Cape name": "披风名称",
+"Cape names show in Minecraft exactly as you type them.": "披风名称会按你输入的样子显示在 Minecraft 中。",
+"Cape {n}": "披风 {n}",
+"Capes": "披风",
+"Capes for {pack}": "{pack} 的披风",
+"Change the language, colors and text size.": "更改语言、颜色和文字大小。",
+"Checker": "棋盘格",
+"Classic arms": "经典手臂",
+"Clear": "清空",
+"Cleverlike": "Cleverlike",
+"Click a square to copy its color.": "点击一个方格来复制它的颜色。",
+"Close": "关闭",
+"Close this panel.": "关闭此面板。",
+"Color": "颜色",
+"Color one square at a time. Right-click to erase.": "一次涂一个方格。右键单击可擦除。",
+"Color {hex}": "颜色 {hex}",
+"Colors you draw with show up here.": "你用过的颜色会显示在这里。",
+"Copy the outside": "复制外侧",
+"Copy the outside design onto the inside, lined up like real fabric.": "把外侧图案复制到内侧，像真正的布料一样对齐。",
+"Create or edit a world. Under <b>Behavior Packs</b>, activate <b>{bp}</b>. The resource pack is added with it.": "创建或编辑一个世界。在<b>行为包</b>中激活 <b>{bp}</b>。资源包会随之添加。",
+"Custom color": "自定义颜色",
+"Dark": "深色",
+"Dark background, easier on the eyes in a dim room.": "深色背景，在光线较暗的房间里更护眼。",
+"Default skin": "默认皮肤",
+"Delete cape": "删除披风",
+"Deleted “{name}”.": "已删除“{name}”。",
+"Design": "设计",
+"Design capes, wear them in Minecraft Education": "设计披风，在 Minecraft Education 中穿上它们",
+"Display & language": "显示与语言",
+"Download": "下载",
+"Download add-on": "下载附加包",
+"Downloaded version {v}. Open it on the computer with Minecraft Education.": "已下载版本 {v}。请在装有 Minecraft Education 的电脑上打开它。",
+"Drag to turn · scroll to zoom": "拖动旋转 · 滚动缩放",
+"Draw both halves at once": "同时画两半",
+"Drawing tools": "绘图工具",
+"Duplicate": "复制一份",
+"Each player gets every cape the first time they join, and any new ones after an update.": "每位玩家第一次加入时会获得所有披风，更新后还会获得新的披风。",
+"Empty": "空的",
+"Erase the inside of the cape.": "擦除披风的内侧。",
+"Erase the outside of the cape.": "擦除披风的外侧。",
+"Erase this side of the cape.": "擦除披风的这一面。",
+"Eraser <kbd>E</kbd>": "橡皮擦 <kbd>E</kbd>",
+"Every cape becomes its own item in Minecraft.": "每件披风都会成为 Minecraft 中的独立物品。",
+"Every cape needs a name.": "每件披风都需要一个名称。",
+"Fill <kbd>G</kbd>": "填充 <kbd>G</kbd>",
+"Fill a whole area of one color.": "填充同一颜色的整片区域。",
+"Fix the items above to download.": "修正上面的问题后即可下载。",
+"Forest": "森林",
+"Give the pack a name.": "请给这个包起个名字。",
+"Go back to the default skin.": "恢复为默认皮肤。",
+"Goes up by one each time you download": "每下载一次加一",
+"Hand out capes on join": "加入时分发披风",
+"High contrast": "高对比度",
+"How to install in Minecraft Education": "如何在 Minecraft Education 中安装",
+"In the hotbar": "在快捷栏中",
+"Inside": "内侧",
+"Item icon": "物品图标",
+"Join the world. Everyone gets the capes the first time they join. They are also in the creative inventory under Equipment, and with cheats on, <span class=\"mono\">{fn}</span> gives them all.": "进入世界。每个人第一次加入时都会获得这些披风。它们也在创造模式物品栏的“装备”中；开启作弊后，<span class=\"mono\">{fn}</span> 可以发放全部披风。",
+"Join the world. The capes are in the creative inventory under Equipment. With cheats on, <span class=\"mono\">{fn}</span> gives them all.": "进入世界。披风在创造模式物品栏的“装备”中。开启作弊后，<span class=\"mono\">{fn}</span> 可以发放全部披风。",
+"Language": "语言",
+"Large": "大",
+"Light": "浅色",
+"Make a copy of this cape to try a different version.": "复制这件披风，试试另一种版本。",
+"Make all text bigger.": "放大所有文字。",
+"Make squares see-through.": "让方格变成透明。",
+"Match your device's light or dark setting.": "跟随设备的浅色或深色设置。",
+"Mirror": "镜像",
+"Move down": "下移",
+"Move up": "上移",
+"Movement": "动作",
+"My Capes": "我的披风",
+"Names can't include emails or links.": "名称不能包含电子邮箱或链接。",
+"Names can't include phone numbers.": "名称不能包含电话号码。",
+"Needs a name": "需要名称",
+"New cape": "新建披风",
+"New pack IDs. The next download is v{v}.": "已生成新的包 ID。下次下载为 v{v}。",
+"Night sky": "夜空",
+"Normal": "正常",
+"Only the preview uses this skin.": "只有预览会使用此皮肤。",
+"Open a .mcaddon you made here before to keep working on it.": "打开你之前在这里制作的 .mcaddon，继续编辑。",
+"Open an add-on…": "打开附加包…",
+"Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.": "已打开“{pack}”，共 {n} 件披风。",
+"Outside": "外侧",
+"Pack": "包",
+"Pack ID": "包 ID",
+"Pack name": "包名称",
+"Pack name: {why}": "包名称：{why}",
+"Pattern applied. Undo brings your drawing back.": "已应用图案。撤销可以恢复你的绘画。",
+"Pencil <kbd>B</kbd>": "铅笔 <kbd>B</kbd>",
+"Pick color <kbd>I</kbd>": "取色 <kbd>I</kbd>",
+"Picking a pattern replaces both sides. Undo brings your drawing back.": "选择图案会替换两面。撤销可以恢复你的绘画。",
+"Pixel drawing grid for the cape": "披风的像素绘图网格",
+"Pixel drawing grid for the inside of the cape": "披风内侧的像素绘图网格",
+"Pixel drawing grid for the outside of the cape": "披风外侧的像素绘图网格",
+"Preview": "预览",
+"Preview skin": "预览皮肤",
+"Preview the cape on your own Minecraft skin (a PNG file). It stays on this computer.": "在你自己的 Minecraft 皮肤（PNG 文件）上预览披风。皮肤只保存在这台电脑上。",
+"Preview with slim arms, like Alex.": "用细手臂预览，像 Alex 一样。",
+"Preview with wide arms, like Steve.": "用宽手臂预览，像 Steve 一样。",
+"Put the camera back where it started.": "把视角恢复到初始位置。",
+"Rainbow": "彩虹",
+"Ready": "就绪",
+"Recent colors": "最近使用的颜色",
+"Redo": "重做",
+"Redo what you undid. Ctrl+Y works too.": "重做你撤销的操作。也可以按 Ctrl+Y。",
+"Redraw it": "请重画",
+"Remove this cape from the pack.": "从包中移除这件披风。",
+"Rename it": "请改名",
+"Rename the cape “{name}”: {why}": "请重命名披风“{name}”：{why}",
+"Reset view": "重置视角",
+"Resource pack": "资源包",
+"Royal": "皇家",
+"Shown in Minecraft's Behavior Packs list": "显示在 Minecraft 的行为包列表中",
+"Side": "面",
+"Side to paint": "要绘制的面",
+"Slim arms": "细手臂",
+"Soft light gray background.": "柔和的浅灰色背景。",
+"Something went wrong building the add-on. Please try again.": "生成附加包时出错了。请再试一次。",
+"Split": "双色",
+"Standard text size.": "标准文字大小。",
+"Standing": "站立",
+"Start a new version with new pack IDs. Use it if Minecraft keeps showing an old copy.": "用新的包 ID 开始一个新版本。如果 Minecraft 一直显示旧版本，请使用此功能。",
+"Start from a pattern": "从图案开始",
+"Swap between the front and the back of the player.": "在玩家的正面和背面之间切换。",
+"System": "跟随系统",
+"Teacher check": "待老师检查",
+"Text size": "文字大小",
+"That doesn't look like a Minecraft skin. Skins are 64×64 PNG files.": "这看起来不像 Minecraft 皮肤。皮肤是 64×64 的 PNG 文件。",
+"That file couldn't be opened. Choose a .mcaddon downloaded from this tool.": "无法打开该文件。请选择从本工具下载的 .mcaddon。",
+"That name includes a word that isn't allowed. Please choose a different name.": "这个名称包含不允许使用的词。请换一个名称。",
+"That name includes words that aren't allowed. Please choose a different name.": "这个名称包含不允许使用的词语。请换一个名称。",
+"The cape hangs down, like when you stand still.": "披风自然下垂，就像你站着不动时一样。",
+"The cape lifts behind you, like when you walk.": "披风在身后飘起，就像你走路时一样。",
+"The download tool couldn't load. Check the internet connection and reload the page.": "下载工具无法加载。请检查网络连接并刷新页面。",
+"The item's name in Minecraft.": "物品在 Minecraft 中的名称。",
+"The side against your back. It shows when the cape lifts.": "贴着你后背的那一面。披风飘起时会看到它。",
+"The side everyone sees on your back.": "大家在你背后看到的那一面。",
+"Theme": "主题",
+"This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.": "此附加包不是用 Cleverlike Cape Tool 制作的，无法在这里打开。",
+"This drawing can't be used on a cape. Please draw something else.": "这个图案不能用在披风上。请画点别的。",
+"This drawing is marked for a teacher to check.": "这个图案已标记，需由老师检查。",
+"Tools": "工具",
+"Turn around": "转身",
+"Undo": "撤销",
+"Undo your last change. Ctrl+Z works too.": "撤销上一步更改。也可以按 Ctrl+Z。",
+"Updating? Download again here; the version goes up by one so Minecraft replaces the old copy.": "要更新？在这里重新下载；版本号会加一，这样 Minecraft 会替换旧版本。",
+"Use my skin…": "使用我的皮肤…",
+"Use this pattern for both sides.": "两面都使用这个图案。",
+"Version up": "升级版本",
+"Walking": "行走",
+"Whatever you draw on one half is copied to the other half. Shortcut: M.": "在一半上画的内容会复制到另一半。快捷键：M。",
+"{name} copy": "{name} 副本",
+"{n} cape for {pack}|{n} capes for {pack}": "{pack} 的 {n} 件披风",
+"{n} cape, version {v}.|{n} capes, version {v}.": "{n} 件披风，版本 {v}。",
+"{n} of {max}": "{n}/{max}",
+"“{name}” has nothing painted on the outside.": "“{name}”的外侧什么都没画。",
+"“{name}”: {why}": "“{name}”：{why}"
+}
+};
+
+
+/* Cleverlike Cape Tool — hover explanations (from Cleverlike Emote Tool)
+ * Any element with data-tip="English text" gets a small pop-up after the pointer rests on it
+ * (or after it gets keyboard focus). The text is translated when shown. */
+(function (G) {
+  "use strict";
+  const DELAY = 650, t = (s) => (G.CapeI18n ? G.CapeI18n.t(s) : s);
+  let tip, timer = 0, target = null;
+
+  function el() {
+    if (!tip) {
+      tip = document.createElement("div");
+      tip.id = "tip"; tip.className = "tip"; tip.setAttribute("role", "tooltip"); tip.hidden = true;
+      document.body.appendChild(tip);
+    }
+    return tip;
+  }
+  function place(node) {
+    const r = node.getBoundingClientRect(), b = el();
+    b.style.left = "0px"; b.style.top = "0px";
+    const w = b.offsetWidth, h = b.offsetHeight, gap = 8, vw = document.documentElement.clientWidth;
+    let top = r.top - h - gap, below = false;
+    if (top < 6) { top = r.bottom + gap; below = true; }
+    let left = r.left + r.width / 2 - w / 2;
+    left = Math.max(6, Math.min(left, vw - w - 6));
+    b.style.left = left + "px"; b.style.top = top + "px";
+    b.dataset.side = below ? "below" : "above";
+    b.style.setProperty("--arrow-x", Math.max(10, Math.min(w - 10, r.left + r.width / 2 - left)) + "px");
+  }
+  function show(node) {
+    if (!node.isConnected || node.closest("[hidden]")) return;
+    const b = el();
+    b.textContent = t(node.dataset.tip);
+    const host = node.closest("dialog[open]") || document.body;
+    if (b.parentNode !== host) host.appendChild(b);
+    b.hidden = false; place(node);
+    const ids = (node.getAttribute("aria-describedby") || "").split(/\s+/).filter((x) => x && x !== "tip");
+    node.setAttribute("aria-describedby", [...ids, "tip"].join(" "));
+  }
+  function hide() {
+    clearTimeout(timer); timer = 0;
+    if (target) {
+      const ids = (target.getAttribute("aria-describedby") || "").split(/\s+/).filter((x) => x && x !== "tip");
+      if (ids.length) target.setAttribute("aria-describedby", ids.join(" ")); else target.removeAttribute("aria-describedby");
+    }
+    target = null;
+    if (tip) tip.hidden = true;
+  }
+  function arm(node, delay) {
+    if (node === target) return;
+    hide(); target = node;
+    timer = setTimeout(() => { if (target === node) show(node); }, delay);
+  }
+
+  document.addEventListener("pointerover", (e) => {
+    if (e.pointerType === "touch") return;
+    const n = e.target.closest("[data-tip]");
+    if (n) arm(n, DELAY); else if (target) hide();
+  });
+  document.addEventListener("pointerout", (e) => {
+    if (target && !(e.relatedTarget && target.contains(e.relatedTarget))) hide();
+  });
+  document.addEventListener("focusin", (e) => {
+    const n = e.target.closest && e.target.closest("[data-tip]");
+    if (n && n.matches(":focus-visible")) arm(n, DELAY); else if (target) hide();
+  });
+  document.addEventListener("focusout", () => { if (target) hide(); });
+  for (const ev of ["pointerdown", "scroll", "wheel", "resize"]) addEventListener(ev, () => { if (target) hide(); }, { capture: true, passive: true });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && tip && !tip.hidden) { hide(); } }, true);
+
+  G.CapeTips = { hide };
+})(typeof window !== "undefined" ? window : globalThis);
+
+
+/* Cleverlike Cape Tool — content checks for student work (from Cleverlike Emote Tool)
+ * Text: blocks profanity, slurs, violence, sexual and drug terms, self-harm phrases and contact info in names.
+ * Drawings: shape check for crude doodles (run on each cape side, padded to 16×16).
+ * Word lists are stored ROT13-encoded so they aren't readable at a glance in the page source.
+ * Teachers can add words with EXTRA_WORDS (plain text, whole-word matches). */
+(function (G) {
+  "use strict";
+  const EXTRA_WORDS = [];   // e.g. ["sus"]: your own additions, matched as whole words
+  // Harmless phrases that contain a blocked word; these are allowed as a whole phrase
+  const ALLOW_PHRASES = ["shooting star", "shooting stars", "dead sea", "dead end", "shot put", "big shot", "photo shot", "killer whale", "killer bees"];
+
+  const rot13 = (s) => s.replace(/[a-z]/g, (c) => String.fromCharCode(((c.charCodeAt(0) - 97 + 13) % 26) + 97));
+  const L = {"s": ["shpx", "shx", "shd", "spx", "fuvg", "phag", "ovgpu", "ovngpu", "juber", "fyhg", "avttre", "avttn", "snttbg", "sntbg", "ergneq", "qvyqb", "cbea", "encvfg", "zbyrfg", "cravf", "intvan", "obbo", "gvggvrf", "wvmm", "anmv", "uvgyre", "nffubyr", "nefrubyr", "qhzonff", "wnpxnff", "onfgneq", "gjng", "jnax", "pbpxfhpx", "qvpxurnq", "zbgures", "obyybpx", "ubeal", "ahqr", "anxrq", "kkk", "xvyylbhefrys", "fhvpvqr", "jrgonpx", "genaal", "fcnfgvp", "crqbcuvyr", "cnrqb", "uragnv", "zvys", "oybjwbo", "unaqwbo", "phzfubg", "betnfz", "rerpgvba", "grfgvpyr", "fpebghz", "pyvgbevf", "chovp", "fgevccre", "ubbxre", "cebfgvghg", "urebva", "pbpnvar", "zrgu", "jrrq", "znevwhnan", "zheqre", "znffnper", "orurnq", "qrpncvgng", "fynhtugre", "greebevf", "trabpvqr", "gbeghe", "fgenaty", "oybbqongu", "thafubg", "fubbgbhg", "frkhny", "frkgvat", "rebgvp", "srgvfu", "xvaxl", "oqfz", "yvatrevr", "cnagvrf", "avccyr", "travgny", "pbaqbz", "ivnten", "znfgheong", "frqhp", "frafhny", "cbeafgne", "baylsnaf", "guerrfbzr", "sbercynl", "fgevcpyho"], "w": ["nff", "nffrf", "nefr", "frk", "frkl", "nany", "nahf", "phz", "pbpx", "qvpx", "qvpxf", "chffl", "cevpx", "cvff", "cvffrq", "penc", "qnza", "uryy", "encr", "encrq", "encvat", "crqb", "xxx", "puvax", "fcvp", "xvxr", "qlxr", "tbbx", "pbba", "snt", "sntf", "gvgf", "gvg", "obare", "ubr", "ubrf", "gubg", "xlf", "xzf", "yrfob", "qehax", "orre", "ibqxn", "avtn", "fug", "xvyy", "xvyyf", "xvyyrq", "xvyyre", "xvyyref", "xvyyvat", "fgno", "fgnof", "fgnoorq", "fgnoovat", "fubbg", "fubbgf", "fubbgvat", "fubbgre", "fubg", "tha", "thaf", "evsyr", "evsyrf", "cvfgby", "cvfgbyf", "obzo", "obzof", "obzovat", "ahxr", "teranqr", "ohyyrg", "ohyyrgf", "jrncba", "jrncbaf", "xavsr", "xavirf", "funax", "oybbq", "oybbql", "tber", "tbel", "pbecfr", "pbecfrf", "qvr", "qvrf", "qlvat", "qrnq", "qrngu", "pubxr", "pubxvat", "abbfr", "ubfgntr", "nffnhyg", "ivbyrapr", "ivbyrag", "nohfr", "nohfrq", "fgevc", "fgevccvat", "fgevcgrnfr", "guehfg", "guehfgvat", "uhzc", "uhzcvat", "gjrex", "gjrexvat", "obbgl", "oernfg", "oernfgf", "oen", "oenf", "gubat", "gubatf", "ubeal", "frkv", "frkk", "afsj", "yrjq", "ubggvr", "sernxl", "ohggubyr", "ohz"], "a": ["fphagubecr", "avttyr", "avttyvat", "fuvgnxr", "fuvvgnxr", "pbpxgnvy", "crnpbpx", "unapbpx", "uvgpupbpx", "qvpxraf", "nffnffva", "pynffvp", "pynff", "tenff", "tynff", "onff", "cnff", "znff", "oenff", "uryyb", "furyy", "furyysvfu", "gurencvfg", "tencr", "qencr", "qbphzrag", "phphzore", "gbecrqb", "nanylfvf", "nanybt", "henahf", "crqny", "crqbzrgre", "ergneqnag", "zrgubq", "zrgubqf", "zrgunar", "fbzrguvat", "jrrxraq", "fuvugmh", "chfflpng", "fhffrk", "rffrk", "frkgnag", "frkgrg", "gvgnavp", "gvgyr", "gvgyrf", "pbafgvghgvba", "xvffvat", "onffvfg", "rzonffl", "unenff", "pbzcnff", "pbpxcvg", "pbpxngbb", "pbpxebnpu", "fpencobbx", "urebvar", "urebvarf", "gjrrq", "gjrrqyr", "fxlfpencre", "gurencvfgf", "penccyr", "fxvyy", "fxvyyf", "fxvyyrq", "fxvyyrg", "fgevcr", "fgevcrf", "fgevcrq", "oenib", "oenir", "noen", "pboen", "mroen", "nytroen", "yvoenel", "hzoeryyn", "fubgbxna", "qvrg", "ohzoyrorr", "ohzcre", "ohzcl", "uhzcgl", "puhzcl", "qnqqlybatyrtf", "fznfure", "thagure", "ortha", "thaqnz", "obzonfgvp", "obzore", "qrnqyvar", "qrnqcbby", "qvrfry", "fghqvrf", "vaqvr", "tbbqvrf", "pbbxvrf", "xvyyqrre", "oybbqubhaq", "guehfu", "fuber"]};
+  const SEVERE = L.s.map(rot13), WHOLE = new Set([...L.w.map(rot13), ...EXTRA_WORDS.map((w) => w.toLowerCase())]), ALLOW = L.a.map(rot13);
+  const collapse = (s) => s.replace(/(.)\1+/g, "$1");
+  const PHRASES = ["xvyy lbhefrys", "xvyy hefrys", "xvyy lbhe frys", "xvyy he frys", "tb qvr", "xvyy zlfrys", "xvyy lbh", "xvyy h", "v jvyy xvyy", "tbaan xvyy", "fubbg hc", "oybj hc", "fyvg guebng", "fyvg lbhe guebng", "orng lbh hc", "unat lbhefrys", "qvr va n sver", "phg zlfrys", "znxr bhg", "argsyvk naq puvyy", "uvg gung", "trg anxrq", "gnxr vg bss", "oraq bire", "ba lbhe xarrf"].map(rot13);
+  const SEVERE_C = SEVERE.map(collapse);
+
+  const LEET = { "0": "o", "3": "e", "4": "a", "5": "s", "7": "t", "8": "b", "9": "g", "@": "a", "$": "s", "!": "i", "|": "l", "+": "t", "€": "e", "£": "l" };
+  function variants(text) {
+    const base = text.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/§./g, "");
+    const map = (s, one) => s.replace(/[0345789@$!|+€£1]/g, (c) => (c === "1" ? one : LEET[c]));
+    return [...new Set([map(base, "i"), map(base, "l")])];
+  }
+
+  const BAD_WORD = "That name includes a word that isn't allowed. Please choose a different name.";
+  /** Returns null when the text is fine, otherwise a friendly reason (never repeats the word) */
+  function checkText(text) {
+    const raw = String(text || "");
+    if (/[\w.+-]+@[\w-]+\.[a-z]{2,}/i.test(raw) || /(https?:\/\/|www\.|\.(com|net|org|edu|io|gg|tv|me|ly)\b)/i.test(raw)) return "Names can't include emails or links.";
+    if (/(\d[\s.()-]*){7,}/.test(raw)) return "Names can't include phone numbers.";
+    if (/[8b]\s*[=\-~]{2,}\s*[d>]/i.test(raw)) return BAD_WORD;
+    if (/(^|[^\d])(69|420|666)([^\d]|$)/.test(raw)) return BAD_WORD;
+    for (let v of variants(raw)) {
+      for (const ap of ALLOW_PHRASES) v = v.split(ap).join(" ");
+      const tokens = v.split(/[^a-z]+/).filter(Boolean);
+      const merged = []; let run = "";
+      for (const t of tokens) { if (t.length === 1) run += t; else { if (run) merged.push(run); run = ""; merged.push(t); } }
+      if (run) merged.push(run);
+      const spaced = " " + merged.join(" ") + " ";
+      if (PHRASES.some((p) => spaced.includes(" " + p + " ") || spaced.replace(/ /g, "").includes(p.replace(/ /g, "")) && merged.length === 1)) return "That name includes words that aren't allowed. Please choose a different name.";
+      for (const t of merged.filter((x) => !ALLOW.includes(x))) {
+        const tc = collapse(t);
+        if (SEVERE.some((w) => t.includes(w)) || SEVERE_C.some((w) => w.length >= 4 && tc.includes(w))) return BAD_WORD;
+      }
+      for (const t of merged) {
+        if (ALLOW.includes(t)) continue;
+        if (WHOLE.has(t)) return BAD_WORD;
+        const tc = collapse(t);
+        if (tc !== t && [...WHOLE].some((w) => collapse(w) === tc && w.length > 2)) return BAD_WORD;
+      }
+    }
+    return null;
+  }
+
+  /** Remove whatever makes `text` fail checkText. keepLast: leave the last word alone while it is still being typed. */
+  function sanitize(text, keepLast = false) {
+    let parts = String(text || "").split(/(\s+)/);
+    let tail = "";
+    if (keepLast && parts.length && !/\s$/.test(text)) tail = parts.pop();
+    const words = () => parts.filter((p) => !/^\s+$/.test(p) && p !== "");
+    let removed = false;
+    for (let guard = 0; guard < 20; guard++) {
+      const w = words();
+      if (!checkText(w.join(" "))) break;
+      const bad = w.filter((x) => checkText(x));
+      if (bad.length) { parts = parts.filter((p) => !bad.includes(p)); removed = true; continue; }
+      let cut = null;
+      for (let len = 2; len <= w.length && !cut; len++)
+        for (let i = 0; i + len <= w.length && !cut; i++) if (checkText(w.slice(i, i + len).join(" "))) cut = [i, len];
+      if (!cut) break;
+      const drop = new Set(w.slice(cut[0], cut[0] + cut[1]).map((x, k) => cut[0] + k));
+      let idx = -1;
+      parts = parts.filter((p) => (/^\s+$/.test(p) || p === "") ? true : !drop.has(++idx));
+      removed = true;
+    }
+    let out = parts.join("").replace(/\s{2,}/g, " ").replace(/^\s+/, "");
+    if (tail) out += tail;
+    return { text: out, removed };
+  }
+
+  // ------------------------------------------------------------------ drawing shape check
+  /* Looks for the outline of a crude phallic doodle in pixels, at any angle. Colours are only
+   * supporting evidence; the decision is made on shape. Returns {level: "block" | "flag", reason} or null. */
+  function checkDrawing(px) {
+    const n = Math.round(Math.sqrt(px.length));
+    if (n * n !== px.length) return null;
+    const { masks, bg } = candidateMasks(px, n);
+    const colours = new Set(px.filter((c) => c && c !== bg));
+    const lineArt = colours.size > 0 && [...colours].every((h) => { const [r, g, b] = hexRgb(h); return 0.299 * r + 0.587 * g + 0.114 * b < 55; });
+    let best = null;
+    for (const mask of masks) {
+      for (const comp of components(fillHoles(mask, n), n)) {
+        if (comp.length < (n === 16 ? 10 : 24)) continue;
+        const r = analyseShape(comp, px, n, bg, lineArt);
+        if (r && (!best || r.score > best.score)) best = r;
+      }
+    }
+    if (!best) return null;
+    if (best.level === "block") return { level: "block", reason: "This drawing can't be used on a cape. Please draw something else." };
+    return { level: "flag", reason: "This drawing is marked for a teacher to check." };
+  }
+
+  function candidateMasks(px, n) {
+    const masks = [px.map((c) => !!c)];
+    const border = [];
+    for (let i = 0; i < n; i++) border.push(px[i], px[(n - 1) * n + i], px[i * n], px[i * n + n - 1]);
+    const counts = {};
+    for (const c of border) if (c) counts[c] = (counts[c] || 0) + 1;
+    const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+    const bg = top && top[1] > border.length * 0.4 ? top : null;
+    if (bg) masks.push(px.map((c) => !!c && c !== bg[0]));
+    const totals = {};
+    px.forEach((c) => { if (c) totals[c] = (totals[c] || 0) + 1; });
+    const groups = [];
+    for (const [c, k] of Object.entries(totals)) {
+      const rgb = hexRgb(c);
+      const g = groups.find((x) => Math.hypot(x.rgb[0] - rgb[0], x.rgb[1] - rgb[1], x.rgb[2] - rgb[2]) < 60);
+      if (g) { g.colors.add(c); g.count += k; } else groups.push({ rgb, colors: new Set([c]), count: k });
+    }
+    for (const g of groups) if (g.count >= n * 0.6 && (!bg || !g.colors.has(bg[0]))) masks.push(px.map((c) => !!c && g.colors.has(c)));
+    return { masks, bg: bg ? bg[0] : null };
+  }
+
+  function fillHoles(mask, n) {
+    const outside = new Array(n * n).fill(false), stack = [];
+    for (let i = 0; i < n; i++) for (const k of [i, (n - 1) * n + i, i * n, i * n + n - 1]) if (!mask[k] && !outside[k]) { outside[k] = true; stack.push(k); }
+    while (stack.length) {
+      const k = stack.pop(), x = k % n, y = (k / n) | 0;
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const X = x + dx, Y = y + dy, j = Y * n + X;
+        if (X >= 0 && Y >= 0 && X < n && Y < n && !mask[j] && !outside[j]) { outside[j] = true; stack.push(j); }
+      }
+    }
+    return mask.map((m, k) => m || !outside[k]);
+  }
+
+  function components(mask, n) {
+    const seen = new Array(n * n).fill(false), out = [];
+    for (let s = 0; s < n * n; s++) {
+      if (!mask[s] || seen[s]) continue;
+      const comp = [], stack = [s]; seen[s] = true;
+      while (stack.length) {
+        const k = stack.pop(); comp.push(k);
+        const x = k % n, y = (k / n) | 0;
+        for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+          const X = x + dx, Y = y + dy, j = Y * n + X;
+          if ((dx || dy) && X >= 0 && Y >= 0 && X < n && Y < n && mask[j] && !seen[j]) { seen[j] = true; stack.push(j); }
+        }
+      }
+      out.push(comp);
+    }
+    return out;
+  }
+
+  function analyseShape(comp, px, n, bg, lineArt) {
+    const pts = comp.map((k) => [k % n + 0.5, ((k / n) | 0) + 0.5]);
+    const mx = pts.reduce((a, p) => a + p[0], 0) / pts.length, my = pts.reduce((a, p) => a + p[1], 0) / pts.length;
+    let sxx = 0, syy = 0, sxy = 0;
+    for (const [x, y] of pts) { sxx += (x - mx) ** 2; syy += (y - my) ** 2; sxy += (x - mx) * (y - my); }
+    const ang = 0.5 * Math.atan2(2 * sxy, sxx - syy), ca = Math.cos(ang), sa = Math.sin(ang);
+    const set = new Set(comp);
+    const inside = (x, y) => { const X = Math.floor(x), Y = Math.floor(y); return X >= 0 && Y >= 0 && X < n && Y < n && set.has(Y * n + X); };
+    let umin = Infinity, umax = -Infinity, vmin = Infinity, vmax = -Infinity;
+    for (const [x, y] of pts) {
+      const u = (x - mx) * ca + (y - my) * sa, v = -(x - mx) * sa + (y - my) * ca;
+      umin = Math.min(umin, u - 0.7); umax = Math.max(umax, u + 0.7); vmin = Math.min(vmin, v - 0.7); vmax = Math.max(vmax, v + 0.7);
+    }
+    const step = 0.5, U = Math.ceil((umax - umin) / step), V = Math.ceil((vmax - vmin) / step);
+    const grid = [];
+    for (let i = 0; i < U; i++) {
+      const row = [];
+      for (let j = 0; j < V; j++) {
+        const u = umin + (i + 0.5) * step, v = vmin + (j + 0.5) * step;
+        row.push(inside(mx + u * ca - v * sa, my + u * sa + v * ca));
+      }
+      grid.push(row);
+    }
+    const widthAt = (i) => grid[i].filter(Boolean).length * step;
+    const spanAt = (i) => { const idx = grid[i].map((b, j) => (b ? j : -1)).filter((j) => j >= 0); return idx.length ? [idx[0], idx[idx.length - 1]] : null; };
+    let first = 0, last = U - 1;
+    while (first < U && !widthAt(first)) first++;
+    while (last > first && !widthAt(last)) last--;
+    const len = (last - first + 1) * step;
+    if (len < 4) return null;
+    const at = (f) => Math.min(last, Math.max(first, Math.round(first + f * (last - first))));
+    const mean = (a, b) => { let s = 0, c = 0; for (let i = at(a); i <= at(b); i++) { s += widthAt(i); c++; } return s / c; };
+    let flipped = false;
+    if (mean(0, 0.3) < mean(0.7, 1)) { grid.reverse(); flipped = true; const f = U - 1 - last; last = U - 1 - first; first = f; }
+
+    const shaft = []; for (let i = at(0.45); i <= at(0.78); i++) shaft.push(widthAt(i));
+    shaft.sort((a, b) => a - b);
+    const ws = shaft[Math.floor(shaft.length / 2)];
+    if (!ws) return null;
+    let wb = 0, baseRow = first; for (let i = first; i <= at(0.4); i++) if (widthAt(i) > wb) { wb = widthAt(i); baseRow = i; }
+    const tip = Math.max(...Array.from({ length: last - at(0.88) + 1 }, (_, k) => widthAt(at(0.88) + k)));
+    const elong = len / ws >= 2.4;
+    const wideBase = wb / ws >= 1.55;
+    const steady = Array.from({ length: at(0.78) - at(0.45) + 1 }, (_, k) => widthAt(at(0.45) + k)).every((w) => w >= ws * 0.5 && w <= ws * (ws <= 3 ? 2 : 1.6));
+    const narrowTip = tip <= ws * 2.25 && tip <= wb * 0.7;
+    let baseEnd = baseRow; while (baseEnd < last && widthAt(baseEnd) > ws * 1.3) baseEnd++;
+    const baseFrac = (baseEnd - first) * step / len;
+    const baseOk = baseFrac >= 0.12 && baseFrac <= 0.5;
+    const shaftSpans = []; for (let i = at(0.55); i <= at(0.8); i++) { const sp = spanAt(i); if (sp) shaftSpans.push(sp); }
+    const sL = Math.min(...shaftSpans.map((s) => s[0])), sR = Math.max(...shaftSpans.map((s) => s[1]));
+    const bs = spanAt(baseRow);
+    const bumps = bs && (sL - bs[0]) * step >= ws * 0.3 && (bs[1] - sR) * step >= ws * 0.3;
+    if (!(elong && wideBase && steady && narrowTip && baseOk && bumps)) return null;
+
+    const bumpsIn = (row) => {
+      const segs = []; let j = 0;
+      while (j < row.length) { if (!row[j]) { j++; continue; } let k = j; while (k < row.length && row[k]) k++; segs.push([j, k]); j = k; }
+      const merged = [];
+      for (const sg of segs) { const prev = merged[merged.length - 1]; if (prev && sg[0] - prev[1] < 2) prev[1] = sg[1]; else merged.push(sg.slice()); }
+      return merged.filter(([a, b]) => b - a >= 2).length;
+    };
+    let maxRuns = 0;
+    for (let i = first; i <= baseRow; i++) maxRuns = Math.max(maxRuns, bumpsIn(grid[i]));
+    if (maxRuns >= 3) return null;
+
+    const reach = [];
+    for (let j = bs[0]; j <= bs[1]; j++) { let i = first; while (i <= baseEnd && !grid[i][j]) i++; reach.push(i); }
+    const mid = Math.round(((sL + sR) / 2) - bs[0]);
+    const leftMin = Math.min(...reach.slice(0, Math.max(1, mid - 1))), rightMin = Math.min(...reach.slice(Math.min(reach.length - 1, mid + 2)));
+    const centre = Math.max(...reach.slice(Math.max(0, mid - 1), Math.min(reach.length, mid + 2)));
+    const notch = (centre - Math.max(leftMin, rightMin)) * step >= 0.75;
+
+    const colourAt = (i, j) => {
+      const ii = flipped ? U - 1 - i : i;
+      const u = umin + (ii + 0.5) * step, v = vmin + (j + 0.5) * step;
+      const X = Math.floor(mx + u * ca - v * sa), Y = Math.floor(my + u * sa + v * ca);
+      return X >= 0 && Y >= 0 && X < n && Y < n ? px[Y * n + X] : "";
+    };
+    const regionColours = (i0, i1, j0, j1) => {
+      const c = {};
+      for (let i = i0; i <= i1; i++) for (let j = j0; j <= j1; j++) { const h = grid[i] && grid[i][j] ? colourAt(i, j) : ""; if (h && h !== bg) c[h] = (c[h] || 0) + 1; }
+      return c;
+    };
+    const dominant = (i0, i1, j0, j1) => {
+      const c = regionColours(i0, i1, j0, j1);
+      const lum = (h) => { const [r, g, b] = hexRgb(h); return 0.299 * r + 0.587 * g + 0.114 * b; };
+      let list = Object.entries(c).filter(([h]) => h !== bg).sort((a, b) => b[1] - a[1]);
+      const fills = list.filter(([h]) => lum(h) >= 55);
+      if (fills.length) list = fills;
+      return list[0]?.[0];
+    };
+    const cShaft = dominant(at(0.55), at(0.8), sL, sR), cBase = dominant(first, baseEnd, bs[0], bs[1]);
+    const near = (a, b) => a && b && Math.hypot(...hexRgb(a).map((v, k) => v - hexRgb(b)[k])) < 70;
+    const shaftSet = Object.keys(regionColours(at(0.55), at(0.8), sL, sR)), baseSet = Object.keys(regionColours(first, baseEnd, bs[0], bs[1]));
+    const dark = (h) => { const [r, g, b] = hexRgb(h); return 0.299 * r + 0.587 * g + 0.114 * b < 55; };
+    const sameColour = near(cShaft, cBase) || (shaftSet.length > 0 && shaftSet.every(dark) && shaftSet.every((a) => baseSet.some((b) => near(a, b))));
+    const fleshy = (h) => h && (isSkinTone(...hexRgb(h)) || (() => { const [r, g, b] = hexRgb(h); return r > 170 && b > 110 && r - g > 40; })());
+    const skinish = fleshy(cShaft) || fleshy(cBase);
+
+    const score = 3 + (notch ? 2 : 0) + (sameColour ? 1 : 0) + (skinish ? 1 : 0);
+    const taper = (baseEnd - baseRow) * step / ws;
+    const midJ = Math.round((sL + sR) / 2);
+    let through = 0, baseRows = 0;
+    for (let i = first; i <= baseEnd; i++) {
+      if (!grid[i][midJ]) continue;
+      baseRows++;
+      const c = colourAt(i, midJ), c2 = colourAt(i, Math.max(sL, midJ - 1));
+      if (near(c, cShaft) || near(c2, cShaft)) through++;
+    }
+    const sideL = dominant(first, baseEnd, bs[0], Math.max(bs[0], sL - 1)), sideR = dominant(first, baseEnd, Math.min(bs[1], sR + 1), bs[1]);
+    const splitLobes = baseRows >= 2 && through / baseRows >= 0.6 && sideL && sideR && !near(sideL, cShaft) && !near(sideR, cShaft);
+    const cTip = dominant(at(0.88), last, sL, sR);
+    const tipMatches = !cTip || near(cTip, cShaft);
+
+    const baseLen = Math.max(step, (baseEnd - first) * step);
+    let area = 0; for (let i = first; i <= baseEnd; i++) area += widthAt(i);
+    const fill = area * step / (wb * baseLen);
+    const outer = widthAt(Math.min(last, first + 1)) / wb;
+    const feats = { baseAspect: wb / baseLen, fill, outer, rise: (baseRow - first) * step / ws, tipRatio: tip / ws, wbws: wb / ws, taper };
+    if (notch && sameColour) return { level: "block", score };
+    if (splitLobes && tipMatches) return { level: "block", score };
+    const discOrTriangle = feats.baseAspect < 1.3;
+    const domeCap = feats.fill < 0.74 && feats.rise >= 0.9;
+    const finEdge = feats.rise < 0.2;
+    if (discOrTriangle || domeCap || finEdge) return null;
+    return { level: "flag", score };
+  }
+
+  function isSkinTone(r, g, b) {
+    const y = 0.299 * r + 0.587 * g + 0.114 * b;
+    const cb = 128 - 0.168736 * r - 0.331264 * g + 0.5 * b, cr = 128 + 0.5 * r - 0.418688 * g - 0.081312 * b;
+    return y > 60 && cb >= 77 && cb <= 127 && cr >= 137 && cr <= 173;
+  }
+  const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+
+  /** Check one 10×16 cape side: padded into a 16×16 square so the icon-tuned thresholds apply */
+  function checkCapeSide(px, w = 10, h = 16) {
+    const n = Math.max(w, h), ox = Math.floor((n - w) / 2), oy = Math.floor((n - h) / 2);
+    const sq = new Array(n * n).fill("");
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) sq[(y + oy) * n + x + ox] = px[y * w + x] || "";
+    return checkDrawing(sq);
+  }
+
+  G.CapeFilter = { checkText, sanitize, checkDrawing, checkCapeSide, isSkinTone };
+})(typeof window !== "undefined" ? window : globalThis);
+
+
+/* Cleverlike Cape Tool — 3D preview
+ * The Bedrock player rig from Cleverlike Emote Tool (geometry.humanoid.custom / customSlim) with three.js,
+ * plus the cape exactly as the add-on builds it: a 10×16×1 box on the body bone, pivot [0, 24, 2],
+ * per-face UVs into the 64×32 cape texture. Coordinates follow Blockbench: Bedrock X is mirrored,
+ * rotations apply as (-x, -y, z) in ZYX order. Units are pixels (16 = one block). */
+(function (G) {
+  "use strict";
+  const DEG = Math.PI / 180;
+
+  function rigDef(slim) {
+    const aw = slim ? 3 : 4, ap = slim ? 21.5 : 22;
+    return [
+      { name: "root", parent: null, pivot: [0, 0, 0] },
+      { name: "waist", parent: "root", pivot: [0, 12, 0] },
+      { name: "body", parent: "waist", pivot: [0, 24, 0], cubes: [{ o: [-4, 12, -2], s: [8, 12, 4], uv: [16, 16] }] },
+      { name: "jacket", parent: "body", pivot: [0, 24, 0], cubes: [{ o: [-4, 12, -2], s: [8, 12, 4], uv: [16, 32], i: 0.25 }] },
+      { name: "head", parent: "body", pivot: [0, 24, 0], cubes: [{ o: [-4, 24, -4], s: [8, 8, 8], uv: [0, 0] }] },
+      { name: "hat", parent: "head", pivot: [0, 24, 0], cubes: [{ o: [-4, 24, -4], s: [8, 8, 8], uv: [32, 0], i: 0.5 }] },
+      { name: "rightArm", parent: "body", pivot: [-5, ap, 0], cubes: [{ o: [-4 - aw, 12, -2], s: [aw, 12, 4], uv: [40, 16] }] },
+      { name: "rightSleeve", parent: "rightArm", pivot: [-5, ap, 0], cubes: [{ o: [-4 - aw, 12, -2], s: [aw, 12, 4], uv: [40, 32], i: 0.25 }] },
+      { name: "leftArm", parent: "body", pivot: [5, ap, 0], cubes: [{ o: [4, 12, -2], s: [aw, 12, 4], uv: [32, 48] }] },
+      { name: "leftSleeve", parent: "leftArm", pivot: [5, ap, 0], cubes: [{ o: [4, 12, -2], s: [aw, 12, 4], uv: [48, 48], i: 0.25 }] },
+      { name: "rightLeg", parent: "root", pivot: [-1.9, 12, 0], cubes: [{ o: [-3.9, 0, -2], s: [4, 12, 4], uv: [0, 16] }] },
+      { name: "rightPants", parent: "rightLeg", pivot: [-1.9, 12, 0], cubes: [{ o: [-3.9, 0, -2], s: [4, 12, 4], uv: [0, 32], i: 0.25 }] },
+      { name: "leftLeg", parent: "root", pivot: [1.9, 12, 0], cubes: [{ o: [-0.1, 0, -2], s: [4, 12, 4], uv: [16, 48] }] },
+      { name: "leftPants", parent: "leftLeg", pivot: [1.9, 12, 0], cubes: [{ o: [-0.1, 0, -2], s: [4, 12, 4], uv: [0, 48], i: 0.25 }] },
+      // the cape bone, as in the add-on's attachable geometry
+      { name: "cape", parent: "body", pivot: [0, 24, 2] },
+    ];
+  }
+
+  function buildGeometry(THREE, quads, pivot, texW, texH) {
+    const px = -pivot[0], py = pivot[1], pz = pivot[2];
+    const pos = [], uvs = [], nrm = [];
+    for (const [tl, tr, br, bl, rect, n] of quads) {
+      const [u0, v0, rw, rh] = rect;
+      const U = (x) => x / texW, V = (y) => 1 - y / texH;
+      const P = [tl, bl, br, tl, br, tr];
+      const T = [[u0, v0], [u0, v0 + rh], [u0 + rw, v0 + rh], [u0, v0], [u0 + rw, v0 + rh], [u0 + rw, v0]];
+      for (let k = 0; k < 6; k++) {
+        pos.push(P[k][0] - px, P[k][1] - py, P[k][2] - pz);
+        uvs.push(U(T[k][0]), V(T[k][1]));
+        nrm.push(...n);
+      }
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+    g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+    g.setAttribute("normal", new THREE.Float32BufferAttribute(nrm, 3));
+    return g;
+  }
+
+  /** Box-UV cube (player parts) */
+  function cubeGeometry(THREE, c, pivot, texW, texH) {
+    const [ox, oy, oz] = c.o, [w, h, d] = c.s, [u, v] = c.uv, i = c.i || 0;
+    const X0 = -(ox + w) - i, X1 = -ox + i, Y0 = oy - i, Y1 = oy + h + i, Z0 = oz - i, Z1 = oz + d + i;
+    return buildGeometry(THREE, [
+      [[X1, Y1, Z0], [X0, Y1, Z0], [X0, Y0, Z0], [X1, Y0, Z0], [u + d, v + d, w, h], [0, 0, -1]],
+      [[X1, Y1, Z1], [X1, Y1, Z0], [X1, Y0, Z0], [X1, Y0, Z1], [u, v + d, d, h], [1, 0, 0]],
+      [[X0, Y1, Z0], [X0, Y1, Z1], [X0, Y0, Z1], [X0, Y0, Z0], [u + d + w, v + d, d, h], [-1, 0, 0]],
+      [[X0, Y1, Z1], [X1, Y1, Z1], [X1, Y0, Z1], [X0, Y0, Z1], [u + 2 * d + w, v + d, w, h], [0, 0, 1]],
+      [[X1, Y1, Z1], [X0, Y1, Z1], [X0, Y1, Z0], [X1, Y1, Z0], [u + d, v, w, d], [0, 1, 0]],
+      [[X1, Y0, Z0], [X0, Y0, Z0], [X0, Y0, Z1], [X1, Y0, Z1], [u + d + w, v, w, d], [0, -1, 0]],
+    ], pivot, texW, texH);
+  }
+
+  /** The cape: origin [-5, 8, 2], size [10, 16, 1]; per-face UVs match the add-on's geometry
+   *  (south/outside 1,1 · north/inside 12,1 · east 0,1 · west 11,1 · up 1,0 · down 11,0) */
+  function capeGeometry(THREE) {
+    const X0 = -5, X1 = 5, Y0 = 8, Y1 = 24, Z0 = 2, Z1 = 3;
+    return buildGeometry(THREE, [
+      [[X0, Y1, Z1], [X1, Y1, Z1], [X1, Y0, Z1], [X0, Y0, Z1], [1, 1, 10, 16], [0, 0, 1]],    // outside (back of player)
+      [[X1, Y1, Z0], [X0, Y1, Z0], [X0, Y0, Z0], [X1, Y0, Z0], [12, 1, 10, 16], [0, 0, -1]],  // inside
+      [[X0, Y1, Z0], [X0, Y1, Z1], [X0, Y0, Z1], [X0, Y0, Z0], [0, 1, 1, 16], [-1, 0, 0]],    // east edge
+      [[X1, Y1, Z1], [X1, Y1, Z0], [X1, Y0, Z0], [X1, Y0, Z1], [11, 1, 1, 16], [1, 0, 0]],    // west edge
+      [[X0, Y1, Z0], [X1, Y1, Z0], [X1, Y1, Z1], [X0, Y1, Z1], [1, 0, 10, 1], [0, 1, 0]],     // top
+      [[X0, Y0, Z1], [X1, Y0, Z1], [X1, Y0, Z0], [X0, Y0, Z0], [11, 0, 10, 1], [0, -1, 0]],   // bottom
+    ], [0, 24, 2], 64, 32);
+  }
+
+  /** Default preview skins (64×64), the same ones Cleverlike Emote Tool uses */
+  const DEFAULT_SKIN = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAC+ElEQVR4AexavYoUQRCu3UThLlLwFlZEUfEVLtfYQM0u8gnEn+gwMDDVdzBYzIwMFQzvAUwExR9c2BPTwzO5PWq4D5q6mqqZ673rnple+Kjuqa6vu76ug+6ZG5Pze//559LC/YfPlhYc+uRuVwBe4eaNy6SBjn7TjQlpOHJnbRoJkHUGkYsrAkQK2PnwUgGd38LIBBpVwM7X36QBc893F6QB/pzt+Pbi1dLC28VFsvDm5gWysP/tydJCanGqCtjcuEQasLirkzXSAP/atSukAf5z01ukAf6UthIg5QJSz91IgHtTIgYWy20G+l22jQTocoLe2hsJ8G5OxAAZtxnod9k2EqDLCXprrwTY2f1DGhD8Y7FHGuDf+/6LNMD/f/6FNMB/llbONf44eToK8fjvAwqxP3tBIWZ31kch1re3RyE+3d2iEB/+PaIQWy/HFEK+S5ALlH35bqJtvOSrKkA+xN0fz3HXR9+ziJcWceCTFn7PghfjwIN+G6sK0Iag62NVAXDuR3I456PvWcRLizjwSQu/Z8GLceBBv409dheQ5355zpfnenmPkPGyL/lmzw8oRFt+ySfjPTGqCsA9AINx7kcf53z0ca5Hvy4ePLAYX8cHXliMr+OHv44PfstWAlgD+u4rAvR9h738SgV4CvXdXyqg7zvs5VcqwFOo7/6qAvAuAMni7o8+7vro426Pfl08eGAxvo4PvLAYX8cPfx0f+z0cex8Q3vW5Hd71uX3++utRiPBdArc5xgJzhAi5tDZzhpDcIRe3JYcrgDeg7/7qT6DvSVr5FQEsdYbgKxUwhF22ciwVYKkzBF+pgCHsspVjqQBLnSH4SgUMYZetHHtXAVaymm/lAsR+v4+N15K0nq1cAJ4s9vt9bDyvoSlORYCmk+cw7lQEiP1+HxvfRthoAbz/D/C+38fGt0lWGxstAJPGfr+Pjec1nBQrEeCkk+cQVwTIYRdSrqFUQEr1c5i7VEAOu5ByDaUCUqqfw9wrqYDY7/cx8bEiHgIAAP//rCdZDQAAAAZJREFUAwCVozDeWe9Q4QAAAABJRU5ErkJggg==";
+  const DEFAULT_SKIN_SLIM = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAADNUlEQVR4AexavYoUQRCu3UThLlLwDlZEUfEVLtfYQM0u8gnEn+gwMJDL9B0MFjMjQwXDewATQfEHF/bE0MMzceUb7oOyrna6b2buen564aOqt36m6+sKuqdnLIHf6/dfF2W4fffRogyB9MnNQQIww40r58WDHPwma+vi4cDcahFFQKsrqDm5TEBNAjsfnjug80tYs4CoDtj5+F088Nmz3bl4oL3Ncnx9/mxRhpfzs1KGF1fPSBn2Pz1YlCE1OUUHbKydEw+c3MX1FfFA+8qlC+KB9lOTa+KB9pSyICDlBFI/O4qAWxMRgJOFDnDcZRlFQJcLDM09ioBXMxGAyaADHHdZRhHQ5QJDcy8I2Nn9IR4Y/GW+Jx5o3/v8TTzQ/mf2QTzQfpLSPmv8dv3hSOP+zzuisT99IhrTG6sjjdWtrZHGu5ubovHm9z3R2Hw6Fg37LsFO0I71uwkda/1ix0UHWGee/fk/z/ochyTjrWQc81lJe0giL32Qg3oV6RJQJVFXY1wCuO9nUdzncxySjLeSccxnJe0hibz0QQ7qVeShs4Dd99t9vt3X23OEjbdjm2/6+K9oHCW/zvVre/u/M0csGUUH8BzAIO77OeY+n2Pu6zleFs88lPRflo95Kenv5afNy0VbjCwIiHHsq08moK8rG1tX7oBYpvrqlzugrysbW1fugFim+upXdADfBbBInv055lmfY57tOV4WzzyU9F+Wj3kp6e/lp83LRRtkCIfeB+izPnR91od++vLzkYZ+lwAdMWVADg2dy9ORU0Pn1nmg6/hQ4bQXHcDBEGUmYIirrmvOHaDZGKKeO2CIq65rzh2g2RiinjtgiKuua84doNkYop47oG+rftR6Gu8AfX8PXd/hQw9NEDEE/IlQXFV74wRgIri/B6ADuMMHoMfAxsbEVPU5FgKqTiZF3LEQgPt7gAXhDh/gOCRtbMi/jr02AaHvA/QdPvSTvv8PkVObADzAu7/HNwGwAd4dPr4BgA3w4vE/4MXi/6bQCAFNTSZFnkxACtbb9MzcAW1ajRRzyR2QgvU2PTN3QJtWI8VcGukA7/4e3wSwIO8OH98A0O7F0+bF0gZZF/8AAAD//4WEasYAAAAGSURBVAMArnkGjhysXyYAAAAASUVORK5CYII=";
+  function loadDefaultSkin(slim) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => { const cv = document.createElement("canvas"); cv.width = img.width; cv.height = img.height; cv.getContext("2d").drawImage(img, 0, 0); resolve(cv); };
+      img.onerror = () => resolve(makeDefaultSkin());
+      img.src = slim ? DEFAULT_SKIN_SLIM : DEFAULT_SKIN;
+    });
+  }
+  function makeDefaultSkin() {
+    const cv = document.createElement("canvas"); cv.width = cv.height = 64;
+    const g = cv.getContext("2d");
+    const fill = (c, x, y, w, h) => { g.fillStyle = c; g.fillRect(x, y, w, h); };
+    const SKIN = "#c98e66", HAIR = "#4a2f22", SHIRT = "#2f7f88", PANTS = "#36395c", SHOE = "#24232b";
+    fill(SKIN, 0, 0, 32, 16); fill(HAIR, 8, 0, 8, 8); fill(HAIR, 0, 8, 32, 2); fill(HAIR, 24, 8, 8, 8);
+    fill(SHIRT, 16, 16, 24, 16); fill(SHIRT, 40, 16, 16, 16); fill(SKIN, 40, 29, 16, 3);
+    fill(SHIRT, 32, 48, 16, 16); fill(SKIN, 32, 61, 16, 3);
+    fill(PANTS, 0, 16, 16, 16); fill(SHOE, 0, 29, 16, 3); fill(PANTS, 16, 48, 16, 16); fill(SHOE, 16, 61, 16, 3);
+    return cv;
+  }
+
+  function makeRig(THREE, skinCanvas, slim, capeTexture) {
+    const texture = new THREE.CanvasTexture(skinCanvas);
+    texture.magFilter = THREE.NearestFilter; texture.minFilter = THREE.NearestFilter; texture.generateMipmaps = false;
+    const base = new THREE.MeshLambertMaterial({ map: texture, alphaTest: 0.5 });
+    const layer = new THREE.MeshLambertMaterial({ map: texture, alphaTest: 0.1, transparent: true });
+    const capeMat = new THREE.MeshLambertMaterial({ map: capeTexture, alphaTest: 0.5, side: THREE.DoubleSide });
+    const bones = {}, rest = {}; let root = null;
+    const tw = 64, th = Math.round(64 * skinCanvas.height / skinCanvas.width);
+    const def = rigDef(slim);
+    for (const b of def) {
+      const grp = new THREE.Group(); grp.name = b.name; grp.rotation.order = "ZYX";
+      const parent = b.parent ? def.find((x) => x.name === b.parent) : null;
+      const pp = parent ? parent.pivot : [0, 0, 0];
+      grp.position.set(-(b.pivot[0] - pp[0]), b.pivot[1] - pp[1], b.pivot[2] - pp[2]);
+      rest[b.name] = grp.position.clone();
+      for (const c of b.cubes || []) {
+        if (th === 32 && c.uv[1] >= 32) continue;
+        const uv = th === 32 && (b.name === "leftArm" || b.name === "leftLeg") ? (b.name === "leftArm" ? [40, 16] : [0, 16]) : c.uv;
+        grp.add(new THREE.Mesh(cubeGeometry(THREE, { ...c, uv }, b.pivot, tw, th), c.i ? layer : base));
+      }
+      if (b.name === "cape") grp.add(new THREE.Mesh(capeGeometry(THREE), capeMat));
+      if (b.parent) bones[b.parent].add(grp); else root = grp;
+      bones[b.name] = grp;
+    }
+    return { root, bones, rest, dispose() { root.traverse((o) => { if (o.geometry) o.geometry.dispose(); }); texture.dispose(); base.dispose(); layer.dispose(); capeMat.dispose(); } };
+  }
+
+  const VIEW = { yaw: 330, pitch: 10, dist: 82 };   // starts behind the player, so the cape is in view
+
+  function createPreview(canvas, THREE) {
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(G.devicePixelRatio || 1, 2));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(32, 1, 1, 1000);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8597, 0.75));
+    const sun = new THREE.DirectionalLight(0xffffff, 0.55); sun.position.set(-30, 60, 40); scene.add(sun);
+
+    const grid = new THREE.GridHelper(64, 4, 0x888888, 0x888888); scene.add(grid);
+    const shadowCv = document.createElement("canvas"); shadowCv.width = shadowCv.height = 64;
+    const sg = shadowCv.getContext("2d"); const grd = sg.createRadialGradient(32, 32, 2, 32, 32, 32);
+    grd.addColorStop(0, "rgba(0,0,0,0.35)"); grd.addColorStop(1, "rgba(0,0,0,0)"); sg.fillStyle = grd; sg.fillRect(0, 0, 64, 64);
+    const shadow = new THREE.Mesh(new THREE.PlaneGeometry(22, 22), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(shadowCv), transparent: true, depthWrite: false }));
+    shadow.rotation.x = -Math.PI / 2; shadow.position.y = 0.05; scene.add(shadow);
+
+    // the cape texture is a 64×32 canvas the page redraws as you paint
+    const capeCanvas = document.createElement("canvas"); capeCanvas.width = 64; capeCanvas.height = 32;
+    const capeTex = new THREE.CanvasTexture(capeCanvas);
+    capeTex.magFilter = THREE.NearestFilter; capeTex.minFilter = THREE.NearestFilter; capeTex.generateMipmaps = false;
+
+    let rig = null, slim = false, walking = false, walkMix = 0, phase = 0, life = 0;
+    const view = { ...VIEW };
+
+    function buildRig(skinCanvas) {
+      if (rig) { scene.remove(rig.root); rig.dispose(); }
+      rig = makeRig(THREE, skinCanvas, slim, capeTex); scene.add(rig.root);
+    }
+
+    function placeCamera() {
+      const t = new THREE.Vector3(0, 17, 0), y = view.yaw * DEG, p = view.pitch * DEG;
+      camera.position.set(t.x + view.dist * Math.sin(y) * Math.cos(p), t.y + view.dist * Math.sin(p), t.z + view.dist * Math.cos(y) * Math.cos(p));
+      camera.lookAt(t);
+    }
+    function resize() {
+      const r = canvas.parentElement.getBoundingClientRect();
+      const w = Math.max(1, Math.floor(r.width)), h = Math.max(1, Math.floor(r.height));
+      renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+    }
+    new ResizeObserver(resize).observe(canvas.parentElement);
+
+    let drag = null, spin = 0;
+    canvas.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, id: e.pointerId }; spin = 0; canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener("pointermove", (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      view.yaw -= (e.clientX - drag.x) * 0.5; view.pitch = Math.max(-20, Math.min(70, view.pitch + (e.clientY - drag.y) * 0.4));
+      drag.x = e.clientX; drag.y = e.clientY;
+    });
+    const end = () => { drag = null; };
+    canvas.addEventListener("pointerup", end); canvas.addEventListener("pointercancel", end);
+    canvas.addEventListener("wheel", (e) => { e.preventDefault(); view.dist = Math.max(40, Math.min(160, view.dist * (1 + Math.sign(e.deltaY) * 0.08))); }, { passive: false });
+
+    /** Pose: walk cycle on arms and legs; the cape uses the add-on's own formula
+     *  (5° + up to 50° with speed + a 1.5° flutter, in Molang degrees) */
+    function pose(dt) {
+      if (!rig) return;
+      life += dt;
+      walkMix += ((walking ? 1 : 0) - walkMix) * Math.min(1, dt * 5);
+      phase += dt * 7 * walkMix;
+      const swing = Math.sin(phase) * 32 * walkMix;
+      const B = rig.bones;
+      B.rightLeg.rotation.x = swing * DEG; B.leftLeg.rotation.x = -swing * DEG;
+      B.rightArm.rotation.x = -swing * 0.8 * DEG; B.leftArm.rotation.x = swing * 0.8 * DEG;
+      const speed = 0.55 * walkMix;   // q.modified_move_speed while walking is about this
+      const capeDeg = 5 + Math.min(speed * 60, 50) + Math.sin(life * 120 * DEG) * 1.5;
+      B.cape.rotation.x = -capeDeg * DEG;
+    }
+
+    let last = performance.now();
+    function frame(now) {
+      const dt = Math.min(0.1, (now - last) / 1000); last = now;
+      if (spin) { const step = Math.sign(spin) * Math.min(Math.abs(spin), dt * 540); view.yaw += step; spin -= step; }
+      pose(dt); placeCamera(); renderer.render(scene, camera);
+      requestAnimationFrame(frame);
+    }
+    resize(); requestAnimationFrame(frame);
+
+    return {
+      setSkin(cv, isSlim) { slim = !!isSlim; buildRig(cv); },
+      /** draw = (ctx) => paints the 64×32 cape texture */
+      setCape(draw) { const g = capeCanvas.getContext("2d"); g.clearRect(0, 0, 64, 32); draw(g); capeTex.needsUpdate = true; },
+      setWalking(on) { walking = !!on; },
+      turnAround() { spin += 180; },
+      resetView() { spin = 0; Object.assign(view, VIEW); },
+      setColors(bg, line) {
+        scene.background = new THREE.Color(bg);
+        const m = grid.material; m.vertexColors = false; m.color = new THREE.Color(line); m.transparent = true; m.opacity = 0.7; m.needsUpdate = true;
+      },
+    };
+  }
+
+  G.CapePreview = { createPreview, loadDefaultSkin, makeDefaultSkin };
+})(typeof window !== "undefined" ? window : globalThis);
+
+
+/* Cleverlike Cape Tool — capes, textures and the add-on packager
+ * A cape design is two 10×16 pixel grids ("#rrggbb" or "" for see-through), row by row:
+ * the outside (seen on the player's back) and the inside (seen when the cape lifts).
+ * The add-on layout is the one proven in Minecraft Education during the cape spike test:
+ * a chest-slot wearable item + an attachable that draws a cape on the body bone. */
+(function (G) {
+  "use strict";
+  const t = (s, p) => (G.CapeI18n ? G.CapeI18n.t(s, p) : s.replace(/\{(\w+)\}/g, (m, k) => (p && k in p ? p[k] : m)).split("|").pop());
+
+  const W = 10, H = 16, N = W * H;
+  const MIN_ENGINE = [1, 20, 50];
+  const SERVER_VERSION = "1.8.0";          // @minecraft/server, confirmed working in Minecraft Education
+  const MAX_CAPES = 20;
+
+  function uuid() {
+    if (G.crypto && G.crypto.randomUUID) return G.crypto.randomUUID();
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0; return (c === "x" ? r : (r & 3) | 8).toString(16);
+    });
+  }
+  function shortId() { return "abcdefghijkmnpqrstuvwxyz"[Math.floor(Math.random() * 24)] + Math.random().toString(36).slice(2, 7); }
+  const freshIds = () => ({ rp: uuid(), rpMod: uuid(), bp: uuid(), bpData: uuid(), bpScript: uuid() });
+
+  // ------------------------------------------------------------------ colours
+  const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const rgbHex = (r, g, b) => "#" + [r, g, b].map((v) => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, "0")).join("");
+  const shade = (h, f) => { const [r, g, b] = hexRgb(h); return rgbHex(r * f, g * f, b * f); };
+  function dominant(px) {
+    const c = {}; for (const h of px) if (h) c[h] = (c[h] || 0) + 1;
+    return Object.entries(c).sort((a, b) => b[1] - a[1])[0]?.[0] || null;
+  }
+
+  // ------------------------------------------------------------------ patterns
+  const grid = (fn) => Array.from({ length: N }, (_, i) => fn(i % W, (i / W) | 0) || "");
+  const PATTERNS = [
+    { id: "cleverlike", name: "Cleverlike", px: grid((x, y) => y >= 13 ? (x < 6 ? "#174fa2" : x < 8 ? "#febd01" : "#ed287f") :
+        ((x === 4 || x === 5) && y >= 4 && y <= 8) || ((x === 3 || x === 6) && y >= 5 && y <= 7) ? "#00aef0" : "#10499c") },
+    { id: "royal", name: "Royal", px: grid((x, y) => (x === 0 || x === 9 || y === 0 || y === 15) ? "#e0a92a" :
+        (y === 2 && [2, 4, 5, 7].includes(x)) || ((y === 3 || y === 4) && x >= 2 && x <= 7) ? "#fed83d" : "#b02e26") },
+    { id: "rainbow", name: "Rainbow", px: grid((x, y) => ["#b02e26", "#f9801d", "#fed83d", "#80c71f", "#3ab3da", "#3c44aa", "#6a3fa6", "#c74ebd"][Math.floor(y / 2)]) },
+    { id: "night", name: "Night sky", px: grid((x, y) => [[2, 2], [7, 3], [4, 6], [8, 8], [1, 10], [5, 12], [7, 14], [3, 14]].some(([a, b]) => a === x && b === y) ? (x % 2 ? "#ffffff" : "#fed83d") : y > 12 ? "#2d3a5a" : "#1d293d") },
+    { id: "checker", name: "Checker", px: grid((x, y) => ((x >> 1) + (y >> 1)) % 2 ? "#3f3f3f" : "#ffffff") },
+    { id: "split", name: "Split", px: grid((x) => (x < 5 ? "#ed287f" : "#00aef0")) },
+    { id: "forest", name: "Forest", px: grid((x, y) => y > 11 ? "#5a2d0c" : (Math.abs(x - 4.5) <= (y % 6) * 0.9 && y % 6 > 0) ? "#80c71f" : "#5e7c16") },
+    { id: "blank", name: "Blank", px: grid(() => "#ffffff") },
+  ];
+  /** Both sides from a pattern: the inside is a darker plain version of the main colour */
+  function fromPattern(p) {
+    const outside = p.px.slice();
+    const main = dominant(outside) || "#3f3f3f";
+    return { outside, inside: new Array(N).fill(shade(main, 0.62)) };
+  }
+
+  // ------------------------------------------------------------------ project
+  function newCape(project, name, patternId) {
+    const p = PATTERNS.find((x) => x.id === patternId) || PATTERNS[0];
+    return { key: shortId(), name, ...fromPattern(p) };
+  }
+  function newProject() {
+    const project = { format: 1, tool: "cleverlike-cape", pid: shortId(), packName: t("My Capes"), ids: freshIds(), version: [1, 0, 0], giveOnJoin: true, capes: [] };
+    project.capes.push(newCape(project, t("Cape {n}", { n: 1 }), "cleverlike"));
+    return project;
+  }
+  /** Make an opened project safe to use (missing fields, wrong-sized grids) */
+  function repair(p) {
+    if (!p || !Array.isArray(p.capes) || !p.ids) throw new Error("damaged");
+    p.pid = p.pid || shortId(); p.packName = String(p.packName || "My Capes"); p.version = Array.isArray(p.version) ? p.version : [1, 0, 0];
+    p.giveOnJoin = p.giveOnJoin !== false;
+    p.capes = p.capes.slice(0, MAX_CAPES).map((c) => {
+      const fix = (a) => Array.from({ length: N }, (_, i) => (Array.isArray(a) && /^#[0-9a-f]{6}$/i.test(a[i]) ? a[i].toLowerCase() : ""));
+      return { key: c.key || shortId(), name: String(c.name || "Cape"), outside: fix(c.outside), inside: fix(c.inside), flagged: !!c.flagged };
+    });
+    return p;
+  }
+
+  // ------------------------------------------------------------------ textures
+  function putPx(g, px, ox, oy, w = W) {
+    px.forEach((h, i) => { if (h) { g.fillStyle = h; g.fillRect(ox + (i % w), oy + ((i / w) | 0), 1, 1); } });
+  }
+  /** 64×32 cape texture: outside 1,1 · inside 12,1 · edge strips from the outside's border pixels */
+  function drawCapeTexture(g, cape) {
+    const o = cape.outside, at = (x, y) => o[y * W + x];
+    putPx(g, o, 1, 1);
+    putPx(g, cape.inside, 12, 1);
+    for (let y = 0; y < H; y++) {
+      if (at(0, y)) { g.fillStyle = at(0, y); g.fillRect(0, 1 + y, 1, 1); }
+      if (at(W - 1, y)) { g.fillStyle = at(W - 1, y); g.fillRect(11, 1 + y, 1, 1); }
+    }
+    for (let x = 0; x < W; x++) {
+      if (at(x, 0)) { g.fillStyle = at(x, 0); g.fillRect(1 + x, 0, 1, 1); }
+      if (at(x, H - 1)) { g.fillStyle = at(x, H - 1); g.fillRect(11 + x, 0, 1, 1); }
+    }
+  }
+  /** 16×16 item icon: the design shrunk into a cape outline, as it shows in the hotbar */
+  function drawIcon(g, cape) {
+    const o = cape.outside, main = dominant(o);
+    const edge = main ? shade(main, 0.45) : "#1d293d";
+    const x0 = 2, y0 = 1, iw = 11, ih = 15;           // outline box 11×15 at (2,1)
+    g.fillStyle = edge;
+    for (let y = 0; y < ih; y++) for (let x = 0; x < iw; x++) {
+      const border = x === 0 || y === 0 || x === iw - 1 || y === ih - 1;
+      const corner = y === ih - 1 && (x === 0 || x === iw - 1);
+      if (border && !corner) g.fillRect(x0 + x, y0 + y, 1, 1);
+    }
+    for (let y = 0; y < ih - 2; y++) for (let x = 0; x < iw - 2; x++) {
+      const h = o[Math.min(H - 1, Math.floor((y + 0.5) * H / (ih - 2))) * W + Math.min(W - 1, Math.floor((x + 0.5) * W / (iw - 2)))];
+      if (h) { g.fillStyle = h; g.fillRect(x0 + 1 + x, y0 + 1 + y, 1, 1); }
+    }
+    g.fillStyle = shade(edge, 1.6);                     // a lighter collar
+    g.fillRect(x0 + 1, y0, iw - 2, 1);
+  }
+  function canvasOf(w, h, draw) {
+    const cv = document.createElement("canvas"); cv.width = w; cv.height = h;
+    const g = cv.getContext("2d"); g.imageSmoothingEnabled = false; draw(g); return cv;
+  }
+  const pngBytes = (cv) => new Promise((res) => cv.toBlob((b) => b.arrayBuffer().then((a) => res(new Uint8Array(a))), "image/png"));
+
+  // ------------------------------------------------------------------ checks
+  function slugify(s) {
+    return String(s).normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 24) || "cape";
+  }
+  function slugs(project) {
+    const taken = new Set(), out = {};
+    for (const c of project.capes) {
+      let s = slugify(c.name), k = 2; const b = s;
+      while (taken.has(s)) s = `${b}_${k++}`;
+      taken.add(s); out[c.key] = s;
+    }
+    return out;
+  }
+  function designCheck(cape) {
+    const F = G.CapeFilter; if (!F) return null;
+    const a = F.checkCapeSide(cape.outside), b = F.checkCapeSide(cape.inside);
+    if ((a && a.level === "block") || (b && b.level === "block")) return { level: "block", reason: (a && a.level === "block" ? a : b).reason };
+    return a || b || null;
+  }
+  function problems(project) {
+    const list = [], F = G.CapeFilter;
+    if (!project.capes.length) list.push(t("Add at least one cape."));
+    if (project.capes.length > MAX_CAPES) list.push(t("A pack holds up to {max} capes.", { max: MAX_CAPES }));
+    for (const c of project.capes) {
+      const nm = c.name.trim();
+      if (!nm) list.push(t("Every cape needs a name."));
+      else if (F && F.checkText(nm)) list.push(t("Rename the cape “{name}”: {why}", { name: nm.replace(/./g, (ch, i) => (i ? "•" : ch)), why: t(F.checkText(nm)) }));
+      if (!c.outside.some(Boolean)) list.push(t("“{name}” has nothing painted on the outside.", { name: nm || "?" }));
+      const d = designCheck(c);
+      if (d && d.level === "block") list.push(t("“{name}”: {why}", { name: nm || "?", why: t(d.reason) }));
+    }
+    if (!project.packName.trim()) list.push(t("Give the pack a name."));
+    else if (F && F.checkText(project.packName)) list.push(t("Pack name: {why}", { why: t(F.checkText(project.packName)) }));
+    return [...new Set(list)];
+  }
+
+  // ------------------------------------------------------------------ add-on
+  const itemId = (p, c) => `capes:${p.pid}_${c.key}`;
+
+  const SCRIPT = `import { world, ItemStack } from "@minecraft/server";
+
+// Cleverlike Cape Tool: hands each player the capes they don't have yet, the first time they join
+// (and again after an update adds new capes). One tag per cape remembers who already got it.
+const CAPES = __CAPES__;
+
+world.afterEvents.playerSpawn.subscribe((ev) => {
+  if (!ev.initialSpawn) return;
+  const player = ev.player;
+  const inv = player.getComponent("minecraft:inventory")?.container;
+  if (!inv) return;
+  for (const cape of CAPES) {
+    if (player.hasTag(cape.tag)) continue;
+    try { inv.addItem(new ItemStack(cape.id, 1)); player.addTag(cape.tag); } catch (e) { /* inventory full: try next time */ }
+  }
+});
+`;
+
+  /** Build the .mcaddon. Bumps the patch version first, like Cleverlike Emote Tool, so Minecraft replaces the old copy. */
+  async function buildAddon(JSZip, project) {
+    const p = project;
+    const v = p.version;
+    const folder = p.packName.replace(/[\\/:*?"<>|\x00-\x1f]/g, "").trim() || "Capes";
+    const RP = `${folder} RP`, BP = `${folder} BP`;
+    const zip = new JSZip();
+    const put = (path, data) => zip.file(path, typeof data === "string" || data instanceof Uint8Array ? data : JSON.stringify(data, null, 2));
+    const sl = slugs(p);
+    const GEO = `geometry.cape_${p.pid}`, ANIM = `animation.cape_${p.pid}.sway`, RC = `controller.render.cape_${p.pid}`;
+    const dir = `capes_${p.pid}`;
+
+    // ---- resource pack
+    put(`${RP}/manifest.json`, {
+      format_version: 2,
+      header: { name: RP, description: t("Capes for {pack}", { pack: p.packName }), uuid: p.ids.rp, version: v, min_engine_version: MIN_ENGINE },
+      modules: [{ type: "resources", uuid: p.ids.rpMod, version: v }],
+    });
+    put(`${RP}/models/entity/${dir}.geo.json`, {
+      format_version: "1.12.0",
+      "minecraft:geometry": [{
+        description: { identifier: GEO, texture_width: 64, texture_height: 32, visible_bounds_width: 2, visible_bounds_height: 3, visible_bounds_offset: [0, 1, 0] },
+        bones: [
+          { name: "body", pivot: [0, 24, 0] },
+          { name: `cape_${p.pid}`, parent: "body", pivot: [0, 24, 2], cubes: [{ origin: [-5, 8, 2], size: [10, 16, 1], uv: {
+            south: { uv: [1, 1], uv_size: [10, 16] }, north: { uv: [12, 1], uv_size: [10, 16] },
+            east: { uv: [0, 1], uv_size: [1, 16] }, west: { uv: [11, 1], uv_size: [1, 16] },
+            up: { uv: [1, 0], uv_size: [10, 1] }, down: { uv: [11, 0], uv_size: [10, 1] } } }] },
+        ],
+      }],
+    });
+    put(`${RP}/animations/${dir}.animation.json`, {
+      format_version: "1.8.0",
+      animations: { [ANIM]: { loop: true, bones: { [`cape_${p.pid}`]: { rotation: [
+        "5.0 + math.min(query.modified_move_speed * 60.0, 50.0) + math.sin(query.life_time * 120.0) * 1.5", 0, 0] } } } },
+    });
+    put(`${RP}/render_controllers/${dir}.render_controllers.json`, {
+      format_version: "1.10.0",
+      render_controllers: { [RC]: { geometry: "Geometry.default", materials: [{ "*": "Material.default" }], textures: ["Texture.default"] } },
+    });
+    const textureData = {};
+    for (const c of p.capes) {
+      const tex = `textures/models/${dir}/${c.key}`, icon = `cape_${p.pid}_${c.key}`;
+      put(`${RP}/${tex}.png`, await pngBytes(canvasOf(64, 32, (g) => drawCapeTexture(g, c))));
+      put(`${RP}/textures/items/${dir}/${c.key}.png`, await pngBytes(canvasOf(16, 16, (g) => drawIcon(g, c))));
+      textureData[icon] = { textures: `textures/items/${dir}/${c.key}` };
+      put(`${RP}/attachables/${dir}/${sl[c.key]}.json`, {
+        format_version: "1.10.0",
+        "minecraft:attachable": { description: {
+          identifier: itemId(p, c),
+          materials: { default: "entity_alphatest" },
+          textures: { default: tex },
+          geometry: { default: GEO },
+          animations: { sway: ANIM },
+          scripts: { animate: ["sway"] },
+          render_controllers: [RC],
+        } },
+      });
+    }
+    put(`${RP}/textures/item_texture.json`, { resource_pack_name: folder, texture_name: "atlas.items", texture_data: textureData });
+    const packIcon = await pngBytes(canvasOf(128, 128, (g) => {
+      g.fillStyle = "#10499c"; g.fillRect(0, 0, 128, 128);
+      const ic = canvasOf(16, 16, (h) => drawIcon(h, p.capes[0])); g.drawImage(ic, 8, 8, 112, 112);
+    }));
+    put(`${RP}/pack_icon.png`, packIcon);
+
+    // ---- behavior pack
+    const modules = [{ type: "data", uuid: p.ids.bpData, version: v }];
+    const deps = [{ uuid: p.ids.rp, version: v }];
+    if (p.giveOnJoin) {
+      modules.push({ type: "script", language: "javascript", uuid: p.ids.bpScript, version: v, entry: "scripts/main.js" });
+      deps.push({ module_name: "@minecraft/server", version: SERVER_VERSION });
+    }
+    put(`${BP}/manifest.json`, {
+      format_version: 2,
+      header: { name: BP, description: t("{n} cape for {pack}|{n} capes for {pack}", { n: p.capes.length, pack: p.packName }), uuid: p.ids.bp, version: v, min_engine_version: MIN_ENGINE },
+      modules, dependencies: deps,
+    });
+    for (const c of p.capes) {
+      put(`${BP}/items/${dir}/${sl[c.key]}.json`, {
+        format_version: "1.20.50",
+        "minecraft:item": {
+          description: { identifier: itemId(p, c), menu_category: { category: "equipment" } },
+          components: {
+            "minecraft:icon": { texture: `cape_${p.pid}_${c.key}` },
+            "minecraft:display_name": { value: c.name.replace(/[\r\n]+/g, " ").trim() },
+            "minecraft:max_stack_size": 1,
+            "minecraft:wearable": { slot: "slot.armor.chest", protection: 0 },
+          },
+        },
+      });
+      put(`${BP}/functions/${dir}/${sl[c.key]}.mcfunction`, `give @s ${itemId(p, c)}\n`);
+    }
+    put(`${BP}/functions/${dir}/all.mcfunction`, p.capes.map((c) => `give @s ${itemId(p, c)}`).join("\n") + "\n");
+    if (p.giveOnJoin) {
+      const list = p.capes.map((c) => ({ id: itemId(p, c), tag: `cape_given_${p.pid}_${c.key}` }));
+      put(`${BP}/scripts/main.js`, SCRIPT.replace("__CAPES__", JSON.stringify(list, null, 2)));
+    }
+    put(`${BP}/pack_icon.png`, packIcon);
+    // The whole project, so the add-on can be re-opened in Cleverlike Cape Tool later
+    put(`${BP}/cape_project.json`, project);
+
+    return zip.generateAsync({ type: "blob", compression: "DEFLATE", mimeType: "application/octet-stream" });
+  }
+
+  function bumpVersion(project) { const v = project.version.slice(); v[2] += 1; project.version = v; return v; }
+  /** "Version up": next minor version and fresh pack UUIDs; item IDs stay, so capes players hold keep working */
+  function versionUp(project) {
+    const before = { version: project.version.slice(), ids: { ...project.ids } };
+    project.version = [project.version[0], project.version[1] + 1, 0];
+    project.ids = freshIds();
+    return before;
+  }
+  async function readAddon(JSZip, data) {
+    const zip = await JSZip.loadAsync(data);
+    const f = Object.values(zip.files).find((x) => !x.dir && /(^|\/)cape_project\.json$/.test(x.name));
+    if (!f) return null;
+    return repair(JSON.parse(await f.async("string")));
+  }
+
+  G.CapePack = { W, H, N, MAX_CAPES, PATTERNS, fromPattern, newCape, newProject, repair, drawCapeTexture, drawIcon, canvasOf, designCheck,
+    problems, slugs, itemId, buildAddon, bumpVersion, versionUp, readAddon, shortId, shade, dominant };
+})(typeof window !== "undefined" ? window : globalThis);
+
+
+/* Cleverlike Cape Tool — page logic */
+(function (G) {
+  "use strict";
+  const I = G.CapeI18n, t = I.t, P = G.CapePack, F = G.CapeFilter;
+  const $ = (s) => document.querySelector(s);
+  const PREFS = "cleverlike-cape-prefs";
+  const PALETTE = ["#000000", "#3f3f3f", "#7f7f7f", "#bfbfbf", "#ffffff", "#5a2d0c", "#8b5a2b", "#c98e66", "#f2c49b", "#efe8d6",
+    "#b02e26", "#f9452c", "#f9801d", "#fed83d", "#e0a92a", "#5e7c16", "#80c71f", "#169c9c", "#3ab3da", "#3c44aa",
+    "#6a3fa6", "#4b2a7a", "#c74ebd", "#f38baa", "#10499c", "#00aef0", "#2b7fff", "#174fa2", "#febd01", "#ed287f"];
+
+  // ------------------------------------------------------------------ state
+  let project = null;
+  let sel = 0, side = "outside", tool = "pencil", color = "#2b7fff", mirror = false;
+  const recent = [];
+  const history = {};          // cape key -> {undo: [], redo: []}
+  let unsaved = false;
+  const cape = () => project.capes[sel];
+  const px = () => cape()[side];
+
+  // ------------------------------------------------------------------ preferences
+  let prefs = { lang: null, theme: "system", text: "normal" };
+  try { Object.assign(prefs, JSON.parse(localStorage.getItem(PREFS) || "{}")); } catch { /* not kept */ }
+  const savePrefs = () => { try { localStorage.setItem(PREFS, JSON.stringify(prefs)); } catch { /* not kept */ } };
+  I.setLang(prefs.lang || I.guess());
+  project = P.newProject();
+
+  function applyPrefs() {
+    const root = document.documentElement;
+    if (prefs.theme === "system") root.removeAttribute("data-a11y-theme"); else root.dataset.a11yTheme = prefs.theme;
+    if (prefs.text === "large") root.dataset.text = "large"; else root.removeAttribute("data-text");
+    document.querySelectorAll("[data-theme-opt]").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.themeOpt === prefs.theme)));
+    document.querySelectorAll("[data-text-opt]").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.textOpt === prefs.text)));
+    readColors(); drawPaint(); if (preview) preview.setColors(css.stage, css.stageLine);
+  }
+  const css = {};
+  function readColors() {
+    const s = getComputedStyle(document.documentElement), v = (n) => s.getPropertyValue(n).trim();
+    Object.assign(css, { checkA: v("--check-a"), checkB: v("--check-b"), grid: v("--grid-line"), major: v("--grid-major"), accent: v("--accent"), stage: v("--stage"), stageLine: v("--stage-line") });
+  }
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => applyPrefs());
+
+  const langSel = $("#pref-lang");
+  for (const l of I.LANGS) { const o = document.createElement("option"); o.value = l.code; o.lang = l.code; o.textContent = l.name; langSel.appendChild(o); }
+  langSel.value = I.lang;
+  langSel.addEventListener("change", () => { prefs.lang = langSel.value; savePrefs(); I.setLang(langSel.value); I.applyStatic(); renderAll(); });
+  document.querySelectorAll("[data-theme-opt]").forEach((b) => b.addEventListener("click", () => { prefs.theme = b.dataset.themeOpt; savePrefs(); applyPrefs(); }));
+  document.querySelectorAll("[data-text-opt]").forEach((b) => b.addEventListener("click", () => { prefs.text = b.dataset.textOpt; savePrefs(); applyPrefs(); }));
+  const prefsPanel = $("#prefs"), prefsBtn = $("#prefs-btn");
+  const setPrefsOpen = (open) => { prefsPanel.hidden = !open; prefsBtn.setAttribute("aria-expanded", String(open)); if (open) langSel.focus(); };
+  prefsBtn.addEventListener("click", () => setPrefsOpen(prefsPanel.hidden));
+  $("#prefs-close").addEventListener("click", () => { setPrefsOpen(false); prefsBtn.focus(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !prefsPanel.hidden) { setPrefsOpen(false); prefsBtn.focus(); } });
+  document.addEventListener("pointerdown", (e) => { if (!prefsPanel.hidden && !prefsPanel.contains(e.target) && !prefsBtn.contains(e.target)) setPrefsOpen(false); });
+
+  // ------------------------------------------------------------------ toast
+  let toastTimer = 0;
+  function toast(msg, action, fn) {
+    const el = $("#toast"), btn = $("#toast-action");
+    $("#toast-msg").textContent = msg;
+    btn.hidden = !action; btn.textContent = action || ""; btn.onclick = () => { el.hidden = true; fn && fn(); };
+    el.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, action ? 7000 : 4000);
+  }
+
+  function changed() { unsaved = true; }
+  addEventListener("beforeunload", (e) => { if (unsaved) { e.preventDefault(); e.returnValue = ""; } });
+
+  // ------------------------------------------------------------------ 3D preview
+  let preview = null;
+  const skin = { slim: false, custom: null };
+  function updatePreviewCape() { if (preview) preview.setCape((g) => P.drawCapeTexture(g, cape())); }
+  async function applySkin() {
+    if (!preview) return;
+    const cv = skin.custom || await G.CapePreview.loadDefaultSkin(skin.slim);
+    preview.setSkin(cv, skin.slim);
+    $("#arms-classic").setAttribute("aria-pressed", String(!skin.slim));
+    $("#arms-slim").setAttribute("aria-pressed", String(skin.slim));
+    $("#skin-reset").hidden = !skin.custom;
+    const note = $("#skin-note"); note.hidden = !skin.custom; note.textContent = t("Only the preview uses this skin.");
+  }
+  function initPreview() {
+    if (!G.THREE) return;
+    try { preview = G.CapePreview.createPreview($("#stage"), G.THREE); } catch { preview = null; return; }
+    preview.setColors(css.stage, css.stageLine);
+    applySkin(); updatePreviewCape();
+  }
+  const setMove = (walk) => { preview && preview.setWalking(walk); $("#move-stand").setAttribute("aria-pressed", String(!walk)); $("#move-walk").setAttribute("aria-pressed", String(walk)); };
+  $("#move-stand").addEventListener("click", () => setMove(false));
+  $("#move-walk").addEventListener("click", () => setMove(true));
+  $("#turn").addEventListener("click", () => preview && preview.turnAround());
+  $("#reset-view").addEventListener("click", () => preview && preview.resetView());
+  $("#arms-classic").addEventListener("click", () => { skin.slim = false; applySkin(); });
+  $("#arms-slim").addEventListener("click", () => { skin.slim = true; applySkin(); });
+  $("#skin-upload").addEventListener("click", () => $("#skin-file").click());
+  $("#skin-reset").addEventListener("click", () => { skin.custom = null; applySkin(); });
+  $("#skin-file").addEventListener("change", (e) => {
+    const f = e.target.files[0]; e.target.value = "";
+    if (!f) return;
+    const img = new Image(), url = URL.createObjectURL(f);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const ok = img.width >= 64 && img.width % 64 === 0 && (img.height === img.width || img.height * 2 === img.width);
+      if (!ok) { toast(t("That doesn't look like a Minecraft skin. Skins are 64×64 PNG files.")); return; }
+      const cv = document.createElement("canvas"); cv.width = img.width; cv.height = img.height; cv.getContext("2d").drawImage(img, 0, 0);
+      skin.custom = cv; applySkin();
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); toast(t("That doesn't look like a Minecraft skin. Skins are 64×64 PNG files.")); };
+    img.src = url;
+  });
+
+  // ------------------------------------------------------------------ painter
+  const paint = $("#paint"), pg = paint.getContext("2d");
+  const CELL = paint.width / P.W;
+  let hover = -1, stroke = null;
+
+  function drawPaint() {
+    if (!project.capes.length) return;
+    const data = px(), half = CELL / 2;
+    pg.clearRect(0, 0, paint.width, paint.height);
+    for (let i = 0; i < P.N; i++) {
+      const x = (i % P.W) * CELL, y = ((i / P.W) | 0) * CELL;
+      if (data[i]) { pg.fillStyle = data[i]; pg.fillRect(x, y, CELL, CELL); }
+      else {
+        for (let k = 0; k < 4; k++) { pg.fillStyle = (k === 0 || k === 3) ? css.checkA : css.checkB; pg.fillRect(x + (k % 2) * half, y + (k >> 1) * half, half, half); }
+      }
+    }
+    pg.strokeStyle = css.grid; pg.lineWidth = 1; pg.beginPath();
+    for (let x = 1; x < P.W; x++) { pg.moveTo(x * CELL + 0.5, 0); pg.lineTo(x * CELL + 0.5, paint.height); }
+    for (let y = 1; y < P.H; y++) { pg.moveTo(0, y * CELL + 0.5); pg.lineTo(paint.width, y * CELL + 0.5); }
+    pg.stroke();
+    if (mirror) { pg.strokeStyle = css.accent; pg.lineWidth = 2; pg.setLineDash([6, 4]); pg.beginPath(); pg.moveTo(paint.width / 2, 0); pg.lineTo(paint.width / 2, paint.height); pg.stroke(); pg.setLineDash([]); }
+    if (hover >= 0) {
+      pg.strokeStyle = css.accent; pg.lineWidth = 2;
+      for (const i of targets(hover)) pg.strokeRect((i % P.W) * CELL + 1, ((i / P.W) | 0) * CELL + 1, CELL - 2, CELL - 2);
+    }
+  }
+  const mirrorIndex = (i) => ((i / P.W) | 0) * P.W + (P.W - 1 - (i % P.W));
+  const targets = (i) => (mirror && mirrorIndex(i) !== i ? [i, mirrorIndex(i)] : [i]);
+  function cellAt(e) {
+    const r = paint.getBoundingClientRect();
+    const x = Math.floor((e.clientX - r.left) / r.width * P.W), y = Math.floor((e.clientY - r.top) / r.height * P.H);
+    return x >= 0 && y >= 0 && x < P.W && y < P.H ? y * P.W + x : -1;
+  }
+
+  // history
+  const hist = () => (history[cape().key] = history[cape().key] || { undo: [], redo: [] });
+  function snapshot() {
+    const h = hist(); h.undo.push({ outside: cape().outside.slice(), inside: cape().inside.slice() });
+    if (h.undo.length > 60) h.undo.shift();
+    h.redo.length = 0; updateHistoryButtons();
+  }
+  function restore(from, to) {
+    const h = hist(); const s = h[from].pop(); if (!s) return;
+    h[to].push({ outside: cape().outside.slice(), inside: cape().inside.slice() });
+    cape().outside = s.outside; cape().inside = s.inside;
+    changed(); afterDesignChange(true);
+  }
+  function updateHistoryButtons() { const h = hist(); $("#undo").disabled = !h.undo.length; $("#redo").disabled = !h.redo.length; }
+
+  function setPixel(i, value) { for (const k of targets(i)) px()[k] = value; }
+  function line(a, b, value) {
+    let x0 = a % P.W, y0 = (a / P.W) | 0; const x1 = b % P.W, y1 = (b / P.W) | 0;
+    const dx = Math.abs(x1 - x0), dy = -Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
+    let err = dx + dy;
+    for (;;) { setPixel(y0 * P.W + x0, value); if (x0 === x1 && y0 === y1) break; const e2 = 2 * err; if (e2 >= dy) { err += dy; x0 += sx; } if (e2 <= dx) { err += dx; y0 += sy; } }
+  }
+  function flood(start, value) {
+    const data = px(), from = data[start];
+    if (from === value) return;
+    const stack = [start], seen = new Set();
+    while (stack.length) {
+      const i = stack.pop(); if (seen.has(i) || data[i] !== from) continue; seen.add(i);
+      const x = i % P.W, y = (i / P.W) | 0;
+      if (x > 0) stack.push(i - 1); if (x < P.W - 1) stack.push(i + 1); if (y > 0) stack.push(i - P.W); if (y < P.H - 1) stack.push(i + P.W);
+    }
+    for (const i of seen) setPixel(i, value);
+  }
+  function addRecent(c) {
+    if (!c || PALETTE.includes(c)) return;
+    const k = recent.indexOf(c); if (k >= 0) recent.splice(k, 1);
+    recent.unshift(c); recent.length = Math.min(recent.length, 10); renderSwatches();
+  }
+
+  paint.addEventListener("contextmenu", (e) => e.preventDefault());
+  paint.addEventListener("pointerdown", (e) => {
+    const i = cellAt(e); if (i < 0) return;
+    e.preventDefault(); paint.setPointerCapture(e.pointerId);
+    const erase = e.button === 2 || tool === "eraser";
+    if (tool === "picker" && !erase) { const c = px()[i]; if (c) { setColor(c); setTool("pencil"); } return; }
+    snapshot();
+    if (tool === "fill" && !erase) { flood(i, color); addRecent(color); stroke = null; changed(); afterDesignChange(true); return; }
+    stroke = { last: i, value: erase ? "" : color, id: e.pointerId };
+    if (!erase) addRecent(color);
+    setPixel(i, stroke.value); changed(); afterDesignChange(false);
+  });
+  paint.addEventListener("pointermove", (e) => {
+    const i = cellAt(e);
+    if (stroke && e.pointerId === stroke.id && i >= 0 && i !== stroke.last) { line(stroke.last, i, stroke.value); stroke.last = i; afterDesignChange(false); }
+    if (i !== hover) { hover = i; drawPaint(); }
+  });
+  const endStroke = () => { if (stroke) { stroke = null; afterDesignChange(true); } };
+  paint.addEventListener("pointerup", endStroke); paint.addEventListener("pointercancel", endStroke);
+  paint.addEventListener("pointerleave", () => { hover = -1; drawPaint(); });
+
+  /** Redraw after pixels change. full = the stroke is finished (run checks, refresh the list). */
+  function afterDesignChange(full) {
+    drawPaint(); updatePreviewCape(); drawIcons();
+    if (full) { runDesignCheck(); renderList(); renderProblems(); updateHistoryButtons(); }
+  }
+
+  function setTool(name) {
+    tool = name;
+    document.querySelectorAll("#tools [data-tool]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tool === name)));
+  }
+  document.querySelectorAll("#tools [data-tool]").forEach((b) => b.addEventListener("click", () => setTool(b.dataset.tool)));
+  $("#mirror").addEventListener("change", (e) => { mirror = e.target.checked; drawPaint(); });
+
+  function setColor(c) {
+    color = c.toLowerCase(); $("#color").value = color; $("#color-hex").textContent = color;
+    document.querySelectorAll("#palette button, #recent button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.c === color)));
+  }
+  $("#color").addEventListener("input", (e) => setColor(e.target.value));
+  function swatch(c) {
+    const b = document.createElement("button"); b.type = "button"; b.dataset.c = c; b.style.setProperty("--sw", c);
+    b.setAttribute("aria-label", t("Color {hex}", { hex: c })); b.title = c; b.setAttribute("aria-pressed", String(c === color));
+    b.addEventListener("click", () => { setColor(c); if (tool === "eraser" || tool === "picker") setTool("pencil"); });
+    return b;
+  }
+  function renderSwatches() {
+    $("#palette").replaceChildren(...PALETTE.map(swatch));
+    $("#recent").replaceChildren(...recent.map(swatch));
+  }
+
+  function setSide(s) {
+    side = s;
+    $("#side-out").setAttribute("aria-pressed", String(s === "outside"));
+    $("#side-in").setAttribute("aria-pressed", String(s === "inside"));
+    $("#copy-out").hidden = s !== "inside";
+    $("#clear").dataset.tip = s === "inside" ? "Erase the inside of the cape." : "Erase the outside of the cape.";
+    $("#paint").setAttribute("aria-label", t(s === "inside" ? "Pixel drawing grid for the inside of the cape" : "Pixel drawing grid for the outside of the cape"));
+    drawPaint();
+  }
+  $("#side-out").addEventListener("click", () => setSide("outside"));
+  $("#side-in").addEventListener("click", () => setSide("inside"));
+  $("#undo").addEventListener("click", () => restore("undo", "redo"));
+  $("#redo").addEventListener("click", () => restore("redo", "undo"));
+  $("#clear").addEventListener("click", () => { snapshot(); cape()[side] = new Array(P.N).fill(""); changed(); afterDesignChange(true); });
+  $("#copy-out").addEventListener("click", () => {
+    snapshot(); const o = cape().outside;
+    // the inside faces the other way, so it is mirrored to line up with the outside like real fabric
+    cape().inside = o.map((_, i) => o[mirrorIndex(i)]);
+    changed(); afterDesignChange(true);
+  });
+
+  // keyboard shortcuts (not while typing)
+  document.addEventListener("keydown", (e) => {
+    const typing = /^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName) && e.target.type !== "checkbox";
+    if (typing) return;
+    const k = e.key.toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && k === "z") { e.preventDefault(); restore(e.shiftKey ? "redo" : "undo", e.shiftKey ? "undo" : "redo"); return; }
+    if ((e.ctrlKey || e.metaKey) && k === "y") { e.preventDefault(); restore("redo", "undo"); return; }
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const map = { b: "pencil", e: "eraser", g: "fill", i: "picker" };
+    if (map[k]) { setTool(map[k]); e.preventDefault(); }
+    else if (k === "m") { const m = $("#mirror"); m.checked = !m.checked; mirror = m.checked; drawPaint(); e.preventDefault(); }
+  });
+
+  // patterns
+  function renderPatterns() {
+    $("#patterns").replaceChildren(...P.PATTERNS.map((p) => {
+      const b = document.createElement("button"); b.type = "button"; b.dataset.tip = "Use this pattern for both sides.";
+      const cv = document.createElement("canvas"); cv.width = P.W; cv.height = P.H;
+      const g = cv.getContext("2d"); p.px.forEach((h, i) => { g.fillStyle = h; g.fillRect(i % P.W, (i / P.W) | 0, 1, 1); });
+      const s = document.createElement("span"); s.textContent = t(p.name);
+      b.append(cv, s);
+      b.addEventListener("click", () => { snapshot(); Object.assign(cape(), P.fromPattern(p)); changed(); afterDesignChange(true); toast(t("Pattern applied. Undo brings your drawing back."), t("Undo"), () => restore("undo", "redo")); });
+      return b;
+    }));
+  }
+
+  // design checks
+  function runDesignCheck() {
+    const note = $("#design-note"), d = P.designCheck(cape());
+    cape().flagged = !!(d && d.level === "flag");
+    note.hidden = !d;
+    if (d) { note.className = "note " + (d.level === "block" ? "bad" : "warn"); note.textContent = t(d.reason); }
+  }
+
+  // icons
+  function drawIcons() {
+    for (const id of ["#icon-slot", "#icon-actual"]) { const g = $(id).getContext("2d"); g.clearRect(0, 0, 16, 16); P.drawIcon(g, cape()); }
+    const li = document.querySelector(`#cape-list [data-key="${cape().key}"] canvas`);
+    if (li) { const g = li.getContext("2d"); g.clearRect(0, 0, 16, 16); P.drawIcon(g, cape()); }
+  }
+
+  // ------------------------------------------------------------------ cape list
+  function capeIssue(c) {
+    if (!c.name.trim()) return { cls: "bad", text: t("Needs a name") };
+    if (F.checkText(c.name)) return { cls: "bad", text: t("Rename it") };
+    if (!c.outside.some(Boolean)) return { cls: "bad", text: t("Empty") };
+    const d = P.designCheck(c);
+    if (d && d.level === "block") return { cls: "bad", text: t("Redraw it") };
+    if (d) return { cls: "warn", text: t("Teacher check") };
+    return { cls: "ok", text: t("Ready") };
+  }
+  function renderList() {
+    const ul = $("#cape-list");
+    ul.replaceChildren(...project.capes.map((c, i) => {
+      const li = document.createElement("li"); li.className = "cape"; li.dataset.key = c.key;
+      li.setAttribute("aria-current", String(i === sel));
+      const pick = document.createElement("button"); pick.type = "button"; pick.className = "pick";
+      const slot = document.createElement("span"); slot.className = "slot";
+      const cv = document.createElement("canvas"); cv.width = cv.height = 16; P.drawIcon(cv.getContext("2d"), c); slot.appendChild(cv);
+      const name = document.createElement("span"); name.className = "name"; name.textContent = c.name.trim() || t("(no name)");
+      const meta = document.createElement("span"); meta.className = "meta";
+      const issue = capeIssue(c); const pill = document.createElement("span"); pill.className = "pill " + issue.cls; pill.textContent = issue.text; meta.appendChild(pill);
+      pick.append(slot, name, meta);
+      pick.addEventListener("click", () => select(i));
+      const order = document.createElement("div"); order.className = "order";
+      const up = document.createElement("button"); up.type = "button"; up.textContent = "▲"; up.disabled = i === 0; up.setAttribute("aria-label", t("Move up"));
+      const dn = document.createElement("button"); dn.type = "button"; dn.textContent = "▼"; dn.disabled = i === project.capes.length - 1; dn.setAttribute("aria-label", t("Move down"));
+      up.addEventListener("click", () => move(i, -1)); dn.addEventListener("click", () => move(i, 1));
+      order.append(up, dn);
+      li.append(pick, order);
+      return li;
+    }));
+    $("#cape-count").textContent = t("{n} of {max}", { n: project.capes.length, max: P.MAX_CAPES });
+    $("#add-cape").disabled = $("#dup-cape").disabled = project.capes.length >= P.MAX_CAPES;
+    $("#del-cape").disabled = project.capes.length <= 1;
+  }
+  function move(i, d) {
+    const j = i + d; if (j < 0 || j >= project.capes.length) return;
+    const a = project.capes; [a[i], a[j]] = [a[j], a[i]];
+    if (sel === i) sel = j; else if (sel === j) sel = i;
+    changed(); renderList();
+    const btn = $("#cape-list").children[j]?.querySelector(d < 0 ? ".order button:first-child" : ".order button:last-child");
+    if (btn && !btn.disabled) btn.focus(); else $("#cape-list").children[j]?.querySelector(".pick").focus();
+  }
+  function select(i) {
+    sel = Math.max(0, Math.min(project.capes.length - 1, i));
+    renderDesigner(); renderList(); updatePreviewCape();
+  }
+  function uniqueName(base) {
+    const names = new Set(project.capes.map((c) => c.name.trim().toLowerCase()));
+    for (let n = project.capes.length + 1; ; n++) { const s = t(base, { n }); if (!names.has(s.toLowerCase())) return s; }
+  }
+  $("#add-cape").addEventListener("click", () => {
+    if (project.capes.length >= P.MAX_CAPES) return;
+    const pat = P.PATTERNS[project.capes.length % (P.PATTERNS.length - 1)].id;
+    project.capes.push(P.newCape(project, uniqueName("Cape {n}"), pat));
+    changed(); select(project.capes.length - 1); renderProblems();
+    $("#cape-name").focus(); $("#cape-name").select();
+  });
+  $("#dup-cape").addEventListener("click", () => {
+    if (project.capes.length >= P.MAX_CAPES) return;
+    const c = cape(), copy = { key: P.shortId(), name: t("{name} copy", { name: c.name }).slice(0, 32), outside: c.outside.slice(), inside: c.inside.slice() };
+    project.capes.splice(sel + 1, 0, copy);
+    changed(); select(sel + 1); renderProblems();
+  });
+  $("#del-cape").addEventListener("click", () => {
+    if (project.capes.length <= 1) return;
+    const i = sel, removed = project.capes.splice(i, 1)[0];
+    changed(); select(Math.min(i, project.capes.length - 1)); renderProblems();
+    toast(t("Deleted “{name}”.", { name: removed.name }), t("Undo"), () => { project.capes.splice(i, 0, removed); select(i); renderProblems(); });
+  });
+
+  // ------------------------------------------------------------------ names
+  /** Live name field: removes blocked words as you type (the word being typed is checked when you finish it) */
+  function bindName(input, get, set, after) {
+    const err = input.parentElement.querySelector(".field-error");
+    let shownAt = 0;   // a removed-word message stays up for a few seconds while you keep typing
+    const show = (why) => {
+      if (!why && Date.now() - shownAt < 4000) return;
+      if (why) shownAt = Date.now();
+      err.hidden = !why; err.textContent = why ? t(why) : ""; input.setAttribute("aria-invalid", String(!!why));
+    };
+    input.addEventListener("input", () => {
+      const before = input.value, r = F.sanitize(before, true);
+      if (r.removed) { const pos = Math.max(0, input.selectionStart - (before.length - r.text.length)); input.value = r.text; input.setSelectionRange(pos, pos); show(F.checkText(before) || "That name includes a word that isn't allowed. Please choose a different name."); }
+      else show(null);
+      set(input.value); changed(); after();
+    });
+    input.addEventListener("blur", () => {
+      const r = F.sanitize(input.value, false);
+      if (r.removed) { show(F.checkText(input.value)); input.value = r.text.trim(); set(input.value); after(); }
+    });
+    return { refresh() { input.value = get(); shownAt = 0; show(null); } };
+  }
+  const capeName = bindName($("#cape-name"), () => cape().name, (v) => { cape().name = v; }, () => { renderList(); renderProblems(); $("#stage-name").textContent = cape().name; });
+  const packName = bindName($("#pack-name"), () => project.packName, (v) => { project.packName = v; }, () => { renderProblems(); renderSteps(); });
+  $("#give-join").addEventListener("change", (e) => { project.giveOnJoin = e.target.checked; changed(); renderSteps(); });
+
+  // ------------------------------------------------------------------ pack + download
+  function renderPack() {
+    packName.refresh();
+    $("#give-join").checked = project.giveOnJoin;
+    $("#version-pill").textContent = "v" + project.version.join(".");
+    const id = $("#pack-uuid"); id.textContent = project.ids.bp;
+    id.title = `${t("Behavior pack")} ${project.ids.bp}\n${t("Resource pack")} ${project.ids.rp}`;
+  }
+  $("#version-up").addEventListener("click", () => {
+    const before = P.versionUp(project); changed(); renderPack(); renderSteps();
+    const pid = $(".pack-id"); pid.classList.add("flash"); setTimeout(() => pid.classList.remove("flash"), 1200);
+    toast(t("New pack IDs. The next download is v{v}.", { v: project.version.join(".") }), t("Undo"), () => { project.version = before.version; project.ids = before.ids; renderPack(); });
+  });
+  const folderName = () => project.packName.replace(/[\\/:*?"<>|\x00-\x1f]/g, "").trim() || "Capes";
+  function renderSteps() {
+    const bp = `${folderName()} BP`, fn = `/function capes_${project.pid}/all`;
+    const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const steps = [
+      t("<b>Open the downloaded .mcaddon</b> on the computer with Minecraft Education. It imports both packs."),
+      t("Create or edit a world. Under <b>Behavior Packs</b>, activate <b>{bp}</b>. The resource pack is added with it.", { bp: esc(bp) }),
+      project.giveOnJoin
+        ? t("Join the world. Everyone gets the capes the first time they join. They are also in the creative inventory under Equipment, and with cheats on, <span class=\"mono\">{fn}</span> gives them all.", { fn })
+        : t("Join the world. The capes are in the creative inventory under Equipment. With cheats on, <span class=\"mono\">{fn}</span> gives them all.", { fn }),
+      t("<b>Wear a cape</b> by putting it in the chestplate slot. Press F5 to see it on your back."),
+      t("Updating? Download again here; the version goes up by one so Minecraft replaces the old copy."),
+    ];
+    $("#install-steps").innerHTML = steps.map((s) => `<li>${s}</li>`).join("");
+  }
+  function renderProblems() {
+    const list = P.problems(project), ul = $("#problems");
+    ul.hidden = !list.length; ul.replaceChildren(...list.map((s) => { const li = document.createElement("li"); li.textContent = s; return li; }));
+    $("#download").disabled = !!list.length || !G.JSZip;
+    $("#export-status").textContent = !G.JSZip ? t("The download tool couldn't load. Check the internet connection and reload the page.")
+      : list.length ? t("Fix the items above to download.")
+      : t("{n} cape, version {v}.|{n} capes, version {v}.", { n: project.capes.length, v: project.version.join(".") });
+  }
+  $("#download").addEventListener("click", async () => {
+    if (P.problems(project).length) return;
+    const btn = $("#download"); btn.disabled = true;
+    try {
+      const v = project.version.join(".");
+      const blob = await P.buildAddon(G.JSZip, project);
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `${folderName()}.mcaddon`;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      P.bumpVersion(project); unsaved = false; renderPack();
+      toast(t("Downloaded version {v}. Open it on the computer with Minecraft Education.", { v }));
+      $("#install-help").open = true;
+    } catch (e) {
+      toast(t("Something went wrong building the add-on. Please try again."));
+    }
+    renderProblems();
+  });
+
+  // open an add-on made here before
+  $("#open-addon").addEventListener("click", () => $("#open-addon-file").click());
+  $("#open-addon-file").addEventListener("change", async (e) => {
+    const f = e.target.files[0]; e.target.value = "";
+    if (!f || !G.JSZip) return;
+    try {
+      const opened = await P.readAddon(G.JSZip, f);
+      if (!opened) { toast(t("This add-on wasn't made with Cleverlike Cape Tool, so it can't be opened here.")); return; }
+      P.bumpVersion(opened);          // the opened version is already installed somewhere; continue from the next one
+      const before = project, wasUnsaved = unsaved;
+      project = opened; unsaved = false; for (const k in history) delete history[k];
+      sel = 0; renderAll(); updatePreviewCape();
+      toast(t("Opened “{pack}” with {n} cape.|Opened “{pack}” with {n} capes.", { pack: project.packName, n: project.capes.length }), t("Undo"), () => { project = before; unsaved = wasUnsaved; sel = 0; renderAll(); updatePreviewCape(); });
+    } catch {
+      toast(t("That file couldn't be opened. Choose a .mcaddon downloaded from this tool."));
+    }
+  });
+
+  // ------------------------------------------------------------------ render
+  function renderDesigner() {
+    capeName.refresh();
+    $("#stage-name").textContent = cape().name;
+    setSide(side); drawIcons(); runDesignCheck(); updateHistoryButtons();
+  }
+  function renderAll() {
+    I.applyStatic(); renderSwatches(); renderPatterns(); renderPack(); renderList(); renderDesigner(); renderProblems(); renderSteps();
+  }
+
+  readColors(); applyPrefs(); setColor(color); renderAll(); initPreview();
+  G.CapeApp = { get project() { return project; }, select, setSide };   // handy for testing in the console
+})(typeof window !== "undefined" ? window : globalThis);
+
+</script>
+</body>
+</html>
