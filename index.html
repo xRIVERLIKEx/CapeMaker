@@ -346,18 +346,28 @@ legend.label-row { display: flex; }
 .learnbar .bulb { margin-left: -2px; }
 .ico { width: 16px; height: 16px; flex: none; }
 
-/* ---------- texture file pop-out ---------- */
-dialog.sheet-panel { position: fixed; inset: 84px 16px auto auto; margin: 0; z-index: 30; width: min(600px, calc(100vw - 32px)); max-height: calc(100vh - 100px); overflow: auto; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35); }
-dialog.sheet-panel[open] { display: grid; }
-.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); z-index: 1; }
-.sheet-body { display: grid; gap: 12px; padding: 14px 16px 16px; }
-#sheet-paint { display: block; width: 100%; max-width: 528px; aspect-ratio: 22 / 17; justify-self: center; touch-action: none; cursor: crosshair; border: 1px solid var(--line); border-radius: 4px; }
-.sheet-body .legend { justify-content: center; margin: 0; }
-.sheet-body .where { text-align: center; }
-.sheet-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
-.toolset.row { display: grid; grid-template-columns: repeat(4, auto); gap: 6px; }
-.toolset.row .btn { padding: 6px 10px; font-size: 0.84rem; justify-content: center; gap: 6px; }
-@media (max-width: 520px) { .toolset.row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* ---------- texture file pop-out: a spotlight editor ----------
+   Opens as a modal dialog: the page behind is dimmed and can't be clicked. The live 3D preview moves inside it. */
+dialog.sheet-panel { padding: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--ink); width: min(1180px, calc(100vw - 24px)); max-height: calc(100vh - 24px); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.45); overflow: auto; }
+dialog.sheet-panel[open] { display: flex; flex-direction: column; }
+dialog.sheet-panel::backdrop { background: rgba(8, 15, 30, 0.72); backdrop-filter: blur(2px); }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); z-index: 2; }
+.sheet-body { display: grid; grid-template-columns: minmax(200px, 260px) minmax(0, 560px) minmax(220px, 260px); grid-template-areas: "view main side"; gap: 18px; padding: 16px; align-items: start; justify-content: center; }
+.sheet-view { grid-area: view; position: relative; height: min(420px, 60vh); border-radius: 8px; overflow: hidden; background: var(--stage); border: 1px solid var(--line); }
+.sheet-view canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.sheet-main { grid-area: main; display: grid; gap: 10px; min-width: 0; }
+.sheet-side { grid-area: side; display: grid; gap: 14px; align-content: start; min-width: 0; }
+#sheet-paint { display: block; width: min(100%, calc((100vh - 230px) * 22 / 17)); min-width: 260px; justify-self: center; aspect-ratio: 22 / 17; touch-action: none; cursor: crosshair; border: 1px solid var(--line); border-radius: 4px; }
+.sheet-main .legend { justify-content: center; margin: 0; gap: 2px 4px; }
+.sheet-main .where { text-align: center; }
+.toolset.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.toolset.grid2 .btn { padding: 6px 8px; font-size: 0.84rem; justify-content: space-between; gap: 6px; }
+.hex-in { width: 100px !important; padding: 5px 8px !important; font-size: 0.86rem; }
+.hex-in[aria-invalid="true"] { border-color: var(--bad); }
+#recent2 { margin-top: 6px; min-height: 24px; }
+#recent2:empty::before { content: attr(data-empty); font-size: 0.78rem; color: var(--muted); grid-column: 1 / -1; align-self: center; }
+@media (max-width: 1040px) { .sheet-body { grid-template-columns: minmax(0, 1fr) minmax(220px, 250px); grid-template-areas: "main side" "main view"; } .sheet-view { height: 210px; } }
+@media (max-width: 640px) { .sheet-body { grid-template-columns: minmax(0, 1fr); grid-template-areas: "main" "side" "view"; } #sheet-paint { width: 100%; min-width: 0; } }
 
 /* ---------- look inside: a short slideshow ---------- */
 dialog.story { border: 1px solid var(--line); border-radius: 12px; padding: 0; background: var(--panel); color: var(--ink); width: min(820px, calc(100% - 24px)); max-height: calc(100% - 24px); box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35); overflow: hidden; }
@@ -484,6 +494,48 @@ details.teacher .folder { font-weight: 800; margin-top: 6px; }
 @media (prefers-reduced-motion: reduce) { .wrap3d .net, .wrap3d .wp, .wrap3d .wv { transition-duration: 0.01s; } .wrap3d.s4 .wv { animation: none; } }
 .voice-pick { width: auto; max-width: 180px; padding: 4px 8px; font-size: 0.84rem; }
 
+/* tool icons */
+.toolset .btn .ico { width: 16px; height: 16px; flex: none; }
+.toolset .btn .tl { display: inline-flex; align-items: center; gap: 6px; flex: 1; min-width: 0; }
+.toolset .btn .tl kbd { margin-left: auto; }
+.toolset .btn { justify-content: flex-start; }
+
+/* clickable legend: each side of the cape can be found on the texture and the 3D cape */
+.legend button { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; padding: 3px 7px; border-radius: 99px; border: 1px solid transparent; font-size: 0.8rem; font-weight: 700; }
+.legend button:hover { background: var(--hover); border-color: var(--hover-line); }
+.legend button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 1px; }
+.legend button[aria-pressed="true"] { background: color-mix(in srgb, var(--c) 22%, var(--panel)); border-color: var(--c); }
+.legend button i { width: 14px; height: 14px; border-radius: 3px; border: 3px solid var(--c); }
+.legend button[aria-pressed="true"] i { animation: chip-pulse 0.8s ease-in-out infinite; }
+@keyframes chip-pulse { 50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 45%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .legend button[aria-pressed="true"] i { animation: none; } }
+
+/* Paint on: two separate, equal buttons */
+.side-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.side-pick .btn { width: 100%; }
+.side-pick .btn[aria-pressed="true"], .side-pick .btn[aria-pressed="true"]:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+.paint-on { gap: 8px; }
+.paint-on > .label-row span { font-size: 0.82rem; font-weight: 700; }
+
+/* Display & language: separate, equal option buttons */
+.opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.opt-grid .btn { width: 100%; padding: 7px 10px; font-size: 0.86rem; }
+.opt-grid .btn[aria-checked="true"], .opt-grid .btn[aria-checked="true"]:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.prefs fieldset legend { margin-bottom: 8px; }
+:root[data-a11y-theme="contrast"] .opt-grid .btn[aria-checked="true"] { text-decoration: underline; text-underline-offset: 3px; }
+
+/* delete confirmation */
+dialog.confirm { border: 1px solid var(--line); border-radius: 12px; padding: 0; background: var(--panel); color: var(--ink); width: min(420px, calc(100% - 32px)); box-shadow: 0 20px 50px rgba(15, 23, 42, 0.4); }
+dialog.confirm::backdrop { background: rgba(8, 15, 30, 0.6); }
+.confirm-body { display: flex; gap: 14px; align-items: center; padding: 20px 20px 14px; }
+.confirm-body .label { overflow-wrap: anywhere; }
+.confirm-body p { margin: 4px 0 0; color: var(--soft); font-size: 0.95rem; }
+.confirm-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 20px 16px; }
+.btn.danger-solid { background: var(--bad); border-color: var(--bad); color: #fff; }
+.btn.danger-solid:hover:not(:disabled) { background: color-mix(in srgb, var(--bad) 85%, #000); border-color: var(--bad); color: #fff; }
+:root[data-a11y-theme="contrast"] .btn.danger-solid, :root[data-theme="dark"] .btn.danger-solid { color: #000; }
+
 </style>
 </head>
 <body>
@@ -507,17 +559,17 @@ details.teacher .folder { font-weight: 800; margin-top: 6px; }
     <button class="btn ghost icon" type="button" id="prefs-close" data-tip="Close this panel." aria-label="Close" data-i18n-attr="aria-label">✕</button></div>
   <label class="field"><span data-i18n>Language</span><select id="pref-lang"></select></label>
   <fieldset class="field"><legend data-i18n>Theme</legend>
-    <div class="seg seg-wrap" role="radiogroup" id="pref-theme">
-      <button type="button" role="radio" data-theme-opt="system" data-tip="Match your device's light or dark setting." data-i18n aria-checked="true">System</button>
-      <button type="button" role="radio" data-theme-opt="light" data-tip="Soft light gray background." data-i18n aria-checked="false">Light</button>
-      <button type="button" role="radio" data-theme-opt="dark" data-tip="Dark background, easier on the eyes in a dim room." data-i18n aria-checked="false">Dark</button>
-      <button type="button" role="radio" data-theme-opt="contrast" data-tip="Black and white with bold outlines, the easiest to read." data-i18n aria-checked="false">High contrast</button>
+    <div class="opt-grid" role="radiogroup" id="pref-theme">
+      <button class="btn" type="button" role="radio" data-theme-opt="system" data-tip="Match your device's light or dark setting." data-i18n aria-checked="true">System</button>
+      <button class="btn" type="button" role="radio" data-theme-opt="light" data-tip="Soft light gray background." data-i18n aria-checked="false">Light</button>
+      <button class="btn" type="button" role="radio" data-theme-opt="dark" data-tip="Dark background, easier on the eyes in a dim room." data-i18n aria-checked="false">Dark</button>
+      <button class="btn" type="button" role="radio" data-theme-opt="contrast" data-tip="Black and white with bold outlines, the easiest to read." data-i18n aria-checked="false">High contrast</button>
     </div>
   </fieldset>
   <fieldset class="field"><legend data-i18n>Text size</legend>
-    <div class="seg" role="radiogroup" id="pref-text">
-      <button type="button" role="radio" data-text-opt="normal" data-tip="Standard text size." data-i18n aria-checked="true">Normal</button>
-      <button type="button" role="radio" data-text-opt="large" data-tip="Make all text bigger." data-i18n aria-checked="false">Large</button>
+    <div class="opt-grid" role="radiogroup" id="pref-text">
+      <button class="btn" type="button" role="radio" data-text-opt="normal" data-tip="Standard text size." data-i18n aria-checked="true">Normal</button>
+      <button class="btn" type="button" role="radio" data-text-opt="large" data-tip="Make all text bigger." data-i18n aria-checked="false">Large</button>
     </div>
   </fieldset>
   <p class="muted prefs-note" data-i18n>Cape names show in Minecraft exactly as you type them.</p>
@@ -615,12 +667,12 @@ details.teacher .folder { font-weight: 800; margin-top: 6px; }
         <div class="fields">
           <label class="field"><span data-i18n>Cape name</span><input type="text" id="cape-name" maxlength="32" autocomplete="off" data-tip="The item's name in Minecraft."><small class="field-error" role="alert" hidden></small></label>
 
-          <fieldset class="field"><legend class="label-row"><span data-i18n>Paint on</span><button class="bulb" type="button" data-info="sides" aria-label="Learn more" data-i18n-attr="aria-label" data-tip="Learn more" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2V17h5.6v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5Z" fill="#febd01" stroke="#7a5a00" stroke-width="1.4"/><path d="M9.6 19h4.8M10.2 21.3h3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 9.4c.3-1 1-1.6 1.9-1.8" stroke="#fff6d0" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></button></legend>
-            <div class="seg" role="group" aria-label="What to paint" data-i18n-attr="aria-label">
-              <button type="button" id="side-out" data-tip="The side everyone sees on your back." aria-pressed="true" data-i18n>Outside</button>
-              <button type="button" id="side-in" data-tip="The side against your back. It shows when the cape lifts." aria-pressed="false" data-i18n>Inside</button>
+          <div class="field paint-on"><div class="label-row"><span data-i18n>Paint on</span><button class="bulb" type="button" data-info="sides" aria-label="Learn more" data-i18n-attr="aria-label" data-tip="Learn more" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2V17h5.6v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5Z" fill="#febd01" stroke="#7a5a00" stroke-width="1.4"/><path d="M9.6 19h4.8M10.2 21.3h3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 9.4c.3-1 1-1.6 1.9-1.8" stroke="#fff6d0" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></button></div>
+            <div class="side-pick" role="group" aria-label="What to paint" data-i18n-attr="aria-label">
+              <button class="btn" type="button" id="side-out" data-tip="The side everyone sees on your back." aria-pressed="true" data-i18n>Outside</button>
+              <button class="btn" type="button" id="side-in" data-tip="The side against your back. It shows when the cape lifts." aria-pressed="false" data-i18n>Inside</button>
             </div>
-          </fieldset>
+          </div>
 
           <div class="label-row">
             <button class="btn" type="button" id="open-sheet" data-tip="Open the real picture file Minecraft uses. Every side of the cape is in it."><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="3" width="14" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 3v10M9 3v10M1 6h14" stroke="currentColor" stroke-width="1.2"/></svg><span data-i18n>Edit the whole texture</span></button>
@@ -633,10 +685,10 @@ details.teacher .folder { font-weight: 800; margin-top: 6px; }
               <div>
                 <p class="mini" data-i18n>Tools</p>
                 <div class="toolset" id="tools" role="group" aria-label="Drawing tools" data-i18n-attr="aria-label">
-                  <button class="btn" type="button" data-tool="pencil" data-tip="Color one square at a time. Right-click to erase." aria-pressed="true" data-i18n="html">Pencil <kbd>B</kbd></button>
-                  <button class="btn" type="button" data-tool="eraser" data-tip="Make squares see-through." aria-pressed="false" data-i18n="html">Eraser <kbd>E</kbd></button>
-                  <button class="btn" type="button" data-tool="fill" data-tip="Fill a whole area of one color." aria-pressed="false" data-i18n="html">Fill <kbd>G</kbd></button>
-                  <button class="btn" type="button" data-tool="picker" data-tip="Click a square to copy its color." aria-pressed="false" data-i18n="html">Pick color <kbd>I</kbd></button>
+                  <button class="btn" type="button" data-tool="pencil" data-tip="Color one square at a time. Right-click to erase." aria-pressed="true"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 13.5l.8-3.2 7.6-7.6a1.2 1.2 0 0 1 1.7 0l.7.7a1.2 1.2 0 0 1 0 1.7l-7.6 7.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9.8 3.8l2.4 2.4" stroke="currentColor" stroke-width="1.4"/></svg><span class="tl" data-i18n="html">Pencil <kbd>B</kbd></span></button>
+                  <button class="btn" type="button" data-tool="eraser" data-tip="Make squares see-through." aria-pressed="false"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.2 13.5L2 10.3a1.3 1.3 0 0 1 0-1.8l6-6a1.3 1.3 0 0 1 1.8 0l4 4a1.3 1.3 0 0 1 0 1.8l-5.6 5.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M4.6 6l5.4 5.4M8.2 13.5H14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span class="tl" data-i18n="html">Eraser <kbd>E</kbd></span></button>
+                  <button class="btn" type="button" data-tool="fill" data-tip="Fill a whole area of one color." aria-pressed="false"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 7.5L7 3l5 5-4.5 4.5a1.4 1.4 0 0 1-2 0L2.5 9.5a1.4 1.4 0 0 1 0-2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M3 8.2h8.6" stroke="currentColor" stroke-width="1.2"/><path d="M5.4 1.5L7 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M14.2 11.6c0 .9-.6 1.6-1.2 1.6s-1.2-.7-1.2-1.6c0-.8 1.2-2.4 1.2-2.4s1.2 1.6 1.2 2.4z" fill="currentColor"/></svg><span class="tl" data-i18n="html">Fill <kbd>G</kbd></span></button>
+                  <button class="btn" type="button" data-tool="picker" data-tip="Click a square to copy its color." aria-pressed="false"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.4 4.1l2.5 2.5M10.5 2.3l3.2 3.2-1.8 1.8-3.2-3.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9.2 5.8L3.3 11.7l-.8 1.8.0 0 1.8-.8 5.9-5.9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span class="tl" data-i18n="html">Pick color <kbd>I</kbd></span></button>
                 </div>
               </div>
               <label class="switch" data-tip="Whatever you draw on one half is copied to the other half. Shortcut: M."><input type="checkbox" id="mirror" class="mirror-box">
@@ -646,7 +698,7 @@ details.teacher .folder { font-weight: 800; margin-top: 6px; }
 
           <div>
             <p class="mini" data-i18n>Color</p>
-            <div class="cur"><input type="color" id="color" value="#2b7fff" aria-label="Custom color" data-i18n-attr="aria-label"><span class="mono" id="color-hex"></span></div>
+            <div class="cur"><input type="color" id="color" class="color-in" value="#2b7fff" aria-label="Custom color" data-i18n-attr="aria-label"><input type="text" class="hex-in mono" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Color code" data-i18n-attr="aria-label" data-tip="Type a color code like #ff8800."></div>
             <div class="swatches" id="palette"></div>
             <div class="swatches" id="recent" aria-label="Recent colors" data-empty="Colors you draw with show up here." data-i18n-attr="aria-label data-empty"></div>
           </div>
@@ -704,32 +756,57 @@ details.teacher .folder { font-weight: 800; margin-top: 6px; }
 <dialog class="sheet-panel" id="sheet-panel" aria-labelledby="sheet-h">
   <header class="sheet-head">
     <span class="label-row"><h2 class="label" id="sheet-h" data-i18n>Texture file</h2><button class="bulb" type="button" data-info="texture" aria-label="Learn more" data-i18n-attr="aria-label" data-tip="Learn more" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2V17h5.6v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5Z" fill="#febd01" stroke="#7a5a00" stroke-width="1.4"/><path d="M9.6 19h4.8M10.2 21.3h3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 9.4c.3-1 1-1.6 1.9-1.8" stroke="#fff6d0" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></button></span>
-    <button class="btn ghost icon" type="button" id="sheet-close" data-tip="Close this panel." aria-label="Close" data-i18n-attr="aria-label">✕</button>
+    <button class="btn" type="button" id="sheet-done" data-i18n>Done</button>
   </header>
   <div class="sheet-body">
-    <canvas id="sheet-paint" width="528" height="408" aria-label="Pixel drawing grid for the whole texture file" data-i18n-attr="aria-label"></canvas>
-    <ul class="legend" id="legend"></ul>
-    <p class="where" id="where2" aria-live="polite"></p>
-    <div class="sheet-tools">
-      <div class="toolset row" role="group" aria-label="Drawing tools" data-i18n-attr="aria-label">
-        <button class="btn" type="button" data-tool="pencil" aria-pressed="true" data-tip="Color one square at a time. Right-click to erase." data-i18n="html">Pencil <kbd>B</kbd></button>
-        <button class="btn" type="button" data-tool="eraser" aria-pressed="false" data-tip="Make squares see-through." data-i18n="html">Eraser <kbd>E</kbd></button>
-        <button class="btn" type="button" data-tool="fill" aria-pressed="false" data-tip="Fill a whole area of one color." data-i18n="html">Fill <kbd>G</kbd></button>
-        <button class="btn" type="button" data-tool="picker" aria-pressed="false" data-tip="Click a square to copy its color." data-i18n="html">Pick color <kbd>I</kbd></button>
+    <div class="sheet-view" id="sheet-view" aria-label="3D preview of the selected cape on a player model" data-i18n-attr="aria-label"></div>
+    <div class="sheet-main">
+      <canvas id="sheet-paint" width="528" height="408" aria-label="Pixel drawing grid for the whole texture file" data-i18n-attr="aria-label"></canvas>
+      <ul class="legend" id="legend"></ul>
+      <p class="where" id="where2" aria-live="polite"></p>
+    </div>
+    <div class="sheet-side">
+      <div>
+        <p class="mini" data-i18n>Tools</p>
+        <div class="toolset grid2" role="group" aria-label="Drawing tools" data-i18n-attr="aria-label">
+        <button class="btn" type="button" data-tool="pencil" aria-pressed="true" data-tip="Color one square at a time. Right-click to erase."><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 13.5l.8-3.2 7.6-7.6a1.2 1.2 0 0 1 1.7 0l.7.7a1.2 1.2 0 0 1 0 1.7l-7.6 7.6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9.8 3.8l2.4 2.4" stroke="currentColor" stroke-width="1.4"/></svg><span class="tl" data-i18n="html">Pencil <kbd>B</kbd></span></button>
+        <button class="btn" type="button" data-tool="eraser" aria-pressed="false" data-tip="Make squares see-through."><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.2 13.5L2 10.3a1.3 1.3 0 0 1 0-1.8l6-6a1.3 1.3 0 0 1 1.8 0l4 4a1.3 1.3 0 0 1 0 1.8l-5.6 5.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M4.6 6l5.4 5.4M8.2 13.5H14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span class="tl" data-i18n="html">Eraser <kbd>E</kbd></span></button>
+        <button class="btn" type="button" data-tool="fill" aria-pressed="false" data-tip="Fill a whole area of one color."><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 7.5L7 3l5 5-4.5 4.5a1.4 1.4 0 0 1-2 0L2.5 9.5a1.4 1.4 0 0 1 0-2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M3 8.2h8.6" stroke="currentColor" stroke-width="1.2"/><path d="M5.4 1.5L7 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M14.2 11.6c0 .9-.6 1.6-1.2 1.6s-1.2-.7-1.2-1.6c0-.8 1.2-2.4 1.2-2.4s1.2 1.6 1.2 2.4z" fill="currentColor"/></svg><span class="tl" data-i18n="html">Fill <kbd>G</kbd></span></button>
+        <button class="btn" type="button" data-tool="picker" aria-pressed="false" data-tip="Click a square to copy its color."><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.4 4.1l2.5 2.5M10.5 2.3l3.2 3.2-1.8 1.8-3.2-3.2z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9.2 5.8L3.3 11.7l-.8 1.8.0 0 1.8-.8 5.9-5.9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span class="tl" data-i18n="html">Pick color <kbd>I</kbd></span></button>
+      </div>
       </div>
       <label class="switch" data-tip="Whatever you draw on one half is copied to the other half. Shortcut: M."><input type="checkbox" class="mirror-box"><span><b data-i18n>Mirror</b></span></label>
-    </div>
-    <div class="swatches" id="palette2"></div>
-    <div class="row-btns">
-      <button class="btn" type="button" id="undo2" data-tip="Undo your last change. Ctrl+Z works too." data-i18n>Undo</button>
-      <button class="btn" type="button" id="redo2" data-tip="Redo what you undid. Ctrl+Y works too." data-i18n>Redo</button>
-      <button class="btn" type="button" id="clear2" data-tip="Erase the whole texture." data-i18n>Clear</button>
-      <button class="btn" type="button" id="edges-auto" data-tip="Make the thin edges copy the colors next to them again." hidden data-i18n>Match edges to the outside</button>
+      <div>
+        <p class="mini" data-i18n>Color</p>
+        <div class="cur"><input type="color" class="color-in" value="#2b7fff" aria-label="Custom color" data-i18n-attr="aria-label"><input type="text" class="hex-in mono" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Color code" data-i18n-attr="aria-label" data-tip="Type a color code like #ff8800."></div>
+        <div class="swatches" id="palette2"></div>
+        <div class="swatches" id="recent2" aria-label="Recent colors" data-empty="Colors you draw with show up here." data-i18n-attr="aria-label data-empty"></div>
+      </div>
+      <div class="row-btns">
+        <button class="btn" type="button" id="undo2" data-tip="Undo your last change. Ctrl+Z works too." data-i18n>Undo</button>
+        <button class="btn" type="button" id="redo2" data-tip="Redo what you undid. Ctrl+Y works too." data-i18n>Redo</button>
+        <button class="btn" type="button" id="clear2" data-tip="Erase the whole texture." data-i18n>Clear</button>
+        <button class="btn" type="button" id="edges-auto" data-tip="Make the thin edges copy the colors next to them again." hidden data-i18n>Match edges to the outside</button>
+      </div>
     </div>
   </div>
 </dialog>
 
 <div class="pop" id="pop" role="dialog" aria-modal="false" hidden><div id="pop-body"></div></div>
+
+<dialog class="confirm" id="confirm-del" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+  <div class="confirm-body">
+    <span class="slot"><canvas id="confirm-icon" width="16" height="16"></canvas></span>
+    <div>
+      <h2 class="label" id="confirm-title"></h2>
+      <p id="confirm-text" data-i18n>Are you sure? This can't be undone.</p>
+    </div>
+  </div>
+  <footer class="confirm-foot">
+    <button class="btn" type="button" id="confirm-no" data-i18n>Keep it</button>
+    <button class="btn danger-solid" type="button" id="confirm-yes" data-i18n>Delete cape</button>
+  </footer>
+</dialog>
 
 <div class="toast" id="toast" role="status" hidden><span id="toast-msg"></span><button type="button" id="toast-action" hidden></button></div>
 
@@ -1088,7 +1165,14 @@ window.CapeStrings = {
 "For teachers: show the files": "Para docentes: mostrar los archivos",
 "Wrap it again": "Envolver otra vez",
 "Voice": "Voz",
-"Pick the voice that reads to you.": "Elige la voz que te lee."
+"Pick the voice that reads to you.": "Elige la voz que te lee.",
+"Color code": "Código de color",
+"Type a color code like #ff8800.": "Escribe un código de color como #ff8800.",
+"Show me where this side is.": "Muéstrame dónde está este lado.",
+"Showing: <b>{place}</b>": "Mostrando: <b>{place}</b>",
+"Delete “{name}”?": "¿Eliminar «{name}»?",
+"Are you sure? This can't be undone.": "¿Seguro? Esto no se puede deshacer.",
+"Keep it": "Conservarla"
 },
 "fr": {
 "(no name)": "(sans nom)",
@@ -1378,7 +1462,14 @@ window.CapeStrings = {
 "For teachers: show the files": "Pour les enseignants : afficher les fichiers",
 "Wrap it again": "Emballer encore",
 "Voice": "Voix",
-"Pick the voice that reads to you.": "Choisis la voix qui te lit."
+"Pick the voice that reads to you.": "Choisis la voix qui te lit.",
+"Color code": "Code couleur",
+"Type a color code like #ff8800.": "Tape un code couleur comme #ff8800.",
+"Show me where this side is.": "Montre-moi où est ce côté.",
+"Showing: <b>{place}</b>": "Affiché : <b>{place}</b>",
+"Delete “{name}”?": "Supprimer « {name} » ?",
+"Are you sure? This can't be undone.": "Tu es sûr ? Ça ne peut pas être annulé.",
+"Keep it": "La garder"
 },
 "pt": {
 "(no name)": "(sem nome)",
@@ -1668,7 +1759,14 @@ window.CapeStrings = {
 "For teachers: show the files": "Para professores: mostrar os arquivos",
 "Wrap it again": "Embrulhar de novo",
 "Voice": "Voz",
-"Pick the voice that reads to you.": "Escolha a voz que lê para você."
+"Pick the voice that reads to you.": "Escolha a voz que lê para você.",
+"Color code": "Código da cor",
+"Type a color code like #ff8800.": "Digite um código de cor como #ff8800.",
+"Show me where this side is.": "Mostre onde fica este lado.",
+"Showing: <b>{place}</b>": "Mostrando: <b>{place}</b>",
+"Delete “{name}”?": "Excluir “{name}”?",
+"Are you sure? This can't be undone.": "Tem certeza? Isso não pode ser desfeito.",
+"Keep it": "Manter"
 },
 "de": {
 "(no name)": "(kein Name)",
@@ -1958,7 +2056,14 @@ window.CapeStrings = {
 "For teachers: show the files": "Für Lehrkräfte: Dateien anzeigen",
 "Wrap it again": "Nochmal einwickeln",
 "Voice": "Stimme",
-"Pick the voice that reads to you.": "Wähle die Stimme, die dir vorliest."
+"Pick the voice that reads to you.": "Wähle die Stimme, die dir vorliest.",
+"Color code": "Farbcode",
+"Type a color code like #ff8800.": "Gib einen Farbcode wie #ff8800 ein.",
+"Show me where this side is.": "Zeig mir, wo diese Seite ist.",
+"Showing: <b>{place}</b>": "Angezeigt: <b>{place}</b>",
+"Delete “{name}”?": "„{name}“ löschen?",
+"Are you sure? This can't be undone.": "Bist du sicher? Das kann nicht rückgängig gemacht werden.",
+"Keep it": "Behalten"
 },
 "zh": {
 "(no name)": "（未命名）",
@@ -2248,7 +2353,14 @@ window.CapeStrings = {
 "For teachers: show the files": "教师专用：显示文件",
 "Wrap it again": "再包一次",
 "Voice": "声音",
-"Pick the voice that reads to you.": "选择给你朗读的声音。"
+"Pick the voice that reads to you.": "选择给你朗读的声音。",
+"Color code": "颜色代码",
+"Type a color code like #ff8800.": "输入颜色代码，例如 #ff8800。",
+"Show me where this side is.": "告诉我这一面在哪里。",
+"Showing: <b>{place}</b>": "正在显示：<b>{place}</b>",
+"Delete “{name}”?": "删除“{name}”？",
+"Are you sure? This can't be undone.": "确定吗？此操作无法撤销。",
+"Keep it": "保留"
 }
 };
 
@@ -2843,7 +2955,7 @@ window.CapeStrings = {
       const w = Math.max(1, Math.floor(r.width)), h = Math.max(1, Math.floor(r.height));
       renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
     }
-    new ResizeObserver(resize).observe(canvas.parentElement);
+    const ro = new ResizeObserver(resize); ro.observe(canvas.parentElement);
 
     // Pointing at the cape tells the page which texture pixel is under the pointer
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
@@ -2872,10 +2984,16 @@ window.CapeStrings = {
     canvas.addEventListener("wheel", (e) => { e.preventDefault(); view.dist = Math.max(40, Math.min(160, view.dist * (1 + Math.sign(e.deltaY) * 0.08))); }, { passive: false });
 
     /** Turn the camera the short way round to look at the player's back */
-    function faceBack() {
-      const target = Math.round(view.yaw / 360) * 360 - 15;
-      spin = target - view.yaw;
+    function faceBack() { turnTo(-15, 10); }
+    /** Turn the camera the short way round to a yaw angle (0 = behind the player) and set the tilt */
+    function turnTo(yaw, pitch) {
+      const target = yaw + Math.round((view.yaw - yaw) / 360) * 360;
+      spin = target - view.yaw; if (pitch !== undefined) pitchTarget = pitch;
     }
+    let pitchTarget = null;
+    // where to look from to see each side of the cape (left/right as seen from behind)
+    const REGION_VIEW = { outside: [-15, 10], inside: [-48, -34, 85, 104], east: [-70, 8], west: [70, 8], top: [-20, 55], bottom: [-35, -8, 60, 100] };
+    let lift = 0, liftTarget = 0, distTarget = null;   // lifts the cape up so its inside (or bottom) can be seen
 
     /** Pose: walk cycle on arms and legs; the cape uses the add-on's own formula
      *  (5° + up to 50° with speed + a 1.5° flutter, in Molang degrees). Unfolding lays the sides flat. */
@@ -2894,7 +3012,8 @@ window.CapeStrings = {
       const before = unfold;
       unfold += Math.sign(unfoldTarget - unfold) * Math.min(Math.abs(unfoldTarget - unfold), dt / 1.1);
       const k = ease(unfold);
-      B.cape.rotation.x = -capeDeg * DEG * (1 - k);
+      lift += (liftTarget - lift) * Math.min(1, dt * 4);
+      B.cape.rotation.x = -Math.max(capeDeg, lift) * DEG * (1 - k);
       for (const m of rig.capeMeshes) {
         m.position.lerpVectors(m.userData.fold.p, m.userData.flat.p, k);
         m.quaternion.copy(m.userData.fold.q).slerp(m.userData.flat.q, k);
@@ -2906,6 +3025,8 @@ window.CapeStrings = {
     function frame(now) {
       const dt = Math.min(0.1, (now - last) / 1000); last = now;
       if (spin) { const step = Math.sign(spin) * Math.min(Math.abs(spin), dt * 400); view.yaw += step; spin -= step; }
+      if (distTarget !== null) { const d = distTarget - view.dist; view.dist += Math.sign(d) * Math.min(Math.abs(d), dt * 60); if (Math.abs(d) < 0.1) distTarget = null; }
+      if (pitchTarget !== null) { const d = pitchTarget - view.pitch, st = Math.sign(d) * Math.min(Math.abs(d), dt * 120); view.pitch += st; if (Math.abs(d) < 0.1) pitchTarget = null; }
       pose(dt); placeCamera(); renderer.render(scene, camera);
       requestAnimationFrame(frame);
     }
@@ -2938,6 +3059,9 @@ window.CapeStrings = {
       get unfolded() { return unfoldTarget === 1; },
       onPoint(fn) { onPoint = fn; },
       showBack() { faceBack(); },
+      lookAtRegion(id) { const v = REGION_VIEW[id]; liftTarget = (v && v[2]) || 0; if (v) turnTo(v[0], v[1]); distTarget = (v && v[3]) || (id === null ? VIEW.dist : null); if (unfoldTarget) unfoldTarget = 0; },
+      /** Call after moving the canvas to a new parent */
+      refit() { ro.disconnect(); ro.observe(canvas.parentElement); resize(); },
       turnAround() { spin += 180; },
       resetView() { spin = 0; Object.assign(view, VIEW); },
       setColors(bg, line) {
@@ -3445,9 +3569,15 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
       g.stroke();
     }
     if (frames) for (const r of P.REGIONS) {
-      const lw = Math.max(2, R(s / 6));
-      g.strokeStyle = r.color; g.lineWidth = lw;
-      g.strokeRect(R((r.x - v.x) * s) + lw / 2, R((r.y - v.y) * s) + lw / 2, R(r.w * s) - lw, R(r.h * s) - lw);
+      const lw = Math.max(2, R(s / 6)), x = R((r.x - v.x) * s), y = R((r.y - v.y) * s), w = R(r.w * s), h = R(r.h * s);
+      const k = pulse && pulse.id === r.id ? pulseLevel() : 0;
+      if (k) {   // glowing, pulsing frame + a light wash over the side
+        g.save(); g.globalAlpha = 0.18 + 0.22 * k; g.fillStyle = r.color; g.fillRect(x, y, w, h); g.restore();
+        g.save(); g.shadowColor = r.color; g.shadowBlur = s * (0.6 + 1.4 * k);
+        const L = lw * (1.6 + 1.4 * k); g.strokeStyle = r.color; g.lineWidth = L;
+        g.strokeRect(x + L / 2, y + L / 2, w - L, h - L); g.strokeStyle = "rgba(255,255,255," + (0.35 + 0.5 * k) + ")"; g.lineWidth = Math.max(1, L / 3);
+        g.strokeRect(x + L / 2, y + L / 2, w - L, h - L); g.restore();
+      } else { g.strokeStyle = r.color; g.lineWidth = lw; g.strokeRect(x + lw / 2, y + lw / 2, w - lw, h - lw); }
     }
   }
   /** Match a painting canvas to its on-screen size × device pixel ratio, so nothing gets squeezed */
@@ -3564,6 +3694,11 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   }
   setInterval(() => { if (pointAt()) { blink = !blink; drawPaint(); updatePreviewCape(); drawFlat(); } }, 320);
   function highlight(g) {
+    if (pulse) {   // the side being shown glows on the 3D cape too
+      const r = P.REGIONS.find((q) => q.id === pulse.id), k = pulseLevel();
+      if (k) { g.save(); g.globalAlpha = 0.25 + 0.55 * k; g.fillStyle = r.color; g.fillRect(r.x, r.y, r.w, r.h); g.globalAlpha = 0.35 * k; g.fillStyle = "#ffffff"; g.fillRect(r.x, r.y, r.w, r.h); g.restore(); }
+      return;
+    }
     const p = pointAt(); if (!p || !P.regionAt(...p)) return;
     g.fillStyle = blink ? "#ffffff" : "#000000"; g.fillRect(p[0], p[1], 1, 1);
   }
@@ -3582,11 +3717,26 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   function setMirror(on) { mirror = !!on; document.querySelectorAll(".mirror-box").forEach((m) => { m.checked = mirror; }); drawPaint(); }
   document.querySelectorAll(".mirror-box").forEach((m) => m.addEventListener("change", () => setMirror(m.checked)));
 
-  function setColor(c) {
-    color = c.toLowerCase(); $("#color").value = color; $("#color-hex").textContent = color;
-    document.querySelectorAll("#palette button, #palette2 button, #recent button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.c === color)));
+  /** One color shared by both painters; every color box and color code field shows it (except the field being typed in) */
+  function setColor(c, typing) {
+    color = c.toLowerCase();
+    document.querySelectorAll(".color-in").forEach((i) => { i.value = color; });
+    document.querySelectorAll(".hex-in").forEach((i) => { if (i !== typing) { i.value = color; i.removeAttribute("aria-invalid"); } });
+    document.querySelectorAll("#palette button, #palette2 button, #recent button, #recent2 button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.c === color)));
   }
-  $("#color").addEventListener("input", (e) => setColor(e.target.value));
+  document.querySelectorAll(".color-in").forEach((i) => i.addEventListener("input", () => setColor(i.value)));
+  const parseHex = (s) => {
+    const m = String(s).trim().replace(/^#/, "").toLowerCase();
+    if (/^[0-9a-f]{6}$/.test(m)) return "#" + m;
+    if (/^[0-9a-f]{3}$/.test(m)) return "#" + m.split("").map((ch) => ch + ch).join("");
+    return null;
+  };
+  document.querySelectorAll(".hex-in").forEach((i) => {
+    i.addEventListener("input", () => { const h = parseHex(i.value); i.setAttribute("aria-invalid", String(!h && i.value.trim().length >= 4)); if (h) setColor(h, i); });
+    const settle = () => { const h = parseHex(i.value); if (h) { setColor(h); addRecent(h); } else setColor(color); };
+    i.addEventListener("change", settle);
+    i.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); settle(); i.select(); } });
+  });
   function swatch(c) {
     const b = document.createElement("button"); b.type = "button"; b.dataset.c = c; b.style.setProperty("--sw", c);
     b.setAttribute("aria-label", t("Color {hex}", { hex: c })); b.title = c; b.setAttribute("aria-pressed", String(c === color));
@@ -3595,14 +3745,40 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   }
   function renderSwatches() {
     $("#palette").replaceChildren(...PALETTE.map(swatch));
-    $("#palette2").replaceChildren(...[...recent, ...PALETTE.filter((c) => !recent.includes(c))].map(swatch));
+    $("#palette2").replaceChildren(...PALETTE.map(swatch));
+    $("#recent2").replaceChildren(...recent.map(swatch));
     $("#recent").replaceChildren(...recent.map(swatch));
   }
   function renderLegend() {
     $("#legend").replaceChildren(...P.REGIONS.map((r) => {
-      const li = document.createElement("li"), i = document.createElement("i");
-      i.style.setProperty("--c", r.color); li.append(i, document.createTextNode(t(r.name))); return li;
+      const li = document.createElement("li"), b = document.createElement("button"), i = document.createElement("i");
+      b.type = "button"; b.dataset.region = r.id; b.style.setProperty("--c", r.color);
+      b.dataset.tip = "Show me where this side is."; b.setAttribute("aria-pressed", "false");
+      b.append(i, document.createTextNode(t(r.name)));
+      b.addEventListener("click", () => startPulse(r.id));
+      li.appendChild(b); return li;
     }));
+  }
+
+  // ---- "show me": a side's frame glows and pulses on the texture, and the same side glows on the 3D cape
+  let pulse = null, pulseRaf = 0, pulseTick = 0;
+  const PULSE_MS = 3200;
+  function pulseLevel() { if (!pulse) return 0; const e = performance.now() - pulse.start; return e > PULSE_MS ? 0 : 0.5 + 0.5 * Math.sin(e / 800 * Math.PI * 2 - Math.PI / 2); }
+  function startPulse(id) {
+    pulse = { id, start: performance.now() };
+    document.querySelectorAll(".legend button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.region === id)));
+    const r = P.REGIONS.find((q) => q.id === id);
+    for (const w of ["#where", "#where2"]) $(w).innerHTML = t("Showing: <b>{place}</b>", { place: t(r.name) });
+    if (preview) preview.lookAtRegion(id);
+    cancelAnimationFrame(pulseRaf);
+    const step = (now) => {
+      const done = now - pulse.start > PULSE_MS;
+      drawPaint(); drawFlat();
+      if (now - pulseTick > 90 || done) { pulseTick = now; updatePreviewCape(); }
+      if (done) { pulse = null; if (preview) preview.lookAtRegion(null); document.querySelectorAll(".legend button").forEach((b) => b.setAttribute("aria-pressed", "false")); drawPaint(); drawFlat(); updatePreviewCape(); pointChanged(); return; }
+      pulseRaf = requestAnimationFrame(step);
+    };
+    pulseRaf = requestAnimationFrame(step);
   }
 
   function setSide(s) {
@@ -3623,15 +3799,22 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   $("#clear2").addEventListener("click", () => { snapshot(); const c = cape(); c.outside = new Array(P.N).fill(""); c.inside = new Array(P.N).fill(""); c.edges = null; changed(); afterDesignChange(true); });
 
   // the whole texture file, in a panel that floats beside the 3D preview
+  // The whole texture opens as a spotlight: a modal panel over a dimmed page, so only the editor can be used.
+  // The live 3D preview moves into the panel while it is open, so pointing still links the texture and the cape.
+  const stageCanvas = $("#stage"), stageHome = $("#stage-wrap");
   function openSheet() {
-    if (!sheetPanel.open) sheetPanel.show();
+    if (!sheetPanel.open) sheetPanel.showModal();
+    $("#sheet-view").appendChild(stageCanvas);
+    if (preview) { preview.refit(); preview.showBack(); }
     $("#edges-auto").hidden = !cape().edges;
-    if (preview) preview.showBack();
-    drawPaint(); pointChanged(); $("#sheet-close").focus();
+    drawPaint(); pointChanged(); $("#sheet-done").focus();
   }
   $("#open-sheet").addEventListener("click", openSheet);
-  $("#sheet-close").addEventListener("click", () => { sheetPanel.close(); $("#open-sheet").focus(); });
-  sheetPanel.addEventListener("keydown", (e) => { if (e.key === "Escape" && pop.hidden) { e.preventDefault(); sheetPanel.close(); $("#open-sheet").focus(); } });
+  $("#sheet-done").addEventListener("click", () => sheetPanel.close());
+  sheetPanel.addEventListener("close", () => {
+    stageHome.prepend(stageCanvas); if (preview) preview.refit();
+    hover = null; point3d = null; pointChanged(); $("#open-sheet").focus();
+  });
   $("#copy-out").addEventListener("click", () => {
     snapshot(); const o = cape().outside, mi = (i) => ((i / P.W) | 0) * P.W + (P.W - 1 - (i % P.W));
     // the inside faces the other way, so it is mirrored to line up with the outside like real fabric
@@ -3687,7 +3870,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     if (b) { if (popFor === b) closePop(); else openPop(b); return; }
     if (popFor && !pop.contains(e.target)) closePop();
   });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && popFor) { const b = popFor; closePop(); b.focus(); } });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && popFor) { e.preventDefault(); const b = popFor; closePop(); b.focus(); } }, true);
   addEventListener("resize", closePop); document.addEventListener("scroll", closePop, true);
 
   function renderLearn() {
@@ -3824,11 +4007,24 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     project.capes.splice(sel + 1, 0, copy);
     changed(); select(sel + 1); renderProblems();
   });
+  // Deleting asks first, because it can't be undone
+  const confirmDlg = $("#confirm-del");
   $("#del-cape").addEventListener("click", () => {
     if (project.capes.length <= 1) return;
+    const c = cape();
+    $("#confirm-title").textContent = t("Delete “{name}”?", { name: c.name.trim() || t("(no name)") });
+    const cv = $("#confirm-icon"), g = cv.getContext("2d"); g.clearRect(0, 0, 16, 16); P.drawIcon(g, c);
+    confirmDlg.showModal(); $("#confirm-no").focus();
+  });
+  $("#confirm-no").addEventListener("click", () => confirmDlg.close());
+  confirmDlg.addEventListener("click", (e) => { if (e.target === confirmDlg) confirmDlg.close(); });
+  $("#confirm-yes").addEventListener("click", () => {
+    confirmDlg.close();
+    if (project.capes.length <= 1) return;
     const i = sel, removed = project.capes.splice(i, 1)[0];
+    delete history[removed.key];
     changed(); select(Math.min(i, project.capes.length - 1)); renderProblems();
-    toast(t("Deleted “{name}”.", { name: removed.name }), t("Undo"), () => { project.capes.splice(i, 0, removed); select(i); renderProblems(); });
+    toast(t("Deleted “{name}”.", { name: removed.name }));
   });
 
   // ------------------------------------------------------------------ names
