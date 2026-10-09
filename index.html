@@ -23,7 +23,7 @@
   --stage: #cdd5e0; --stage-line: #a9b5c6;
   --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.05);
   --slot: #475569; --slot-edge: #334155;
-  --check-a: #d2d9e2; --check-b: #e9edf2;
+  --check-a: #d2d9e2; --check-b: #e9edf2; --unused: #c4ccd7;
   --grid-line: rgba(15, 23, 42, 0.12); --grid-major: rgba(15, 23, 42, 0.32);
   --f-display: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -37,7 +37,7 @@
     --nav: #0c3a7d; --nav-soft: #a9c4ee; --accent: #4d94ff; --accent-hover: #75acff; --accent-ink: #06122a; --accent-soft: #15284a;
     --ok: #4ade80; --ok-soft: #12301f; --warn: #fbbf24; --warn-soft: #33270b; --bad: #f87171; --bad-soft: #3b1515;
     --stage: #0a1324; --stage-line: #2b3b58; --shadow: 0 1px 3px rgba(0, 0, 0, 0.4); --hover: #26396a; --hover-line: #5b86cf; --hover-ink: var(--ink); --tip-bg: #e2e8f0; --tip-ink: #0b1120; --field: var(--panel);
-    --slot: #1e293b; --slot-edge: #0f172a; --check-a: #1e293b; --check-b: #273449; --grid-line: rgba(226, 232, 240, 0.12); --grid-major: rgba(226, 232, 240, 0.35);
+    --slot: #1e293b; --slot-edge: #0f172a; --check-a: #1e293b; --check-b: #273449; --unused: #0d1424; --grid-line: rgba(226, 232, 240, 0.12); --grid-major: rgba(226, 232, 240, 0.35);
     color-scheme: dark;
   }
 }
@@ -46,17 +46,17 @@
   --nav: #0c3a7d; --nav-soft: #a9c4ee; --accent: #4d94ff; --accent-hover: #75acff; --accent-ink: #06122a; --accent-soft: #15284a;
   --ok: #4ade80; --ok-soft: #12301f; --warn: #fbbf24; --warn-soft: #33270b; --bad: #f87171; --bad-soft: #3b1515;
   --stage: #0a1324; --stage-line: #2b3b58; --shadow: 0 1px 3px rgba(0, 0, 0, 0.4); --hover: #26396a; --hover-line: #5b86cf; --hover-ink: var(--ink); --tip-bg: #e2e8f0; --tip-ink: #0b1120; --field: var(--panel);
-  --slot: #1e293b; --slot-edge: #0f172a; --check-a: #1e293b; --check-b: #273449; --grid-line: rgba(226, 232, 240, 0.12); --grid-major: rgba(226, 232, 240, 0.35);
+  --slot: #1e293b; --slot-edge: #0f172a; --check-a: #1e293b; --check-b: #273449; --unused: #0d1424; --grid-line: rgba(226, 232, 240, 0.12); --grid-major: rgba(226, 232, 240, 0.35);
   color-scheme: dark;
 }
 
 /* ---------- display preferences (set from the Display & language panel) ---------- */
-:root[data-a11y-theme="light"] { --bg: #dde2e9;--panel: #eceff3;--sunk: #e0e5eb;--ink: #1d293d;--muted: #55667e;--soft: #4a5565;--line: #cbd3dd;--line-strong: #aeb9c9; --sunk-hover: #d8e3f3;--nav: #10499c;--nav-ink: #ffffff;--nav-soft: #b8d0f2;--cyan: #00aef0;--accent: #2b7fff;--accent-hover: #1665e8;--accent-ink: #ffffff;--accent-soft: #dce8fb;--stripe-blue: #174fa2; --stripe-yellow: #febd01; --stripe-pink: #ed287f;--ok: #15803d; --ok-soft: #dcfce7;--warn: #a16207; --warn-soft: #fef3c7;--bad: #c81e1e; --bad-soft: #fee2e2;--stage: #cdd5e0; --stage-line: #a9b5c6;--shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.05);--slot: #475569; --slot-edge: #334155;--check-a: #d2d9e2; --check-b: #e9edf2;--grid-line: rgba(15, 23, 42, 0.12); --grid-major: rgba(15, 23, 42, 0.32); --hover: #d3e0f4; --hover-line: #7fa6e3; --hover-ink: var(--ink); --field: #f6f8fa; --tip-bg: #1d293d; --tip-ink: #ffffff; color-scheme: light; }
+:root[data-a11y-theme="light"] { --bg: #dde2e9;--panel: #eceff3;--sunk: #e0e5eb;--ink: #1d293d;--muted: #55667e;--soft: #4a5565;--line: #cbd3dd;--line-strong: #aeb9c9; --sunk-hover: #d8e3f3;--nav: #10499c;--nav-ink: #ffffff;--nav-soft: #b8d0f2;--cyan: #00aef0;--accent: #2b7fff;--accent-hover: #1665e8;--accent-ink: #ffffff;--accent-soft: #dce8fb;--stripe-blue: #174fa2; --stripe-yellow: #febd01; --stripe-pink: #ed287f;--ok: #15803d; --ok-soft: #dcfce7;--warn: #a16207; --warn-soft: #fef3c7;--bad: #c81e1e; --bad-soft: #fee2e2;--stage: #cdd5e0; --stage-line: #a9b5c6;--shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.05);--slot: #475569; --slot-edge: #334155;--check-a: #d2d9e2; --check-b: #e9edf2; --unused: #c4ccd7;--grid-line: rgba(15, 23, 42, 0.12); --grid-major: rgba(15, 23, 42, 0.32); --hover: #d3e0f4; --hover-line: #7fa6e3; --hover-ink: var(--ink); --field: #f6f8fa; --tip-bg: #1d293d; --tip-ink: #ffffff; color-scheme: light; }
 :root[data-a11y-theme="dark"] { --bg: #0b1120; --panel: #111a2e; --sunk: #1a2540; --ink: #e2e8f0; --muted: #94a3b8; --soft: #cbd5e1; --line: #24324d; --line-strong: #3a4b6b; --sunk-hover: #22305a;
   --nav: #0c3a7d; --nav-soft: #a9c4ee; --accent: #4d94ff; --accent-hover: #75acff; --accent-ink: #06122a; --accent-soft: #15284a;
   --ok: #4ade80; --ok-soft: #12301f; --warn: #fbbf24; --warn-soft: #33270b; --bad: #f87171; --bad-soft: #3b1515;
   --stage: #0a1324; --stage-line: #2b3b58; --shadow: 0 1px 3px rgba(0, 0, 0, 0.4); --hover: #26396a; --hover-line: #5b86cf; --hover-ink: var(--ink); --tip-bg: #e2e8f0; --tip-ink: #0b1120; --field: var(--panel);
-  --slot: #1e293b; --slot-edge: #0f172a; --check-a: #1e293b; --check-b: #273449; --grid-line: rgba(226, 232, 240, 0.12); --grid-major: rgba(226, 232, 240, 0.35); color-scheme: dark; }
+  --slot: #1e293b; --slot-edge: #0f172a; --check-a: #1e293b; --check-b: #273449; --unused: #0d1424; --grid-line: rgba(226, 232, 240, 0.12); --grid-major: rgba(226, 232, 240, 0.35); color-scheme: dark; }
 /* High contrast: pure black and white, bright yellow actions, thick borders, strong focus */
 :root[data-a11y-theme="contrast"] {
   --bg: #000000; --panel: #000000; --sunk: #000000; --ink: #ffffff; --muted: #ffffff; --soft: #ffffff;
@@ -65,7 +65,7 @@
   --accent: #ffe600; --accent-hover: #fff27a; --accent-ink: #000000; --accent-soft: #000000;
   --ok: #7dff9a; --ok-soft: #000000; --warn: #ffe600; --warn-soft: #000000; --bad: #ff8a8a; --bad-soft: #000000;
   --stage: #000000; --stage-line: #ffffff; --shadow: none;
-  --slot: #000000; --slot-edge: #ffffff; --check-a: #000000; --check-b: #333333; --grid-line: rgba(255,255,255,0.35); --grid-major: #ffffff;
+  --slot: #000000; --slot-edge: #ffffff; --check-a: #000000; --check-b: #333333; --unused: #1a1a1a; --grid-line: rgba(255,255,255,0.35); --grid-major: #ffffff;
   --hover: #3a3a3a; --hover-line: #ffe600; --hover-ink: #ffffff; --field: #000000; --tip-bg: #ffffff; --tip-ink: #000000;
   color-scheme: dark;
 }
@@ -224,7 +224,7 @@ input[aria-invalid="true"] { border-color: var(--bad); }
 /* ---------- designer ---------- */
 .paint-row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: start; }
 @media (max-width: 420px) { .paint-row { grid-template-columns: minmax(0, 1fr); } }
-#paint { display: block; width: 200px; max-width: 100%; aspect-ratio: 10 / 16; image-rendering: pixelated; touch-action: none; cursor: crosshair; border: 1px solid var(--line); border-radius: 4px; }
+#paint { display: block; width: 200px; max-width: 100%; aspect-ratio: 10 / 16; touch-action: none; cursor: crosshair; border: 1px solid var(--line); border-radius: 4px; }
 .tool-col { display: grid; gap: 12px; align-content: start; min-width: 0; }
 .mini { font-weight: 800; font-size: 0.8rem; margin: 0 0 6px; }
 .toolset { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
@@ -280,6 +280,85 @@ details.help[open] summary { margin-bottom: 8px; }
 .toast button { all: unset; cursor: pointer; font-weight: 800; color: var(--cyan); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
+/* ---------- learning: model vs texture ---------- */
+.learnbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 12px; border-top: 1px solid var(--line); }
+#unfold[aria-pressed="true"], #grid-toggle[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+.flat-view { position: absolute; inset: 0; background: var(--stage); display: grid; place-content: center; justify-items: center; gap: 10px; padding: 16px; }
+.flat-view canvas { image-rendering: pixelated; max-width: 100%; box-shadow: 0 0 0 1px var(--line-strong); }
+.flat-cap { margin: 0; font-size: 0.86rem; color: var(--muted); }
+.legend { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 0.8rem; font-weight: 700; }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 14px; height: 14px; border-radius: 3px; border: 3px solid var(--c); background: transparent; }
+.where { margin: 0; min-height: 1.4em; font-size: 0.86rem; color: var(--muted); }
+.where b { color: var(--ink); }
+
+/* ---------- look inside the add-on ---------- */
+dialog.files-dialog { border: 1px solid var(--line); border-radius: 8px; padding: 0; background: var(--panel); color: var(--ink); width: min(860px, calc(100% - 32px)); max-height: calc(100% - 32px); box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35); }
+dialog.files-dialog[open] { display: flex; flex-direction: column; }
+dialog.files-dialog::backdrop { background: rgba(15, 23, 42, 0.55); }
+.dlg-head { padding: 16px 20px 12px; border-bottom: 1px solid var(--line); display: grid; gap: 2px; }
+.dlg-head p { margin: 0; font-size: 0.9rem; }
+.dlg-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 20px; border-top: 1px solid var(--line); }
+.big-idea { margin: 14px 20px 0; padding: 12px 14px; border-radius: var(--r); background: var(--accent-soft); border-left: 3px solid var(--accent); display: grid; gap: 8px; }
+.big-idea p { margin: 0; font-size: 0.95rem; }
+.idea-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.idea-row .plus { font-weight: 800; color: var(--muted); }
+.chip { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 99px; font-size: 0.76rem; font-weight: 800; color: var(--ink); background: var(--tag, var(--sunk)); border: 1px solid color-mix(in srgb, var(--tagc, var(--line)) 60%, transparent); }
+.tag-model { --tagc: #64748b; --tag: color-mix(in srgb, #64748b 22%, var(--panel)); }
+.tag-texture { --tagc: #ed287f; --tag: color-mix(in srgb, #ed287f 20%, var(--panel)); }
+.tag-link { --tagc: #6a3fa6; --tag: color-mix(in srgb, #6a3fa6 22%, var(--panel)); }
+.tag-done { --tagc: #16a34a; --tag: color-mix(in srgb, #16a34a 20%, var(--panel)); }
+.tag-other { --tagc: var(--line-strong); --tag: var(--sunk); }
+.files-body { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 20px; padding: 16px 20px; overflow: auto; }
+@media (max-width: 700px) { .files-body { grid-template-columns: minmax(0, 1fr); } }
+.file-tree { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; align-content: start; }
+.file-tree .folder { font-weight: 800; font-size: 0.86rem; padding: 8px 4px 4px; display: grid; gap: 0; }
+.file-tree .folder small { font-weight: 600; color: var(--muted); font-size: 0.76rem; }
+.file-tree button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: flex; align-items: center; gap: 8px; padding: 6px 8px 6px 18px; border-radius: var(--r); border: 1px solid transparent; font-size: 0.84rem; }
+.file-tree button:hover { background: var(--hover); }
+.file-tree button[aria-current="true"] { background: var(--accent-soft); border-color: var(--accent); }
+.file-tree button:focus-visible { outline: 2px solid var(--cyan); }
+.file-tree .fname { font-family: var(--f-mono); font-size: 0.78rem; overflow-wrap: anywhere; flex: 1; }
+.file-tree .count { color: var(--muted); font-size: 0.74rem; white-space: nowrap; }
+.file-info { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.file-info h3 { margin: 0; font: 800 1.1rem/1.2 var(--f-display); }
+.file-info p { margin: 0; font-size: 0.95rem; line-height: 1.5; }
+.file-info .path { font-family: var(--f-mono); font-size: 0.76rem; color: var(--muted); overflow-wrap: anywhere; }
+.file-info pre { margin: 0; padding: 10px 12px; border-radius: var(--r); background: var(--sunk); border: 1px solid var(--line); font: 0.78rem/1.5 var(--f-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+.file-info pre mark { background: color-mix(in srgb, var(--stripe-yellow) 45%, transparent); color: inherit; border-radius: 2px; padding: 0 2px; }
+.file-info canvas { image-rendering: pixelated; justify-self: start; box-shadow: 0 0 0 1px var(--line-strong); max-width: 100%; }
+
+/* ---------- lightbulb info buttons ---------- */
+.label-row { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+div.label-row { display: flex; justify-content: flex-start; gap: 8px; }
+div.label-row.spread { justify-content: space-between; }
+legend.label-row { display: flex; }
+.bulb { all: unset; box-sizing: border-box; flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; color: var(--ink); background: var(--sunk); border: 1px solid var(--line); transition: background 0.12s, border-color 0.12s, transform 0.12s; }
+.bulb svg { width: 19px; height: 19px; }
+.bulb:hover, .bulb[aria-expanded="true"] { background: color-mix(in srgb, #febd01 26%, var(--panel)); border-color: #e0a92a; }
+.bulb:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.bulb.fresh { animation: bulb-glow 1.6s ease-in-out 3; border-color: #e0a92a; }
+@keyframes bulb-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(254, 189, 1, 0); } 50% { box-shadow: 0 0 0 6px rgba(254, 189, 1, 0.45); } }
+@media (prefers-reduced-motion: reduce) { .bulb.fresh { animation: none; box-shadow: 0 0 0 3px rgba(254, 189, 1, 0.5); } }
+.pop { position: fixed; z-index: 1001; width: min(320px, calc(100vw - 24px)); padding: 12px 14px; border-radius: 8px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-top: 4px solid #febd01; box-shadow: 0 12px 32px rgba(15, 23, 42, 0.28); font-size: 0.95rem; line-height: 1.5; }
+.pop p { margin: 0; } .pop p + p { margin-top: 8px; }
+.pop b { font-weight: 800; }
+.learnbar .bulb { margin-left: -2px; }
+.ico { width: 16px; height: 16px; flex: none; }
+
+/* ---------- texture file pop-out ---------- */
+dialog.sheet-panel { position: fixed; inset: 84px 16px auto auto; margin: 0; z-index: 30; width: min(600px, calc(100vw - 32px)); max-height: calc(100vh - 100px); overflow: auto; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35); }
+dialog.sheet-panel[open] { display: grid; }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); z-index: 1; }
+.sheet-body { display: grid; gap: 12px; padding: 14px 16px 16px; }
+#sheet-paint { display: block; width: 100%; max-width: 528px; aspect-ratio: 22 / 17; justify-self: center; touch-action: none; cursor: crosshair; border: 1px solid var(--line); border-radius: 4px; }
+.sheet-body .legend { justify-content: center; margin: 0; }
+.sheet-body .where { text-align: center; }
+.sheet-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.toolset.row { display: grid; grid-template-columns: repeat(4, auto); gap: 6px; }
+.toolset.row .btn { padding: 6px 10px; font-size: 0.84rem; justify-content: center; gap: 6px; }
+@media (max-width: 520px) { .toolset.row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
 </style>
 </head>
 <body>
@@ -334,12 +413,11 @@ details.help[open] summary { margin-bottom: 8px; }
   <!-- ======== Left: capes, pack settings, download ======== -->
   <div class="col col-left">
     <section class="pane capes-pane" aria-labelledby="capes-h">
-      <header><h2 class="label" id="capes-h" data-i18n>Capes</h2><span class="muted" id="cape-count" style="font-size:.8rem"></span></header>
+      <header><span class="label-row"><h2 class="label" id="capes-h" data-i18n>Capes</h2><button class="bulb" type="button" data-info="capes" aria-label="Learn more" data-i18n-attr="aria-label" data-tip="Learn more" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2V17h5.6v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5Z" fill="#febd01" stroke="#7a5a00" stroke-width="1.4"/><path d="M9.6 19h4.8M10.2 21.3h3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 9.4c.3-1 1-1.6 1.9-1.8" stroke="#fff6d0" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></button></span><span class="muted" id="cape-count" style="font-size:.8rem"></span></header>
       <div class="scroll">
         <ul class="cape-list" id="cape-list"></ul>
         <div class="list-actions">
           <button class="btn" type="button" id="add-cape" data-tip="Add another cape to this pack." data-i18n>New cape</button>
-          <p id="list-help" data-i18n>Every cape becomes its own item in Minecraft.</p>
         </div>
       </div>
     </section>
@@ -351,8 +429,8 @@ details.help[open] summary { margin-bottom: 8px; }
       <div class="fields">
         <p class="pack-id"><span data-i18n>Pack ID</span> <span class="mono" id="pack-uuid"></span></p>
         <label class="field"><span data-i18n>Pack name</span><input type="text" id="pack-name" maxlength="40" autocomplete="off" data-tip="Shown in Minecraft's Behavior Packs list"><small class="field-error" role="alert" hidden></small></label>
-        <label class="switch"><input type="checkbox" id="give-join" checked>
-          <span><b data-i18n>Hand out capes on join</b><small data-i18n>Each player gets every cape the first time they join, and any new ones after an update.</small></span></label>
+        <div class="label-row spread"><label class="switch"><input type="checkbox" id="give-join" checked>
+          <span><b data-i18n>Hand out capes on join</b></span></label><button class="bulb" type="button" data-info="join" aria-label="Learn more" data-i18n-attr="aria-label" data-tip="Learn more" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2V17h5.6v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5Z" fill="#febd01" stroke="#7a5a00" stroke-width="1.4"/><path d="M9.6 19h4.8M10.2 21.3h3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 9.4c.3-1 1-1.6 1.9-1.8" stroke="#fff6d0" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></button></div>
       </div>
     </section>
 
@@ -362,6 +440,7 @@ details.help[open] summary { margin-bottom: 8px; }
         <ul class="problems" id="problems" hidden></ul>
         <button class="btn primary big" type="button" id="download" data-tip="Build the add-on with all your capes and save it." data-i18n>Download add-on</button>
         <p class="muted" id="export-status" style="margin:0;font-size:.82rem" aria-live="polite"></p>
+        <button class="btn" type="button" id="look-inside" data-tip="See the files in your add-on and what each one does." data-i18n>Look inside the add-on</button>
         <details class="help" id="install-help">
           <summary data-i18n>How to install in Minecraft Education</summary>
           <ol class="steps" id="install-steps"></ol>
@@ -376,14 +455,28 @@ details.help[open] summary { margin-bottom: 8px; }
       <canvas id="stage" aria-label="3D preview of the selected cape on a player model" data-i18n-attr="aria-label"></canvas>
       <div class="stage-title"><strong id="stage-name"></strong></div>
       <span class="stage-hint" data-i18n>Drag to turn · scroll to zoom</span>
+      <div class="flat-view" id="flat-view" hidden>
+        <canvas id="flat" width="64" height="32" aria-label="The cape's texture file, laid flat" data-i18n-attr="aria-label"></canvas>
+        <p class="flat-cap"><span class="mono" id="flat-name">cape.png</span> · <span data-i18n>64 × 32 pixels</span></p>
+      </div>
     </div>
     <div class="stripe" aria-hidden="true"></div>
+    <div class="learnbar">
+      <div class="seg" role="group" aria-label="What to show" data-i18n-attr="aria-label">
+        <button type="button" id="show-model" data-tip="Only the shape, with no colors." aria-pressed="false" data-i18n>Model</button>
+        <button type="button" id="show-texture" data-tip="Only the flat picture." aria-pressed="false" data-i18n>Texture</button>
+        <button type="button" id="show-both" data-tip="The picture wrapped on the shape, like in the game." aria-pressed="true" data-i18n>Both</button>
+      </div>
+      <button class="btn" type="button" id="unfold" data-tip="Open the cape up flat to see how its texture fits." data-i18n>Unfold the cape</button>
+      <button class="bulb" type="button" data-info="learn" aria-label="Learn more" data-i18n-attr="aria-label" data-tip="Learn more" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2V17h5.6v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5Z" fill="#febd01" stroke="#7a5a00" stroke-width="1.4"/><path d="M9.6 19h4.8M10.2 21.3h3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 9.4c.3-1 1-1.6 1.9-1.8" stroke="#fff6d0" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></button>
+    </div>
     <div class="transport">
       <div class="seg" role="group" aria-label="Movement" data-i18n-attr="aria-label">
         <button type="button" id="move-stand" data-tip="The cape hangs down, like when you stand still." aria-pressed="true" data-i18n>Standing</button>
         <button type="button" id="move-walk" data-tip="The cape lifts behind you, like when you walk." aria-pressed="false" data-i18n>Walking</button>
       </div>
       <span class="spacer"></span>
+      <button class="btn" type="button" id="grid-toggle" aria-pressed="false" data-tip="Draw lines between the texture's squares on the 3D cape."><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 1.5h13v13h-13zM6 1.5v13M10.5 1.5v13M1.5 6h13M1.5 10.5h13" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span data-i18n>Pixel grid</span></button>
       <button class="btn" type="button" id="turn" data-tip="Swap between the front and the back of the player." data-i18n>Turn around</button>
       <button class="btn ghost" type="button" id="reset-view" data-tip="Put the camera back where it started." data-i18n>Reset view</button>
     </div>
@@ -408,14 +501,19 @@ details.help[open] summary { margin-bottom: 8px; }
         <div class="fields">
           <label class="field"><span data-i18n>Cape name</span><input type="text" id="cape-name" maxlength="32" autocomplete="off" data-tip="The item's name in Minecraft."><small class="field-error" role="alert" hidden></small></label>
 
-          <fieldset class="field"><legend data-i18n>Side</legend>
-            <div class="seg" role="group" aria-label="Side to paint" data-i18n-attr="aria-label">
+          <fieldset class="field"><legend class="label-row"><span data-i18n>Paint on</span><button class="bulb" type="button" data-info="sides" aria-label="Learn more" data-i18n-attr="aria-label" data-tip="Learn more" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2V17h5.6v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5Z" fill="#febd01" stroke="#7a5a00" stroke-width="1.4"/><path d="M9.6 19h4.8M10.2 21.3h3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 9.4c.3-1 1-1.6 1.9-1.8" stroke="#fff6d0" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></button></legend>
+            <div class="seg" role="group" aria-label="What to paint" data-i18n-attr="aria-label">
               <button type="button" id="side-out" data-tip="The side everyone sees on your back." aria-pressed="true" data-i18n>Outside</button>
               <button type="button" id="side-in" data-tip="The side against your back. It shows when the cape lifts." aria-pressed="false" data-i18n>Inside</button>
             </div>
           </fieldset>
 
-          <div class="paint-row">
+          <div class="label-row">
+            <button class="btn" type="button" id="open-sheet" data-tip="Open the real picture file Minecraft uses. Every side of the cape is in it."><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="3" width="14" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 3v10M9 3v10M1 6h14" stroke="currentColor" stroke-width="1.2"/></svg><span data-i18n>Edit the whole texture</span></button>
+            <button class="bulb" type="button" data-info="texture" aria-label="Learn more" data-i18n-attr="aria-label" data-tip="Learn more" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2V17h5.6v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5Z" fill="#febd01" stroke="#7a5a00" stroke-width="1.4"/><path d="M9.6 19h4.8M10.2 21.3h3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 9.4c.3-1 1-1.6 1.9-1.8" stroke="#fff6d0" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></button>
+          </div>
+
+          <div class="paint-row" id="paint-row">
             <canvas id="paint" width="240" height="384" aria-label="Pixel drawing grid for the cape" data-i18n-attr="aria-label"></canvas>
             <div class="tool-col">
               <div>
@@ -427,7 +525,7 @@ details.help[open] summary { margin-bottom: 8px; }
                   <button class="btn" type="button" data-tool="picker" data-tip="Click a square to copy its color." aria-pressed="false" data-i18n="html">Pick color <kbd>I</kbd></button>
                 </div>
               </div>
-              <label class="switch" data-tip="Whatever you draw on one half is copied to the other half. Shortcut: M."><input type="checkbox" id="mirror">
+              <label class="switch" data-tip="Whatever you draw on one half is copied to the other half. Shortcut: M."><input type="checkbox" id="mirror" class="mirror-box">
                 <span><b data-i18n>Mirror</b><small data-i18n>Draw both halves at once</small></span></label>
             </div>
           </div>
@@ -446,12 +544,12 @@ details.help[open] summary { margin-bottom: 8px; }
             <button class="btn" type="button" id="copy-out" data-tip="Copy the outside design onto the inside, lined up like real fabric." hidden data-i18n>Copy the outside</button>
           </div>
 
+          <p class="where" id="where" aria-live="polite"></p>
           <div class="note warn" id="design-note" role="status" hidden></div>
 
           <details class="help" id="patterns-box">
             <summary data-i18n>Start from a pattern</summary>
             <div class="patterns" id="patterns"></div>
-            <p class="muted" style="margin:8px 0 0;font-size:.8rem" data-i18n>Picking a pattern replaces both sides. Undo brings your drawing back.</p>
           </details>
 
           <div>
@@ -472,6 +570,59 @@ details.help[open] summary { margin-bottom: 8px; }
 
   </div>
 </main>
+
+<dialog class="files-dialog" id="files-dialog" aria-labelledby="files-h">
+  <header class="dlg-head">
+    <h2 class="label" id="files-h" data-i18n>What's inside your add-on?</h2>
+    <p class="muted" data-i18n>Your add-on is a bundle of files. Click a file to learn what it does.</p>
+  </header>
+  <div class="big-idea">
+    <div class="idea-row" aria-hidden="true">
+      <span class="chip tag-model" data-i18n>Model</span><span class="plus">+</span>
+      <span class="chip tag-texture" data-i18n>Texture</span><span class="plus">→</span>
+      <span class="chip tag-link" data-i18n>Connector</span><span class="plus">→</span>
+      <span class="chip tag-done" data-i18n>Cape on your back</span>
+    </div>
+    <p data-i18n="html"><b>The big idea:</b> the model is the shape, and the texture is the picture. They are kept in different files. A third file connects them.</p>
+  </div>
+  <div class="dlg-body files-body">
+    <ul class="file-tree" id="file-tree"></ul>
+    <div class="file-info" id="file-info" aria-live="polite"></div>
+  </div>
+  <footer class="dlg-foot">
+    <button class="btn primary" type="button" id="files-close" data-i18n>Close</button>
+  </footer>
+</dialog>
+
+<dialog class="sheet-panel" id="sheet-panel" aria-labelledby="sheet-h">
+  <header class="sheet-head">
+    <span class="label-row"><h2 class="label" id="sheet-h" data-i18n>Texture file</h2><button class="bulb" type="button" data-info="texture" aria-label="Learn more" data-i18n-attr="aria-label" data-tip="Learn more" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a6.5 6.5 0 0 0-3.8 11.8c.6.5 1 1.2 1 2V17h5.6v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5Z" fill="#febd01" stroke="#7a5a00" stroke-width="1.4"/><path d="M9.6 19h4.8M10.2 21.3h3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.3 9.4c.3-1 1-1.6 1.9-1.8" stroke="#fff6d0" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></button></span>
+    <button class="btn ghost icon" type="button" id="sheet-close" data-tip="Close this panel." aria-label="Close" data-i18n-attr="aria-label">✕</button>
+  </header>
+  <div class="sheet-body">
+    <canvas id="sheet-paint" width="528" height="408" aria-label="Pixel drawing grid for the whole texture file" data-i18n-attr="aria-label"></canvas>
+    <ul class="legend" id="legend"></ul>
+    <p class="where" id="where2" aria-live="polite"></p>
+    <div class="sheet-tools">
+      <div class="toolset row" role="group" aria-label="Drawing tools" data-i18n-attr="aria-label">
+        <button class="btn" type="button" data-tool="pencil" aria-pressed="true" data-tip="Color one square at a time. Right-click to erase." data-i18n="html">Pencil <kbd>B</kbd></button>
+        <button class="btn" type="button" data-tool="eraser" aria-pressed="false" data-tip="Make squares see-through." data-i18n="html">Eraser <kbd>E</kbd></button>
+        <button class="btn" type="button" data-tool="fill" aria-pressed="false" data-tip="Fill a whole area of one color." data-i18n="html">Fill <kbd>G</kbd></button>
+        <button class="btn" type="button" data-tool="picker" aria-pressed="false" data-tip="Click a square to copy its color." data-i18n="html">Pick color <kbd>I</kbd></button>
+      </div>
+      <label class="switch" data-tip="Whatever you draw on one half is copied to the other half. Shortcut: M."><input type="checkbox" class="mirror-box"><span><b data-i18n>Mirror</b></span></label>
+    </div>
+    <div class="swatches" id="palette2"></div>
+    <div class="row-btns">
+      <button class="btn" type="button" id="undo2" data-tip="Undo your last change. Ctrl+Z works too." data-i18n>Undo</button>
+      <button class="btn" type="button" id="redo2" data-tip="Redo what you undid. Ctrl+Y works too." data-i18n>Redo</button>
+      <button class="btn" type="button" id="clear2" data-tip="Erase the whole texture." data-i18n>Clear</button>
+      <button class="btn" type="button" id="edges-auto" data-tip="Make the thin edges copy the colors next to them again." hidden data-i18n>Match edges to the outside</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="pop" id="pop" role="dialog" aria-modal="false" hidden><div id="pop-body"></div></div>
 
 <div class="toast" id="toast" role="status" hidden><span id="toast-msg"></span><button type="button" id="toast-action" hidden></button></div>
 
@@ -596,7 +747,6 @@ window.CapeStrings = {
 "Empty": "Vacía",
 "Erase the inside of the cape.": "Borra el interior de la capa.",
 "Erase the outside of the cape.": "Borra el exterior de la capa.",
-"Erase this side of the cape.": "Borra este lado de la capa.",
 "Eraser <kbd>E</kbd>": "Goma <kbd>E</kbd>",
 "Every cape becomes its own item in Minecraft.": "Cada capa se convierte en su propio objeto en Minecraft.",
 "Every cape needs a name.": "Todas las capas necesitan un nombre.",
@@ -669,8 +819,6 @@ window.CapeStrings = {
 "Resource pack": "Paquete de recursos",
 "Royal": "Real",
 "Shown in Minecraft's Behavior Packs list": "Se muestra en la lista de paquetes de comportamiento de Minecraft",
-"Side": "Lado",
-"Side to paint": "Lado que pintas",
 "Slim arms": "Brazos delgados",
 "Soft light gray background.": "Fondo gris claro y suave.",
 "Something went wrong building the add-on. Please try again.": "Algo salió mal al crear el complemento. Inténtalo de nuevo.",
@@ -712,7 +860,95 @@ window.CapeStrings = {
 "{n} cape, version {v}.|{n} capes, version {v}.": "{n} capa, versión {v}.|{n} capas, versión {v}.",
 "{n} of {max}": "{n} de {max}",
 "“{name}” has nothing painted on the outside.": "«{name}» no tiene nada pintado en el exterior.",
-"“{name}”: {why}": "«{name}»: {why}"
+"“{name}”: {why}": "«{name}»: {why}",
+"Paint on": "Pintar en",
+"What to paint": "Qué pintar",
+"Texture file": "Archivo de textura",
+"The real picture file Minecraft uses. Every side of the cape is in it.": "El archivo de imagen real que usa Minecraft. Todos los lados de la capa están en él.",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it. Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "<b>Este es el archivo de textura.</b> Es una sola imagen plana con todos los lados de la capa. Cada recuadro de color es un lado. Señala un cuadro para ver dónde va en la capa 3D.",
+"Left edge": "Borde izquierdo",
+"Right edge": "Borde derecho",
+"Top edge": "Borde superior",
+"Bottom edge": "Borde inferior",
+"Pointing at: <b>{place}</b>": "Señalas: <b>{place}</b>",
+"Point at a square to see where it goes on the 3D cape.": "Señala un cuadro para ver dónde va en la capa 3D.",
+"Point at the 3D cape to find that square here.": "Señala la capa 3D para encontrar ese cuadro aquí.",
+"Match edges to the outside": "Igualar bordes al exterior",
+"Make the thin edges copy the colors next to them again.": "Hace que los bordes finos copien otra vez los colores de al lado.",
+"Erase the whole texture.": "Borra toda la textura.",
+"Pixel drawing grid for the whole texture file": "Cuadrícula de píxeles para todo el archivo de textura",
+"Model": "Modelo",
+"Texture": "Textura",
+"Both": "Ambos",
+"What to show": "Qué mostrar",
+"Only the shape, with no colors.": "Solo la forma, sin colores.",
+"Only the flat picture.": "Solo la imagen plana.",
+"The picture wrapped on the shape, like in the game.": "La imagen envuelta sobre la forma, como en el juego.",
+"Unfold the cape": "Desplegar la capa",
+"Fold it back up": "Volver a doblarla",
+"Open the cape up flat to see how its texture fits.": "Abre la capa en plano para ver cómo encaja su textura.",
+"<b>Unfolded!</b> The cape is a thin box with 6 sides. Lay the sides flat and you get the texture picture. Each colored frame is one side.": "<b>¡Desplegada!</b> La capa es una caja delgada con 6 lados. Si pones los lados en plano, obtienes la imagen de la textura. Cada marco de color es un lado.",
+"<b>Model + texture = what you see in the game.</b> Minecraft wraps your picture around the shape, like wrapping paper around a box. Point at the cape to find that square in your picture.": "<b>Modelo + textura = lo que ves en el juego.</b> Minecraft envuelve tu imagen alrededor de la forma, como papel de regalo alrededor de una caja. Señala la capa para encontrar ese cuadro en tu imagen.",
+"<b>This is the model.</b> A model is a shape, like a plain cardboard box. It has a size, but no colors. The cape is a thin box, and the player is a model too!": "<b>Este es el modelo.</b> Un modelo es una forma, como una caja de cartón lisa. Tiene tamaño, pero no colores. La capa es una caja delgada, ¡y el jugador también es un modelo!",
+"<b>This is the texture.</b> A texture is a flat picture, like wrapping paper before you wrap a present. Only the boxes with colored frames are used. The rest of the picture stays empty.": "<b>Esta es la textura.</b> Una textura es una imagen plana, como el papel de regalo antes de envolver un regalo. Solo se usan los recuadros con marcos de color. El resto de la imagen queda vacío.",
+"The cape's texture file, laid flat": "El archivo de textura de la capa, en plano",
+"64 × 32 pixels": "64 × 32 píxeles",
+"Look inside the add-on": "Mirar dentro del complemento",
+"See the files in your add-on and what each one does.": "Mira los archivos de tu complemento y qué hace cada uno.",
+"What's inside your add-on?": "¿Qué hay dentro de tu complemento?",
+"Your add-on is a bundle of files. Click a file to learn what it does.": "Tu complemento es un paquete de archivos. Haz clic en un archivo para saber qué hace.",
+"Connector": "Conector",
+"Cape on your back": "Capa en tu espalda",
+"<b>The big idea:</b> the model is the shape, and the texture is the picture. They are kept in different files. A third file connects them.": "<b>La gran idea:</b> el modelo es la forma y la textura es la imagen. Se guardan en archivos distintos. Un tercer archivo los une.",
+"Resource pack: how things look": "Paquete de recursos: cómo se ven las cosas",
+"Behavior pack: how things work": "Paquete de comportamiento: cómo funcionan las cosas",
+"× {n}": "× {n}",
+"There is one of these for each cape ({n} in this pack).": "Hay uno de estos por cada capa ({n} en este paquete).",
+"The model": "El modelo",
+"This is the model. It is the shape of the cape: a thin box, 10 squares wide, 16 squares tall and 1 square thick.": "Este es el modelo. Es la forma de la capa: una caja delgada de 10 cuadros de ancho, 16 de alto y 1 de grosor.",
+"A model has no colors at all! Every cape in your pack uses this same shape.": "¡Un modelo no tiene ningún color! Todas las capas de tu paquete usan esta misma forma.",
+"The texture": "La textura",
+"This is the texture. It is the picture you painted, laid out flat.": "Esta es la textura. Es la imagen que pintaste, en plano.",
+"Minecraft wraps it around the model, like wrapping paper around a box. Each cape has its own texture, but they all share one model.": "Minecraft la envuelve alrededor del modelo, como papel de regalo alrededor de una caja. Cada capa tiene su propia textura, pero todas comparten un modelo.",
+"The connector": "El conector",
+"This file connects the other two. It tells Minecraft: use this model, color it with this texture, and put it on the player's back.": "Este archivo une los otros dos. Le dice a Minecraft: usa este modelo, coloréalo con esta textura y ponlo en la espalda del jugador.",
+"geometry = which model to use. textures = which picture to wrap on it.": "geometry = qué modelo usar. textures = qué imagen envolver encima.",
+"The movement": "El movimiento",
+"This file makes the cape move. When you walk, it tips the cape back so it flutters behind you.": "Este archivo hace que la capa se mueva. Cuando caminas, inclina la capa hacia atrás para que ondee detrás de ti.",
+"It moves the model. It doesn't change the picture.": "Mueve el modelo. No cambia la imagen.",
+"The item icon": "El icono del objeto",
+"This tiny picture shows your cape in the hotbar. It is a texture too, just a very small one: 16 × 16 pixels.": "Esta imagen diminuta muestra tu capa en la barra rápida. También es una textura, solo que muy pequeña: 16 × 16 píxeles.",
+"Item": "Objeto",
+"The item": "El objeto",
+"This file makes each cape an item you can hold. It gives the cape its name and says it goes in the chestplate slot.": "Este archivo convierte cada capa en un objeto que puedes tener. Le da su nombre y dice que va en la ranura del peto.",
+"Program": "Programa",
+"The helper program": "El programa ayudante",
+"This is a tiny computer program. When a player joins the world for the first time, it puts the capes in their inventory.": "Es un programa de computadora diminuto. Cuando un jugador entra al mundo por primera vez, pone las capas en su inventario.",
+"Commands": "Comandos",
+"The command list": "La lista de comandos",
+"This is a list of commands. Typing {cmd} runs them and gives you every cape.": "Es una lista de comandos. Al escribir {cmd} se ejecutan y te dan todas las capas.",
+"Your work": "Tu trabajo",
+"Your saved work": "Tu trabajo guardado",
+"This is your saved work. When you open the add-on with this tool again, it reads this file so you can keep painting.": "Es tu trabajo guardado. Cuando vuelvas a abrir el complemento con esta herramienta, lee este archivo para que sigas pintando.",
+"Helpers": "Ayudantes",
+"Helper files": "Archivos ayudantes",
+"Small files that help Minecraft find everything: the pack's name tag, the pack picture, and lists of where things are. You don't need to change them.": "Archivos pequeños que ayudan a Minecraft a encontrarlo todo: la etiqueta con el nombre del paquete, la imagen del paquete y listas de dónde están las cosas. No necesitas cambiarlos.",
+"size = how wide, how tall and how thick the box is.": "size = qué tan ancha, alta y gruesa es la caja.",
+"The texture file for {name}": "El archivo de textura de {name}",
+"The item icon for {name}": "El icono del objeto de {name}",
+"{name}: 64 × 32 pixels. Only the boxes with colored frames are used.": "{name}: 64 × 32 píxeles. Solo se usan los recuadros con marcos de color.",
+"{name}: 16 × 16 pixels.": "{name}: 16 × 16 píxeles.",
+"Learn more": "Más información",
+"Edit the whole texture": "Editar toda la textura",
+"Open the real picture file Minecraft uses. Every side of the cape is in it.": "Abre el archivo de imagen real que usa Minecraft. Todos los lados de la capa están en él.",
+"Every cape becomes its own item in Minecraft. They all share one model, and each one has its own texture.": "Cada capa se convierte en su propio objeto en Minecraft. Todas comparten un modelo y cada una tiene su propia textura.",
+"<b>Outside</b> is the side everyone sees on your back.": "<b>Exterior</b> es el lado que todos ven en tu espalda.",
+"<b>Inside</b> is the side against your back. You see it when the cape lifts.": "<b>Interior</b> es el lado que toca tu espalda. Lo ves cuando la capa se levanta.",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it.": "<b>Este es el archivo de textura.</b> Es una sola imagen plana con todos los lados de la capa.",
+"Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "Cada recuadro de color es un lado. Señala un cuadro para ver dónde va en la capa 3D.",
+"Plain blue": "Azul liso",
+"Pixel grid": "Cuadrícula",
+"Draw lines between the texture's squares on the 3D cape.": "Dibuja líneas entre los cuadros de la textura en la capa 3D."
 },
 "fr": {
 "(no name)": "(sans nom)",
@@ -768,7 +1004,6 @@ window.CapeStrings = {
 "Empty": "Vide",
 "Erase the inside of the cape.": "Efface l’intérieur de la cape.",
 "Erase the outside of the cape.": "Efface l’extérieur de la cape.",
-"Erase this side of the cape.": "Efface ce côté de la cape.",
 "Eraser <kbd>E</kbd>": "Gomme <kbd>E</kbd>",
 "Every cape becomes its own item in Minecraft.": "Chaque cape devient un objet à part dans Minecraft.",
 "Every cape needs a name.": "Chaque cape a besoin d’un nom.",
@@ -841,8 +1076,6 @@ window.CapeStrings = {
 "Resource pack": "Pack de ressources",
 "Royal": "Royal",
 "Shown in Minecraft's Behavior Packs list": "Affiché dans la liste des packs de comportement de Minecraft",
-"Side": "Côté",
-"Side to paint": "Côté à peindre",
 "Slim arms": "Bras fins",
 "Soft light gray background.": "Fond gris clair et doux.",
 "Something went wrong building the add-on. Please try again.": "Un problème est survenu pendant la création de l’add-on. Réessaie.",
@@ -884,7 +1117,95 @@ window.CapeStrings = {
 "{n} cape, version {v}.|{n} capes, version {v}.": "{n} cape, version {v}.|{n} capes, version {v}.",
 "{n} of {max}": "{n} sur {max}",
 "“{name}” has nothing painted on the outside.": "« {name} » n’a rien de peint à l’extérieur.",
-"“{name}”: {why}": "« {name} » : {why}"
+"“{name}”: {why}": "« {name} » : {why}",
+"Paint on": "Peindre sur",
+"What to paint": "Quoi peindre",
+"Texture file": "Fichier de texture",
+"The real picture file Minecraft uses. Every side of the cape is in it.": "Le vrai fichier image qu’utilise Minecraft. Tous les côtés de la cape sont dedans.",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it. Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "<b>Voici le fichier de texture.</b> C’est une seule image plate avec tous les côtés de la cape. Chaque cadre de couleur est un côté. Pointe un carré pour voir où il va sur la cape 3D.",
+"Left edge": "Bord gauche",
+"Right edge": "Bord droit",
+"Top edge": "Bord du haut",
+"Bottom edge": "Bord du bas",
+"Pointing at: <b>{place}</b>": "Tu pointes : <b>{place}</b>",
+"Point at a square to see where it goes on the 3D cape.": "Pointe un carré pour voir où il va sur la cape 3D.",
+"Point at the 3D cape to find that square here.": "Pointe la cape 3D pour trouver ce carré ici.",
+"Match edges to the outside": "Accorder les bords à l’extérieur",
+"Make the thin edges copy the colors next to them again.": "Les bords fins reprennent les couleurs juste à côté.",
+"Erase the whole texture.": "Efface toute la texture.",
+"Pixel drawing grid for the whole texture file": "Grille de pixels pour tout le fichier de texture",
+"Model": "Modèle",
+"Texture": "Texture",
+"Both": "Les deux",
+"What to show": "Quoi afficher",
+"Only the shape, with no colors.": "Seulement la forme, sans couleurs.",
+"Only the flat picture.": "Seulement l’image plate.",
+"The picture wrapped on the shape, like in the game.": "L’image enroulée sur la forme, comme dans le jeu.",
+"Unfold the cape": "Déplier la cape",
+"Fold it back up": "La replier",
+"Open the cape up flat to see how its texture fits.": "Ouvre la cape à plat pour voir comment sa texture s’ajuste.",
+"<b>Unfolded!</b> The cape is a thin box with 6 sides. Lay the sides flat and you get the texture picture. Each colored frame is one side.": "<b>Dépliée !</b> La cape est une boîte fine à 6 côtés. Pose les côtés à plat et tu obtiens l’image de la texture. Chaque cadre de couleur est un côté.",
+"<b>Model + texture = what you see in the game.</b> Minecraft wraps your picture around the shape, like wrapping paper around a box. Point at the cape to find that square in your picture.": "<b>Modèle + texture = ce que tu vois dans le jeu.</b> Minecraft enroule ton image autour de la forme, comme du papier cadeau autour d’une boîte. Pointe la cape pour trouver ce carré dans ton image.",
+"<b>This is the model.</b> A model is a shape, like a plain cardboard box. It has a size, but no colors. The cape is a thin box, and the player is a model too!": "<b>Voici le modèle.</b> Un modèle est une forme, comme une simple boîte en carton. Il a une taille, mais pas de couleurs. La cape est une boîte fine, et le joueur est aussi un modèle !",
+"<b>This is the texture.</b> A texture is a flat picture, like wrapping paper before you wrap a present. Only the boxes with colored frames are used. The rest of the picture stays empty.": "<b>Voici la texture.</b> Une texture est une image plate, comme du papier cadeau avant d’emballer un cadeau. Seuls les cadres de couleur sont utilisés. Le reste de l’image reste vide.",
+"The cape's texture file, laid flat": "Le fichier de texture de la cape, à plat",
+"64 × 32 pixels": "64 × 32 pixels",
+"Look inside the add-on": "Regarder dans l’add-on",
+"See the files in your add-on and what each one does.": "Vois les fichiers de ton add-on et ce que fait chacun.",
+"What's inside your add-on?": "Qu’y a-t-il dans ton add-on ?",
+"Your add-on is a bundle of files. Click a file to learn what it does.": "Ton add-on est un ensemble de fichiers. Clique sur un fichier pour savoir ce qu’il fait.",
+"Connector": "Connecteur",
+"Cape on your back": "Cape dans ton dos",
+"<b>The big idea:</b> the model is the shape, and the texture is the picture. They are kept in different files. A third file connects them.": "<b>La grande idée :</b> le modèle est la forme, et la texture est l’image. Elles sont dans des fichiers différents. Un troisième fichier les relie.",
+"Resource pack: how things look": "Pack de ressources : l’apparence des choses",
+"Behavior pack: how things work": "Pack de comportement : le fonctionnement des choses",
+"× {n}": "× {n}",
+"There is one of these for each cape ({n} in this pack).": "Il y en a un pour chaque cape ({n} dans ce pack).",
+"The model": "Le modèle",
+"This is the model. It is the shape of the cape: a thin box, 10 squares wide, 16 squares tall and 1 square thick.": "Voici le modèle. C’est la forme de la cape : une boîte fine de 10 carrés de large, 16 de haut et 1 d’épaisseur.",
+"A model has no colors at all! Every cape in your pack uses this same shape.": "Un modèle n’a aucune couleur ! Toutes les capes de ton pack utilisent cette même forme.",
+"The texture": "La texture",
+"This is the texture. It is the picture you painted, laid out flat.": "Voici la texture. C’est l’image que tu as peinte, posée à plat.",
+"Minecraft wraps it around the model, like wrapping paper around a box. Each cape has its own texture, but they all share one model.": "Minecraft l’enroule autour du modèle, comme du papier cadeau autour d’une boîte. Chaque cape a sa propre texture, mais elles partagent toutes un seul modèle.",
+"The connector": "Le connecteur",
+"This file connects the other two. It tells Minecraft: use this model, color it with this texture, and put it on the player's back.": "Ce fichier relie les deux autres. Il dit à Minecraft : utilise ce modèle, colorie-le avec cette texture et mets-le dans le dos du joueur.",
+"geometry = which model to use. textures = which picture to wrap on it.": "geometry = quel modèle utiliser. textures = quelle image enrouler dessus.",
+"The movement": "Le mouvement",
+"This file makes the cape move. When you walk, it tips the cape back so it flutters behind you.": "Ce fichier fait bouger la cape. Quand tu marches, il penche la cape en arrière pour qu’elle flotte derrière toi.",
+"It moves the model. It doesn't change the picture.": "Il fait bouger le modèle. Il ne change pas l’image.",
+"The item icon": "L’icône de l’objet",
+"This tiny picture shows your cape in the hotbar. It is a texture too, just a very small one: 16 × 16 pixels.": "Cette toute petite image montre ta cape dans la barre d’action. C’est aussi une texture, juste très petite : 16 × 16 pixels.",
+"Item": "Objet",
+"The item": "L’objet",
+"This file makes each cape an item you can hold. It gives the cape its name and says it goes in the chestplate slot.": "Ce fichier fait de chaque cape un objet que tu peux tenir. Il lui donne son nom et dit qu’elle va dans l’emplacement du plastron.",
+"Program": "Programme",
+"The helper program": "Le programme d’aide",
+"This is a tiny computer program. When a player joins the world for the first time, it puts the capes in their inventory.": "C’est un tout petit programme informatique. Quand un joueur rejoint le monde pour la première fois, il met les capes dans son inventaire.",
+"Commands": "Commandes",
+"The command list": "La liste de commandes",
+"This is a list of commands. Typing {cmd} runs them and gives you every cape.": "C’est une liste de commandes. Taper {cmd} les lance et te donne toutes les capes.",
+"Your work": "Ton travail",
+"Your saved work": "Ton travail enregistré",
+"This is your saved work. When you open the add-on with this tool again, it reads this file so you can keep painting.": "C’est ton travail enregistré. Quand tu rouvres l’add-on avec cet outil, il lit ce fichier pour que tu puisses continuer à peindre.",
+"Helpers": "Aides",
+"Helper files": "Fichiers d’aide",
+"Small files that help Minecraft find everything: the pack's name tag, the pack picture, and lists of where things are. You don't need to change them.": "De petits fichiers qui aident Minecraft à tout trouver : l’étiquette du pack, l’image du pack et des listes qui disent où sont les choses. Tu n’as pas besoin de les changer.",
+"size = how wide, how tall and how thick the box is.": "size = la largeur, la hauteur et l’épaisseur de la boîte.",
+"The texture file for {name}": "Le fichier de texture de {name}",
+"The item icon for {name}": "L’icône de l’objet de {name}",
+"{name}: 64 × 32 pixels. Only the boxes with colored frames are used.": "{name} : 64 × 32 pixels. Seuls les cadres de couleur sont utilisés.",
+"{name}: 16 × 16 pixels.": "{name} : 16 × 16 pixels.",
+"Learn more": "En savoir plus",
+"Edit the whole texture": "Modifier toute la texture",
+"Open the real picture file Minecraft uses. Every side of the cape is in it.": "Ouvre le vrai fichier image qu’utilise Minecraft. Tous les côtés de la cape sont dedans.",
+"Every cape becomes its own item in Minecraft. They all share one model, and each one has its own texture.": "Chaque cape devient un objet à part dans Minecraft. Elles partagent toutes un modèle, et chacune a sa propre texture.",
+"<b>Outside</b> is the side everyone sees on your back.": "<b>Extérieur</b> est le côté que tout le monde voit dans ton dos.",
+"<b>Inside</b> is the side against your back. You see it when the cape lifts.": "<b>Intérieur</b> est le côté contre ton dos. Tu le vois quand la cape se soulève.",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it.": "<b>Voici le fichier de texture.</b> C’est une seule image plate avec tous les côtés de la cape.",
+"Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "Chaque cadre de couleur est un côté. Pointe un carré pour voir où il va sur la cape 3D.",
+"Plain blue": "Bleu uni",
+"Pixel grid": "Grille de pixels",
+"Draw lines between the texture's squares on the 3D cape.": "Trace des lignes entre les carrés de la texture sur la cape 3D."
 },
 "pt": {
 "(no name)": "(sem nome)",
@@ -940,7 +1261,6 @@ window.CapeStrings = {
 "Empty": "Vazia",
 "Erase the inside of the cape.": "Apague o lado de dentro da capa.",
 "Erase the outside of the cape.": "Apague o lado de fora da capa.",
-"Erase this side of the cape.": "Apague este lado da capa.",
 "Eraser <kbd>E</kbd>": "Borracha <kbd>E</kbd>",
 "Every cape becomes its own item in Minecraft.": "Cada capa vira um item próprio no Minecraft.",
 "Every cape needs a name.": "Toda capa precisa de um nome.",
@@ -1013,8 +1333,6 @@ window.CapeStrings = {
 "Resource pack": "Pacote de recursos",
 "Royal": "Real",
 "Shown in Minecraft's Behavior Packs list": "Aparece na lista de pacotes de comportamento do Minecraft",
-"Side": "Lado",
-"Side to paint": "Lado a pintar",
 "Slim arms": "Braços finos",
 "Soft light gray background.": "Fundo cinza-claro suave.",
 "Something went wrong building the add-on. Please try again.": "Algo deu errado ao criar o complemento. Tente novamente.",
@@ -1056,7 +1374,95 @@ window.CapeStrings = {
 "{n} cape, version {v}.|{n} capes, version {v}.": "{n} capa, versão {v}.|{n} capas, versão {v}.",
 "{n} of {max}": "{n} de {max}",
 "“{name}” has nothing painted on the outside.": "“{name}” não tem nada pintado do lado de fora.",
-"“{name}”: {why}": "“{name}”: {why}"
+"“{name}”: {why}": "“{name}”: {why}",
+"Paint on": "Pintar em",
+"What to paint": "O que pintar",
+"Texture file": "Arquivo de textura",
+"The real picture file Minecraft uses. Every side of the cape is in it.": "O arquivo de imagem real que o Minecraft usa. Todos os lados da capa estão nele.",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it. Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "<b>Este é o arquivo de textura.</b> É uma única imagem plana com todos os lados da capa. Cada moldura colorida é um lado. Aponte para um quadrado para ver onde ele fica na capa 3D.",
+"Left edge": "Borda esquerda",
+"Right edge": "Borda direita",
+"Top edge": "Borda de cima",
+"Bottom edge": "Borda de baixo",
+"Pointing at: <b>{place}</b>": "Apontando para: <b>{place}</b>",
+"Point at a square to see where it goes on the 3D cape.": "Aponte para um quadrado para ver onde ele fica na capa 3D.",
+"Point at the 3D cape to find that square here.": "Aponte para a capa 3D para achar esse quadrado aqui.",
+"Match edges to the outside": "Igualar bordas ao lado de fora",
+"Make the thin edges copy the colors next to them again.": "Faz as bordas finas copiarem de novo as cores ao lado.",
+"Erase the whole texture.": "Apague a textura inteira.",
+"Pixel drawing grid for the whole texture file": "Grade de pixels do arquivo de textura inteiro",
+"Model": "Modelo",
+"Texture": "Textura",
+"Both": "Os dois",
+"What to show": "O que mostrar",
+"Only the shape, with no colors.": "Só a forma, sem cores.",
+"Only the flat picture.": "Só a imagem plana.",
+"The picture wrapped on the shape, like in the game.": "A imagem embrulhada na forma, como no jogo.",
+"Unfold the cape": "Desdobrar a capa",
+"Fold it back up": "Dobrar de volta",
+"Open the cape up flat to see how its texture fits.": "Abra a capa no plano para ver como a textura se encaixa.",
+"<b>Unfolded!</b> The cape is a thin box with 6 sides. Lay the sides flat and you get the texture picture. Each colored frame is one side.": "<b>Desdobrada!</b> A capa é uma caixa fina com 6 lados. Coloque os lados no plano e você tem a imagem da textura. Cada moldura colorida é um lado.",
+"<b>Model + texture = what you see in the game.</b> Minecraft wraps your picture around the shape, like wrapping paper around a box. Point at the cape to find that square in your picture.": "<b>Modelo + textura = o que você vê no jogo.</b> O Minecraft embrulha sua imagem na forma, como papel de presente em volta de uma caixa. Aponte para a capa para achar esse quadrado na sua imagem.",
+"<b>This is the model.</b> A model is a shape, like a plain cardboard box. It has a size, but no colors. The cape is a thin box, and the player is a model too!": "<b>Este é o modelo.</b> Um modelo é uma forma, como uma caixa de papelão lisa. Ele tem tamanho, mas não tem cores. A capa é uma caixa fina, e o jogador também é um modelo!",
+"<b>This is the texture.</b> A texture is a flat picture, like wrapping paper before you wrap a present. Only the boxes with colored frames are used. The rest of the picture stays empty.": "<b>Esta é a textura.</b> Uma textura é uma imagem plana, como papel de presente antes de embrulhar. Só as partes com molduras coloridas são usadas. O resto da imagem fica vazio.",
+"The cape's texture file, laid flat": "O arquivo de textura da capa, no plano",
+"64 × 32 pixels": "64 × 32 pixels",
+"Look inside the add-on": "Ver por dentro do complemento",
+"See the files in your add-on and what each one does.": "Veja os arquivos do seu complemento e o que cada um faz.",
+"What's inside your add-on?": "O que tem dentro do seu complemento?",
+"Your add-on is a bundle of files. Click a file to learn what it does.": "Seu complemento é um pacote de arquivos. Clique em um arquivo para saber o que ele faz.",
+"Connector": "Conector",
+"Cape on your back": "Capa nas suas costas",
+"<b>The big idea:</b> the model is the shape, and the texture is the picture. They are kept in different files. A third file connects them.": "<b>A grande ideia:</b> o modelo é a forma, e a textura é a imagem. Eles ficam em arquivos diferentes. Um terceiro arquivo liga os dois.",
+"Resource pack: how things look": "Pacote de recursos: como as coisas parecem",
+"Behavior pack: how things work": "Pacote de comportamento: como as coisas funcionam",
+"× {n}": "× {n}",
+"There is one of these for each cape ({n} in this pack).": "Existe um destes para cada capa ({n} neste pacote).",
+"The model": "O modelo",
+"This is the model. It is the shape of the cape: a thin box, 10 squares wide, 16 squares tall and 1 square thick.": "Este é o modelo. É a forma da capa: uma caixa fina com 10 quadrados de largura, 16 de altura e 1 de espessura.",
+"A model has no colors at all! Every cape in your pack uses this same shape.": "Um modelo não tem cor nenhuma! Todas as capas do seu pacote usam esta mesma forma.",
+"The texture": "A textura",
+"This is the texture. It is the picture you painted, laid out flat.": "Esta é a textura. É a imagem que você pintou, no plano.",
+"Minecraft wraps it around the model, like wrapping paper around a box. Each cape has its own texture, but they all share one model.": "O Minecraft embrulha ela no modelo, como papel de presente em volta de uma caixa. Cada capa tem sua própria textura, mas todas usam um só modelo.",
+"The connector": "O conector",
+"This file connects the other two. It tells Minecraft: use this model, color it with this texture, and put it on the player's back.": "Este arquivo liga os outros dois. Ele diz ao Minecraft: use este modelo, pinte com esta textura e coloque nas costas do jogador.",
+"geometry = which model to use. textures = which picture to wrap on it.": "geometry = qual modelo usar. textures = qual imagem embrulhar nele.",
+"The movement": "O movimento",
+"This file makes the cape move. When you walk, it tips the cape back so it flutters behind you.": "Este arquivo faz a capa se mexer. Quando você anda, ele inclina a capa para trás para ela balançar atrás de você.",
+"It moves the model. It doesn't change the picture.": "Ele mexe o modelo. Não muda a imagem.",
+"The item icon": "O ícone do item",
+"This tiny picture shows your cape in the hotbar. It is a texture too, just a very small one: 16 × 16 pixels.": "Esta imagem pequenininha mostra sua capa na barra de atalhos. Ela também é uma textura, só que bem pequena: 16 × 16 pixels.",
+"Item": "Item",
+"The item": "O item",
+"This file makes each cape an item you can hold. It gives the cape its name and says it goes in the chestplate slot.": "Este arquivo transforma cada capa em um item que você pode segurar. Ele dá o nome da capa e diz que ela vai no espaço do peitoral.",
+"Program": "Programa",
+"The helper program": "O programa ajudante",
+"This is a tiny computer program. When a player joins the world for the first time, it puts the capes in their inventory.": "É um programa de computador bem pequeno. Quando um jogador entra no mundo pela primeira vez, ele coloca as capas no inventário.",
+"Commands": "Comandos",
+"The command list": "A lista de comandos",
+"This is a list of commands. Typing {cmd} runs them and gives you every cape.": "É uma lista de comandos. Digitar {cmd} roda todos eles e te dá todas as capas.",
+"Your work": "Seu trabalho",
+"Your saved work": "Seu trabalho salvo",
+"This is your saved work. When you open the add-on with this tool again, it reads this file so you can keep painting.": "É o seu trabalho salvo. Quando você abrir o complemento de novo com esta ferramenta, ela lê este arquivo para você continuar pintando.",
+"Helpers": "Ajudantes",
+"Helper files": "Arquivos ajudantes",
+"Small files that help Minecraft find everything: the pack's name tag, the pack picture, and lists of where things are. You don't need to change them.": "Arquivos pequenos que ajudam o Minecraft a achar tudo: a etiqueta com o nome do pacote, a imagem do pacote e listas de onde as coisas estão. Você não precisa mudá-los.",
+"size = how wide, how tall and how thick the box is.": "size = a largura, a altura e a espessura da caixa.",
+"The texture file for {name}": "O arquivo de textura de {name}",
+"The item icon for {name}": "O ícone do item de {name}",
+"{name}: 64 × 32 pixels. Only the boxes with colored frames are used.": "{name}: 64 × 32 pixels. Só as partes com molduras coloridas são usadas.",
+"{name}: 16 × 16 pixels.": "{name}: 16 × 16 pixels.",
+"Learn more": "Saiba mais",
+"Edit the whole texture": "Editar a textura inteira",
+"Open the real picture file Minecraft uses. Every side of the cape is in it.": "Abra o arquivo de imagem real que o Minecraft usa. Todos os lados da capa estão nele.",
+"Every cape becomes its own item in Minecraft. They all share one model, and each one has its own texture.": "Cada capa vira um item próprio no Minecraft. Todas usam um só modelo, e cada uma tem sua própria textura.",
+"<b>Outside</b> is the side everyone sees on your back.": "<b>Lado de fora</b> é o lado que todos veem nas suas costas.",
+"<b>Inside</b> is the side against your back. You see it when the cape lifts.": "<b>Lado de dentro</b> é o lado que fica nas suas costas. Você vê quando a capa sobe.",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it.": "<b>Este é o arquivo de textura.</b> É uma única imagem plana com todos os lados da capa.",
+"Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "Cada moldura colorida é um lado. Aponte para um quadrado para ver onde ele fica na capa 3D.",
+"Plain blue": "Azul liso",
+"Pixel grid": "Grade de pixels",
+"Draw lines between the texture's squares on the 3D cape.": "Desenha linhas entre os quadrados da textura na capa 3D."
 },
 "de": {
 "(no name)": "(kein Name)",
@@ -1112,7 +1518,6 @@ window.CapeStrings = {
 "Empty": "Leer",
 "Erase the inside of the cape.": "Radiert die Innenseite des Umhangs.",
 "Erase the outside of the cape.": "Radiert die Außenseite des Umhangs.",
-"Erase this side of the cape.": "Radiert diese Seite des Umhangs.",
 "Eraser <kbd>E</kbd>": "Radierer <kbd>E</kbd>",
 "Every cape becomes its own item in Minecraft.": "Jeder Umhang wird ein eigener Gegenstand in Minecraft.",
 "Every cape needs a name.": "Jeder Umhang braucht einen Namen.",
@@ -1185,8 +1590,6 @@ window.CapeStrings = {
 "Resource pack": "Ressourcenpaket",
 "Royal": "Königlich",
 "Shown in Minecraft's Behavior Packs list": "Wird in der Liste der Verhaltenspakete von Minecraft angezeigt",
-"Side": "Seite",
-"Side to paint": "Seite zum Bemalen",
 "Slim arms": "Schmale Arme",
 "Soft light gray background.": "Sanfter hellgrauer Hintergrund.",
 "Something went wrong building the add-on. Please try again.": "Beim Erstellen des Add-ons ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
@@ -1228,7 +1631,95 @@ window.CapeStrings = {
 "{n} cape, version {v}.|{n} capes, version {v}.": "{n} Umhang, Version {v}.|{n} Umhänge, Version {v}.",
 "{n} of {max}": "{n} von {max}",
 "“{name}” has nothing painted on the outside.": "„{name}“ hat auf der Außenseite nichts gemalt.",
-"“{name}”: {why}": "„{name}“: {why}"
+"“{name}”: {why}": "„{name}“: {why}",
+"Paint on": "Malen auf",
+"What to paint": "Was du malst",
+"Texture file": "Texturdatei",
+"The real picture file Minecraft uses. Every side of the cape is in it.": "Die echte Bilddatei, die Minecraft benutzt. Alle Seiten des Umhangs sind darin.",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it. Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "<b>Das ist die Texturdatei.</b> Sie ist ein einziges flaches Bild mit allen Seiten des Umhangs. Jeder farbige Rahmen ist eine Seite. Zeige auf ein Feld, um zu sehen, wo es auf dem 3D-Umhang landet.",
+"Left edge": "Linker Rand",
+"Right edge": "Rechter Rand",
+"Top edge": "Oberer Rand",
+"Bottom edge": "Unterer Rand",
+"Pointing at: <b>{place}</b>": "Du zeigst auf: <b>{place}</b>",
+"Point at a square to see where it goes on the 3D cape.": "Zeige auf ein Feld, um zu sehen, wo es auf dem 3D-Umhang landet.",
+"Point at the 3D cape to find that square here.": "Zeige auf den 3D-Umhang, um das Feld hier zu finden.",
+"Match edges to the outside": "Ränder an Außenseite anpassen",
+"Make the thin edges copy the colors next to them again.": "Die dünnen Ränder übernehmen wieder die Farben daneben.",
+"Erase the whole texture.": "Radiert die ganze Textur.",
+"Pixel drawing grid for the whole texture file": "Pixelraster für die ganze Texturdatei",
+"Model": "Modell",
+"Texture": "Textur",
+"Both": "Beides",
+"What to show": "Was gezeigt wird",
+"Only the shape, with no colors.": "Nur die Form, ohne Farben.",
+"Only the flat picture.": "Nur das flache Bild.",
+"The picture wrapped on the shape, like in the game.": "Das Bild um die Form gewickelt, wie im Spiel.",
+"Unfold the cape": "Umhang auffalten",
+"Fold it back up": "Wieder zusammenfalten",
+"Open the cape up flat to see how its texture fits.": "Klappe den Umhang flach auf, um zu sehen, wie die Textur passt.",
+"<b>Unfolded!</b> The cape is a thin box with 6 sides. Lay the sides flat and you get the texture picture. Each colored frame is one side.": "<b>Aufgefaltet!</b> Der Umhang ist eine dünne Kiste mit 6 Seiten. Legst du die Seiten flach hin, bekommst du das Texturbild. Jeder farbige Rahmen ist eine Seite.",
+"<b>Model + texture = what you see in the game.</b> Minecraft wraps your picture around the shape, like wrapping paper around a box. Point at the cape to find that square in your picture.": "<b>Modell + Textur = das, was du im Spiel siehst.</b> Minecraft wickelt dein Bild um die Form, wie Geschenkpapier um eine Kiste. Zeige auf den Umhang, um das Feld in deinem Bild zu finden.",
+"<b>This is the model.</b> A model is a shape, like a plain cardboard box. It has a size, but no colors. The cape is a thin box, and the player is a model too!": "<b>Das ist das Modell.</b> Ein Modell ist eine Form, wie ein einfacher Pappkarton. Es hat eine Größe, aber keine Farben. Der Umhang ist eine dünne Kiste, und der Spieler ist auch ein Modell!",
+"<b>This is the texture.</b> A texture is a flat picture, like wrapping paper before you wrap a present. Only the boxes with colored frames are used. The rest of the picture stays empty.": "<b>Das ist die Textur.</b> Eine Textur ist ein flaches Bild, wie Geschenkpapier, bevor du ein Geschenk einpackst. Nur die Felder mit farbigen Rahmen werden benutzt. Der Rest des Bildes bleibt leer.",
+"The cape's texture file, laid flat": "Die Texturdatei des Umhangs, flach ausgelegt",
+"64 × 32 pixels": "64 × 32 Pixel",
+"Look inside the add-on": "In das Add-on schauen",
+"See the files in your add-on and what each one does.": "Sieh dir die Dateien in deinem Add-on an und was jede macht.",
+"What's inside your add-on?": "Was ist in deinem Add-on?",
+"Your add-on is a bundle of files. Click a file to learn what it does.": "Dein Add-on ist ein Bündel aus Dateien. Klicke auf eine Datei, um zu erfahren, was sie macht.",
+"Connector": "Verbinder",
+"Cape on your back": "Umhang auf dem Rücken",
+"<b>The big idea:</b> the model is the shape, and the texture is the picture. They are kept in different files. A third file connects them.": "<b>Die große Idee:</b> Das Modell ist die Form, und die Textur ist das Bild. Sie liegen in verschiedenen Dateien. Eine dritte Datei verbindet sie.",
+"Resource pack: how things look": "Ressourcenpaket: wie Dinge aussehen",
+"Behavior pack: how things work": "Verhaltenspaket: wie Dinge funktionieren",
+"× {n}": "× {n}",
+"There is one of these for each cape ({n} in this pack).": "Davon gibt es einen pro Umhang ({n} in diesem Paket).",
+"The model": "Das Modell",
+"This is the model. It is the shape of the cape: a thin box, 10 squares wide, 16 squares tall and 1 square thick.": "Das ist das Modell. Es ist die Form des Umhangs: eine dünne Kiste, 10 Felder breit, 16 Felder hoch und 1 Feld dick.",
+"A model has no colors at all! Every cape in your pack uses this same shape.": "Ein Modell hat überhaupt keine Farben! Alle Umhänge in deinem Paket benutzen dieselbe Form.",
+"The texture": "Die Textur",
+"This is the texture. It is the picture you painted, laid out flat.": "Das ist die Textur. Sie ist das Bild, das du gemalt hast, flach ausgelegt.",
+"Minecraft wraps it around the model, like wrapping paper around a box. Each cape has its own texture, but they all share one model.": "Minecraft wickelt sie um das Modell, wie Geschenkpapier um eine Kiste. Jeder Umhang hat seine eigene Textur, aber alle teilen sich ein Modell.",
+"The connector": "Der Verbinder",
+"This file connects the other two. It tells Minecraft: use this model, color it with this texture, and put it on the player's back.": "Diese Datei verbindet die anderen beiden. Sie sagt Minecraft: Nimm dieses Modell, färbe es mit dieser Textur und häng es dem Spieler auf den Rücken.",
+"geometry = which model to use. textures = which picture to wrap on it.": "geometry = welches Modell benutzt wird. textures = welches Bild darumgewickelt wird.",
+"The movement": "Die Bewegung",
+"This file makes the cape move. When you walk, it tips the cape back so it flutters behind you.": "Diese Datei bewegt den Umhang. Wenn du gehst, kippt sie den Umhang nach hinten, damit er hinter dir flattert.",
+"It moves the model. It doesn't change the picture.": "Sie bewegt das Modell. Das Bild ändert sie nicht.",
+"The item icon": "Das Gegenstandssymbol",
+"This tiny picture shows your cape in the hotbar. It is a texture too, just a very small one: 16 × 16 pixels.": "Dieses winzige Bild zeigt deinen Umhang in der Schnellleiste. Es ist auch eine Textur, nur eine sehr kleine: 16 × 16 Pixel.",
+"Item": "Gegenstand",
+"The item": "Der Gegenstand",
+"This file makes each cape an item you can hold. It gives the cape its name and says it goes in the chestplate slot.": "Diese Datei macht jeden Umhang zu einem Gegenstand, den du halten kannst. Sie gibt ihm seinen Namen und sagt, dass er in den Brustplatten-Slot gehört.",
+"Program": "Programm",
+"The helper program": "Das Hilfsprogramm",
+"This is a tiny computer program. When a player joins the world for the first time, it puts the capes in their inventory.": "Das ist ein winziges Computerprogramm. Wenn ein Spieler die Welt zum ersten Mal betritt, legt es die Umhänge in sein Inventar.",
+"Commands": "Befehle",
+"The command list": "Die Befehlsliste",
+"This is a list of commands. Typing {cmd} runs them and gives you every cape.": "Das ist eine Liste von Befehlen. Wenn du {cmd} eintippst, laufen sie und du bekommst alle Umhänge.",
+"Your work": "Deine Arbeit",
+"Your saved work": "Deine gespeicherte Arbeit",
+"This is your saved work. When you open the add-on with this tool again, it reads this file so you can keep painting.": "Das ist deine gespeicherte Arbeit. Wenn du das Add-on wieder mit diesem Tool öffnest, liest es diese Datei, damit du weitermalen kannst.",
+"Helpers": "Helfer",
+"Helper files": "Hilfsdateien",
+"Small files that help Minecraft find everything: the pack's name tag, the pack picture, and lists of where things are. You don't need to change them.": "Kleine Dateien, die Minecraft helfen, alles zu finden: das Namensschild des Pakets, das Paketbild und Listen, wo was liegt. Du musst sie nicht ändern.",
+"size = how wide, how tall and how thick the box is.": "size = wie breit, wie hoch und wie dick die Kiste ist.",
+"The texture file for {name}": "Die Texturdatei von {name}",
+"The item icon for {name}": "Das Gegenstandssymbol von {name}",
+"{name}: 64 × 32 pixels. Only the boxes with colored frames are used.": "{name}: 64 × 32 Pixel. Nur die Felder mit farbigen Rahmen werden benutzt.",
+"{name}: 16 × 16 pixels.": "{name}: 16 × 16 Pixel.",
+"Learn more": "Mehr erfahren",
+"Edit the whole texture": "Ganze Textur bearbeiten",
+"Open the real picture file Minecraft uses. Every side of the cape is in it.": "Öffne die echte Bilddatei, die Minecraft benutzt. Alle Seiten des Umhangs sind darin.",
+"Every cape becomes its own item in Minecraft. They all share one model, and each one has its own texture.": "Jeder Umhang wird ein eigener Gegenstand in Minecraft. Alle teilen sich ein Modell, und jeder hat seine eigene Textur.",
+"<b>Outside</b> is the side everyone sees on your back.": "<b>Außenseite</b> ist die Seite, die alle auf deinem Rücken sehen.",
+"<b>Inside</b> is the side against your back. You see it when the cape lifts.": "<b>Innenseite</b> ist die Seite an deinem Rücken. Du siehst sie, wenn sich der Umhang hebt.",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it.": "<b>Das ist die Texturdatei.</b> Sie ist ein einziges flaches Bild mit allen Seiten des Umhangs.",
+"Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "Jeder farbige Rahmen ist eine Seite. Zeige auf ein Feld, um zu sehen, wo es auf dem 3D-Umhang landet.",
+"Plain blue": "Einfarbig blau",
+"Pixel grid": "Pixelraster",
+"Draw lines between the texture's squares on the 3D cape.": "Zeichnet Linien zwischen den Feldern der Textur auf den 3D-Umhang."
 },
 "zh": {
 "(no name)": "（未命名）",
@@ -1284,7 +1775,6 @@ window.CapeStrings = {
 "Empty": "空的",
 "Erase the inside of the cape.": "擦除披风的内侧。",
 "Erase the outside of the cape.": "擦除披风的外侧。",
-"Erase this side of the cape.": "擦除披风的这一面。",
 "Eraser <kbd>E</kbd>": "橡皮擦 <kbd>E</kbd>",
 "Every cape becomes its own item in Minecraft.": "每件披风都会成为 Minecraft 中的独立物品。",
 "Every cape needs a name.": "每件披风都需要一个名称。",
@@ -1357,8 +1847,6 @@ window.CapeStrings = {
 "Resource pack": "资源包",
 "Royal": "皇家",
 "Shown in Minecraft's Behavior Packs list": "显示在 Minecraft 的行为包列表中",
-"Side": "面",
-"Side to paint": "要绘制的面",
 "Slim arms": "细手臂",
 "Soft light gray background.": "柔和的浅灰色背景。",
 "Something went wrong building the add-on. Please try again.": "生成附加包时出错了。请再试一次。",
@@ -1400,7 +1888,95 @@ window.CapeStrings = {
 "{n} cape, version {v}.|{n} capes, version {v}.": "{n} 件披风，版本 {v}。",
 "{n} of {max}": "{n}/{max}",
 "“{name}” has nothing painted on the outside.": "“{name}”的外侧什么都没画。",
-"“{name}”: {why}": "“{name}”：{why}"
+"“{name}”: {why}": "“{name}”：{why}",
+"Paint on": "绘制位置",
+"What to paint": "要绘制的内容",
+"Texture file": "纹理文件",
+"The real picture file Minecraft uses. Every side of the cape is in it.": "Minecraft 真正使用的图片文件。披风的每一面都在里面。",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it. Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "<b>这是纹理文件。</b>它是一张平面图片，里面有披风的每一面。每个彩色方框就是一面。指向一个方格，看看它在 3D 披风上的位置。",
+"Left edge": "左边缘",
+"Right edge": "右边缘",
+"Top edge": "上边缘",
+"Bottom edge": "下边缘",
+"Pointing at: <b>{place}</b>": "正在指向：<b>{place}</b>",
+"Point at a square to see where it goes on the 3D cape.": "指向一个方格，看看它在 3D 披风上的位置。",
+"Point at the 3D cape to find that square here.": "指向 3D 披风，在这里找到对应的方格。",
+"Match edges to the outside": "边缘与外侧一致",
+"Make the thin edges copy the colors next to them again.": "让细边缘重新复制旁边的颜色。",
+"Erase the whole texture.": "擦除整个纹理。",
+"Pixel drawing grid for the whole texture file": "整个纹理文件的像素绘图网格",
+"Model": "模型",
+"Texture": "纹理",
+"Both": "两者",
+"What to show": "显示内容",
+"Only the shape, with no colors.": "只有形状，没有颜色。",
+"Only the flat picture.": "只有平面图片。",
+"The picture wrapped on the shape, like in the game.": "图片包在形状上，就像游戏里那样。",
+"Unfold the cape": "展开披风",
+"Fold it back up": "折回去",
+"Open the cape up flat to see how its texture fits.": "把披风摊平，看看纹理是怎么对上的。",
+"<b>Unfolded!</b> The cape is a thin box with 6 sides. Lay the sides flat and you get the texture picture. Each colored frame is one side.": "<b>展开了！</b>披风是一个有 6 个面的薄盒子。把这些面摊平，就得到了纹理图片。每个彩色边框就是一个面。",
+"<b>Model + texture = what you see in the game.</b> Minecraft wraps your picture around the shape, like wrapping paper around a box. Point at the cape to find that square in your picture.": "<b>模型 + 纹理 = 你在游戏里看到的样子。</b>Minecraft 把你的图片包在形状外面，就像用包装纸包盒子。指向披风，就能在图片里找到对应的方格。",
+"<b>This is the model.</b> A model is a shape, like a plain cardboard box. It has a size, but no colors. The cape is a thin box, and the player is a model too!": "<b>这是模型。</b>模型就是一个形状，像一个普通的纸箱。它有大小，但没有颜色。披风是一个薄盒子，玩家也是一个模型！",
+"<b>This is the texture.</b> A texture is a flat picture, like wrapping paper before you wrap a present. Only the boxes with colored frames are used. The rest of the picture stays empty.": "<b>这是纹理。</b>纹理是一张平面图片，就像包礼物之前的包装纸。只有带彩色边框的部分会被用到，图片的其余部分是空的。",
+"The cape's texture file, laid flat": "披风的纹理文件，平铺展示",
+"64 × 32 pixels": "64 × 32 像素",
+"Look inside the add-on": "查看附加包里面",
+"See the files in your add-on and what each one does.": "看看附加包里有哪些文件，以及每个文件的作用。",
+"What's inside your add-on?": "你的附加包里有什么？",
+"Your add-on is a bundle of files. Click a file to learn what it does.": "附加包是一组文件。点击一个文件，了解它的作用。",
+"Connector": "连接文件",
+"Cape on your back": "披在背上的披风",
+"<b>The big idea:</b> the model is the shape, and the texture is the picture. They are kept in different files. A third file connects them.": "<b>核心概念：</b>模型是形状，纹理是图片。它们保存在不同的文件里，由第三个文件把它们连接起来。",
+"Resource pack: how things look": "资源包：东西看起来的样子",
+"Behavior pack: how things work": "行为包：东西怎么运作",
+"× {n}": "× {n}",
+"There is one of these for each cape ({n} in this pack).": "每件披风都有一个这样的文件（这个包里有 {n} 个）。",
+"The model": "模型",
+"This is the model. It is the shape of the cape: a thin box, 10 squares wide, 16 squares tall and 1 square thick.": "这是模型。它是披风的形状：一个薄盒子，宽 10 格、高 16 格、厚 1 格。",
+"A model has no colors at all! Every cape in your pack uses this same shape.": "模型完全没有颜色！你的包里所有披风都用这同一个形状。",
+"The texture": "纹理",
+"This is the texture. It is the picture you painted, laid out flat.": "这是纹理。它是你画的图片，平铺开来。",
+"Minecraft wraps it around the model, like wrapping paper around a box. Each cape has its own texture, but they all share one model.": "Minecraft 把它包在模型外面，就像用包装纸包盒子。每件披风都有自己的纹理，但它们共用同一个模型。",
+"The connector": "连接文件",
+"This file connects the other two. It tells Minecraft: use this model, color it with this texture, and put it on the player's back.": "这个文件把另外两个连接起来。它告诉 Minecraft：用这个模型，涂上这个纹理，然后放到玩家背上。",
+"geometry = which model to use. textures = which picture to wrap on it.": "geometry = 用哪个模型。textures = 用哪张图片包在上面。",
+"The movement": "动作",
+"This file makes the cape move. When you walk, it tips the cape back so it flutters behind you.": "这个文件让披风动起来。你走路时，它会让披风向后扬起，在你身后飘动。",
+"It moves the model. It doesn't change the picture.": "它移动的是模型，不会改变图片。",
+"The item icon": "物品图标",
+"This tiny picture shows your cape in the hotbar. It is a texture too, just a very small one: 16 × 16 pixels.": "这张小图片会在快捷栏里显示你的披风。它也是一张纹理，只是很小：16 × 16 像素。",
+"Item": "物品",
+"The item": "物品",
+"This file makes each cape an item you can hold. It gives the cape its name and says it goes in the chestplate slot.": "这个文件让每件披风成为可以拿在手里的物品。它给披风起名字，并说明它要放进胸甲栏。",
+"Program": "程序",
+"The helper program": "辅助程序",
+"This is a tiny computer program. When a player joins the world for the first time, it puts the capes in their inventory.": "这是一个很小的电脑程序。玩家第一次进入世界时，它会把披风放进他们的物品栏。",
+"Commands": "命令",
+"The command list": "命令列表",
+"This is a list of commands. Typing {cmd} runs them and gives you every cape.": "这是一份命令列表。输入 {cmd} 就会运行它们，给你所有披风。",
+"Your work": "你的作品",
+"Your saved work": "你保存的作品",
+"This is your saved work. When you open the add-on with this tool again, it reads this file so you can keep painting.": "这是你保存的作品。用这个工具再次打开附加包时，它会读取这个文件，让你接着画。",
+"Helpers": "辅助文件",
+"Helper files": "辅助文件",
+"Small files that help Minecraft find everything: the pack's name tag, the pack picture, and lists of where things are. You don't need to change them.": "一些小文件，帮助 Minecraft 找到所有东西：包的名牌、包的图片，以及东西放在哪里的清单。你不需要修改它们。",
+"size = how wide, how tall and how thick the box is.": "size = 盒子有多宽、多高、多厚。",
+"The texture file for {name}": "{name} 的纹理文件",
+"The item icon for {name}": "{name} 的物品图标",
+"{name}: 64 × 32 pixels. Only the boxes with colored frames are used.": "{name}：64 × 32 像素。只有带彩色边框的部分会被用到。",
+"{name}: 16 × 16 pixels.": "{name}：16 × 16 像素。",
+"Learn more": "了解更多",
+"Edit the whole texture": "编辑整个纹理",
+"Open the real picture file Minecraft uses. Every side of the cape is in it.": "打开 Minecraft 真正使用的图片文件。披风的每一面都在里面。",
+"Every cape becomes its own item in Minecraft. They all share one model, and each one has its own texture.": "每件披风都会成为 Minecraft 中的独立物品。它们共用一个模型，但每件都有自己的纹理。",
+"<b>Outside</b> is the side everyone sees on your back.": "<b>外侧</b>是大家在你背后看到的那一面。",
+"<b>Inside</b> is the side against your back. You see it when the cape lifts.": "<b>内侧</b>是贴着你后背的那一面。披风飘起时就能看到。",
+"<b>This is the texture file.</b> It is one flat picture with every side of the cape in it.": "<b>这是纹理文件。</b>它是一张平面图片，里面有披风的每一面。",
+"Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "每个彩色方框就是一面。指向一个方格，看看它在 3D 披风上的位置。",
+"Plain blue": "纯蓝",
+"Pixel grid": "像素网格",
+"Draw lines between the texture's squares on the 3D cape.": "在 3D 披风上画出纹理方格之间的线。"
 }
 };
 
@@ -1846,18 +2422,25 @@ window.CapeStrings = {
     ], pivot, texW, texH);
   }
 
-  /** The cape: origin [-5, 8, 2], size [10, 16, 1]; per-face UVs match the add-on's geometry
-   *  (south/outside 1,1 · north/inside 12,1 · east 0,1 · west 11,1 · up 1,0 · down 11,0) */
-  function capeGeometry(THREE) {
-    const X0 = -5, X1 = 5, Y0 = 8, Y1 = 24, Z0 = 2, Z1 = 3;
-    return buildGeometry(THREE, [
-      [[X0, Y1, Z1], [X1, Y1, Z1], [X1, Y0, Z1], [X0, Y0, Z1], [1, 1, 10, 16], [0, 0, 1]],    // outside (back of player)
-      [[X1, Y1, Z0], [X0, Y1, Z0], [X0, Y0, Z0], [X1, Y0, Z0], [12, 1, 10, 16], [0, 0, -1]],  // inside
-      [[X0, Y1, Z0], [X0, Y1, Z1], [X0, Y0, Z1], [X0, Y0, Z0], [0, 1, 1, 16], [-1, 0, 0]],    // east edge
-      [[X1, Y1, Z1], [X1, Y1, Z0], [X1, Y0, Z0], [X1, Y0, Z1], [11, 1, 1, 16], [1, 0, 0]],    // west edge
-      [[X0, Y1, Z0], [X1, Y1, Z0], [X1, Y1, Z1], [X0, Y1, Z1], [1, 0, 10, 1], [0, 1, 0]],     // top
-      [[X0, Y0, Z1], [X1, Y0, Z1], [X1, Y0, Z0], [X0, Y0, Z0], [11, 0, 10, 1], [0, -1, 0]],   // bottom
-    ], [0, 24, 2], 64, 32);
+  /** The cape is built from its 6 sides as separate flat pieces, so it can unfold into the texture sheet.
+   *  Each side: [region id, uv rect [u, v, w, h], folded position, folded rotation] in the cape bone
+   *  (pivot [0, 24, 2]; the box spans x -5..5, y -16..0, z 0..1). UVs match the add-on's geometry. */
+  const H = Math.PI / 2;
+  const CAPE_FACES = [
+    ["outside", [1, 1, 10, 16], [0, -8, 1], [0, 0, 0]],
+    ["inside", [12, 1, 10, 16], [0, -8, 0], [0, Math.PI, 0]],
+    ["east", [0, 1, 1, 16], [-5, -8, 0.5], [0, -H, 0]],
+    ["west", [11, 1, 1, 16], [5, -8, 0.5], [0, H, 0]],
+    ["top", [1, 0, 10, 1], [0, 0, 0.5], [-H, 0, 0]],
+    ["bottom", [11, 0, 10, 1], [0, -16, 0.5], [H, 0, 0]],
+  ];
+  const REGION_COLOR = { outside: 0x2b7fff, inside: 0xed287f, east: 0xe0a92a, west: 0xe0a92a, top: 0x16a34a, bottom: 0x16a34a };
+  function facePlane(THREE, rect) {
+    const [u0, v0, w, h] = rect;
+    const g = new THREE.PlaneGeometry(w, h);
+    const uv = g.attributes.uv;
+    for (let k = 0; k < uv.count; k++) uv.setXY(k, (u0 + uv.getX(k) * w) / 64, 1 - (v0 + (1 - uv.getY(k)) * h) / 32);
+    return g;
   }
 
   /** Default preview skins (64×64), the same ones Cleverlike Emote Tool uses */
@@ -1901,13 +2484,43 @@ window.CapeStrings = {
       for (const c of b.cubes || []) {
         if (th === 32 && c.uv[1] >= 32) continue;
         const uv = th === 32 && (b.name === "leftArm" || b.name === "leftLeg") ? (b.name === "leftArm" ? [40, 16] : [0, 16]) : c.uv;
-        grp.add(new THREE.Mesh(cubeGeometry(THREE, { ...c, uv }, b.pivot, tw, th), c.i ? layer : base));
+        const mesh = new THREE.Mesh(cubeGeometry(THREE, { ...c, uv }, b.pivot, tw, th), c.i ? layer : base);
+        mesh.userData.overlay = !!c.i;
+        grp.add(mesh);
       }
-      if (b.name === "cape") grp.add(new THREE.Mesh(capeGeometry(THREE), capeMat));
+      if (b.name === "cape") for (const [id, rect, pos, rot] of CAPE_FACES) {
+        const m = new THREE.Mesh(facePlane(THREE, rect), capeMat);
+        m.name = id; m.userData.cape = true;
+        m.userData.fold = { p: new THREE.Vector3(...pos), q: new THREE.Quaternion().setFromEuler(new THREE.Euler(...rot)) };
+        // laid flat behind the player in the same layout as the texture file (a little apart, so each side is easy to see)
+        const [u, v, w, h] = rect, gap = 1.12;
+        m.userData.flat = { p: new THREE.Vector3((u + w / 2 - 11) * gap, -8 + (8.5 - (v + h / 2)) * gap, 14), q: new THREE.Quaternion() };
+        m.position.copy(m.userData.fold.p); m.quaternion.copy(m.userData.fold.q);
+        grp.add(m);
+      }
       if (b.parent) bones[b.parent].add(grp); else root = grp;
       bones[b.name] = grp;
     }
-    return { root, bones, rest, dispose() { root.traverse((o) => { if (o.geometry) o.geometry.dispose(); }); texture.dispose(); base.dispose(); layer.dispose(); capeMat.dispose(); } };
+    // Model view: plain gray shapes with their edges drawn, no texture
+    const gray = new THREE.MeshLambertMaterial({ color: 0xc9ced6 }), capeGray = new THREE.MeshLambertMaterial({ color: 0xaab4c3, side: THREE.DoubleSide });
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x334155 });
+    const meshes = [];
+    root.traverse((o) => { if (o.isMesh) meshes.push(o); });
+    for (const m of meshes) {
+      m.userData.skin = m.material;
+      const lines = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry), m.userData.cape ? new THREE.LineBasicMaterial({ color: REGION_COLOR[m.name] }) : lineMat);
+      lines.visible = false; m.add(lines); m.userData.lines = lines;
+    }
+    function setModel(on, unfolded) {
+      for (const m of meshes) {
+        if (m.userData.overlay) { m.visible = !on; continue; }
+        m.material = on ? (m.userData.cape ? capeGray : gray) : m.userData.skin;
+        m.userData.lines.visible = on || (m.userData.cape && unfolded);
+        if (m.userData.cape) m.userData.lines.material.color.set(on && !unfolded ? 0x334155 : REGION_COLOR[m.name]);
+      }
+    }
+    const capeMeshes = meshes.filter((m) => m.userData.cape);
+    return { root, bones, rest, capeMeshes, setModel, dispose() { root.traverse((o) => { if (o.geometry) o.geometry.dispose(); }); texture.dispose(); base.dispose(); layer.dispose(); capeMat.dispose(); gray.dispose(); capeGray.dispose(); } };
   }
 
   const VIEW = { yaw: 330, pitch: 10, dist: 82 };   // starts behind the player, so the cape is in view
@@ -1928,16 +2541,24 @@ window.CapeStrings = {
     shadow.rotation.x = -Math.PI / 2; shadow.position.y = 0.05; scene.add(shadow);
 
     // the cape texture is a 64×32 canvas the page redraws as you paint
-    const capeCanvas = document.createElement("canvas"); capeCanvas.width = 64; capeCanvas.height = 32;
+    // The page paints a 64×32 texture; it is shown 16× bigger so an optional pixel grid can be drawn on top
+    // (thin lines need a big texture, and mipmaps keep them from flickering when the cape is far away).
+    const SCALE = 16;
+    const capeSmall = document.createElement("canvas"); capeSmall.width = 64; capeSmall.height = 32;
+    const capeCanvas = document.createElement("canvas"); capeCanvas.width = 64 * SCALE; capeCanvas.height = 32 * SCALE;
     const capeTex = new THREE.CanvasTexture(capeCanvas);
-    capeTex.magFilter = THREE.NearestFilter; capeTex.minFilter = THREE.NearestFilter; capeTex.generateMipmaps = false;
+    capeTex.magFilter = THREE.LinearFilter; capeTex.minFilter = THREE.LinearMipmapLinearFilter; capeTex.generateMipmaps = true;
+    capeTex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    let pixelGrid = false;
 
     let rig = null, slim = false, walking = false, walkMix = 0, phase = 0, life = 0;
+    let modelView = false, unfoldTarget = 0, unfold = 0;
     const view = { ...VIEW };
 
     function buildRig(skinCanvas) {
       if (rig) { scene.remove(rig.root); rig.dispose(); }
       rig = makeRig(THREE, skinCanvas, slim, capeTex); scene.add(rig.root);
+      rig.setModel(modelView, unfold > 0.01);
     }
 
     function placeCamera() {
@@ -1952,19 +2573,41 @@ window.CapeStrings = {
     }
     new ResizeObserver(resize).observe(canvas.parentElement);
 
+    // Pointing at the cape tells the page which texture pixel is under the pointer
+    const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+    let onPoint = () => {}, lastPoint = null;
+    function pick(e) {
+      if (!rig) return null;
+      const r = canvas.getBoundingClientRect();
+      ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+      ray.setFromCamera(ndc, camera);
+      const hit = ray.intersectObjects(rig.capeMeshes, false)[0];
+      if (!hit || !hit.uv) return null;
+      return [Math.min(63, Math.floor(hit.uv.x * 64)), Math.min(31, Math.floor((1 - hit.uv.y) * 32))];
+    }
+    function point(p) { const k = p ? p.join(",") : ""; if (k !== lastPoint) { lastPoint = k; onPoint(p); } }
+
     let drag = null, spin = 0;
     canvas.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, id: e.pointerId }; spin = 0; canvas.setPointerCapture(e.pointerId); });
     canvas.addEventListener("pointermove", (e) => {
-      if (!drag || e.pointerId !== drag.id) return;
+      if (!drag || e.pointerId !== drag.id) { if (e.pointerType !== "touch") point(pick(e)); return; }
       view.yaw -= (e.clientX - drag.x) * 0.5; view.pitch = Math.max(-20, Math.min(70, view.pitch + (e.clientY - drag.y) * 0.4));
       drag.x = e.clientX; drag.y = e.clientY;
     });
     const end = () => { drag = null; };
     canvas.addEventListener("pointerup", end); canvas.addEventListener("pointercancel", end);
+    canvas.addEventListener("pointerleave", () => point(null));
     canvas.addEventListener("wheel", (e) => { e.preventDefault(); view.dist = Math.max(40, Math.min(160, view.dist * (1 + Math.sign(e.deltaY) * 0.08))); }, { passive: false });
 
+    /** Turn the camera the short way round to look at the player's back */
+    function faceBack() {
+      const target = Math.round(view.yaw / 360) * 360 - 15;
+      spin = target - view.yaw;
+    }
+
     /** Pose: walk cycle on arms and legs; the cape uses the add-on's own formula
-     *  (5° + up to 50° with speed + a 1.5° flutter, in Molang degrees) */
+     *  (5° + up to 50° with speed + a 1.5° flutter, in Molang degrees). Unfolding lays the sides flat. */
+    const ease = (x) => x * x * (3 - 2 * x);
     function pose(dt) {
       if (!rig) return;
       life += dt;
@@ -1974,15 +2617,23 @@ window.CapeStrings = {
       const B = rig.bones;
       B.rightLeg.rotation.x = swing * DEG; B.leftLeg.rotation.x = -swing * DEG;
       B.rightArm.rotation.x = -swing * 0.8 * DEG; B.leftArm.rotation.x = swing * 0.8 * DEG;
-      const speed = 0.55 * walkMix;   // q.modified_move_speed while walking is about this
+      const speed = 0.55 * walkMix;
       const capeDeg = 5 + Math.min(speed * 60, 50) + Math.sin(life * 120 * DEG) * 1.5;
-      B.cape.rotation.x = -capeDeg * DEG;
+      const before = unfold;
+      unfold += Math.sign(unfoldTarget - unfold) * Math.min(Math.abs(unfoldTarget - unfold), dt / 1.1);
+      const k = ease(unfold);
+      B.cape.rotation.x = -capeDeg * DEG * (1 - k);
+      for (const m of rig.capeMeshes) {
+        m.position.lerpVectors(m.userData.fold.p, m.userData.flat.p, k);
+        m.quaternion.copy(m.userData.fold.q).slerp(m.userData.flat.q, k);
+      }
+      if ((before > 0.01) !== (unfold > 0.01)) rig.setModel(modelView, unfold > 0.01);
     }
 
     let last = performance.now();
     function frame(now) {
       const dt = Math.min(0.1, (now - last) / 1000); last = now;
-      if (spin) { const step = Math.sign(spin) * Math.min(Math.abs(spin), dt * 540); view.yaw += step; spin -= step; }
+      if (spin) { const step = Math.sign(spin) * Math.min(Math.abs(spin), dt * 400); view.yaw += step; spin -= step; }
       pose(dt); placeCamera(); renderer.render(scene, camera);
       requestAnimationFrame(frame);
     }
@@ -1991,8 +2642,30 @@ window.CapeStrings = {
     return {
       setSkin(cv, isSlim) { slim = !!isSlim; buildRig(cv); },
       /** draw = (ctx) => paints the 64×32 cape texture */
-      setCape(draw) { const g = capeCanvas.getContext("2d"); g.clearRect(0, 0, 64, 32); draw(g); capeTex.needsUpdate = true; },
+      setCape(draw) {
+        const s = capeSmall.getContext("2d"); s.clearRect(0, 0, 64, 32); draw(s);
+        const g = capeCanvas.getContext("2d"); g.imageSmoothingEnabled = false;
+        g.clearRect(0, 0, capeCanvas.width, capeCanvas.height); g.drawImage(capeSmall, 0, 0, capeCanvas.width, capeCanvas.height);
+        if (pixelGrid) {
+          g.save(); g.globalCompositeOperation = "source-atop";   // lines only where the cape has color
+          g.fillStyle = "rgba(0, 0, 0, 0.32)";
+          for (let x = 0; x <= 64; x++) g.fillRect(x * SCALE - 1, 0, 2, capeCanvas.height);
+          for (let y = 0; y <= 32; y++) g.fillRect(0, y * SCALE - 1, capeCanvas.width, 2);
+          g.fillStyle = "rgba(255, 255, 255, 0.22)";
+          for (let x = 0; x <= 64; x++) g.fillRect(x * SCALE + 1, 0, 1, capeCanvas.height);
+          for (let y = 0; y <= 32; y++) g.fillRect(0, y * SCALE + 1, capeCanvas.width, 1);
+          g.restore();
+        }
+        capeTex.needsUpdate = true;
+      },
+      setPixelGrid(on) { pixelGrid = !!on; },
       setWalking(on) { walking = !!on; },
+      /** Model view: gray shapes with edges, no texture */
+      setModelView(on) { modelView = !!on; if (rig) rig.setModel(modelView, unfold > 0.01); },
+      setUnfolded(on) { unfoldTarget = on ? 1 : 0; if (on) faceBack(); },
+      get unfolded() { return unfoldTarget === 1; },
+      onPoint(fn) { onPoint = fn; },
+      showBack() { faceBack(); },
       turnAround() { spin += 180; },
       resetView() { spin = 0; Object.assign(view, VIEW); },
       setColors(bg, line) {
@@ -2002,7 +2675,7 @@ window.CapeStrings = {
     };
   }
 
-  G.CapePreview = { createPreview, loadDefaultSkin, makeDefaultSkin };
+  G.CapePreview = { createPreview, loadDefaultSkin, makeDefaultSkin, REGION_COLOR };
 })(typeof window !== "undefined" ? window : globalThis);
 
 
@@ -2057,13 +2730,14 @@ window.CapeStrings = {
     { id: "checker", name: "Checker", px: grid((x, y) => ((x >> 1) + (y >> 1)) % 2 ? "#3f3f3f" : "#ffffff") },
     { id: "split", name: "Split", px: grid((x) => (x < 5 ? "#ed287f" : "#00aef0")) },
     { id: "forest", name: "Forest", px: grid((x, y) => y > 11 ? "#5a2d0c" : (Math.abs(x - 4.5) <= (y % 6) * 0.9 && y % 6 > 0) ? "#80c71f" : "#5e7c16") },
+    { id: "plain", name: "Plain blue", px: grid(() => "#10499c") },
     { id: "blank", name: "Blank", px: grid(() => "#ffffff") },
   ];
   /** Both sides from a pattern: the inside is a darker plain version of the main colour */
   function fromPattern(p) {
     const outside = p.px.slice();
     const main = dominant(outside) || "#3f3f3f";
-    return { outside, inside: new Array(N).fill(shade(main, 0.62)) };
+    return { outside, inside: new Array(N).fill(shade(main, 0.62)), edges: null };
   }
 
   // ------------------------------------------------------------------ project
@@ -2073,7 +2747,7 @@ window.CapeStrings = {
   }
   function newProject() {
     const project = { format: 1, tool: "cleverlike-cape", pid: shortId(), packName: t("My Capes"), ids: freshIds(), version: [1, 0, 0], giveOnJoin: true, capes: [] };
-    project.capes.push(newCape(project, t("Cape {n}", { n: 1 }), "blank"));
+    project.capes.push(newCape(project, t("Cape {n}", { n: 1 }), "plain"));
     return project;
   }
   /** Make an opened project safe to use (missing fields, wrong-sized grids) */
@@ -2083,7 +2757,9 @@ window.CapeStrings = {
     p.giveOnJoin = p.giveOnJoin !== false;
     p.capes = p.capes.slice(0, MAX_CAPES).map((c) => {
       const fix = (a) => Array.from({ length: N }, (_, i) => (Array.isArray(a) && /^#[0-9a-f]{6}$/i.test(a[i]) ? a[i].toLowerCase() : ""));
-      return { key: c.key || shortId(), name: String(c.name || "Cape"), outside: fix(c.outside), inside: fix(c.inside), flagged: !!c.flagged };
+      const hex = (a, n) => Array.from({ length: n }, (_, i) => (Array.isArray(a) && /^#[0-9a-f]{6}$/i.test(a[i]) ? a[i].toLowerCase() : ""));
+      const e = c.edges && typeof c.edges === "object" ? { east: hex(c.edges.east, H), west: hex(c.edges.west, H), top: hex(c.edges.top, W), bottom: hex(c.edges.bottom, W) } : null;
+      return { key: c.key || shortId(), name: String(c.name || "Cape"), outside: fix(c.outside), inside: fix(c.inside), edges: e, flagged: !!c.flagged };
     });
     return p;
   }
@@ -2092,18 +2768,50 @@ window.CapeStrings = {
   function putPx(g, px, ox, oy, w = W) {
     px.forEach((h, i) => { if (h) { g.fillStyle = h; g.fillRect(ox + (i % w), oy + ((i / w) | 0), 1, 1); } });
   }
-  /** 64×32 cape texture: outside 1,1 · inside 12,1 · edge strips from the outside's border pixels */
-  function drawCapeTexture(g, cape) {
+  // ------------------------------------------------------------------ the texture sheet
+  /* The cape's texture file is 64×32; the cape uses the top-left 22×17. Each region is one side of the
+   * 10×16×1 box model. Coordinates below are pixels in that sheet. "Left/right" are as seen from behind. */
+  const SHEET_W = 22, SHEET_H = 17;
+  const REGIONS = [
+    { id: "outside", name: "Outside", x: 1, y: 1, w: 10, h: 16, color: "#2b7fff" },
+    { id: "inside", name: "Inside", x: 12, y: 1, w: 10, h: 16, color: "#ed287f" },
+    { id: "east", name: "Left edge", x: 0, y: 1, w: 1, h: 16, color: "#e0a92a" },
+    { id: "west", name: "Right edge", x: 11, y: 1, w: 1, h: 16, color: "#e0a92a" },
+    { id: "top", name: "Top edge", x: 1, y: 0, w: 10, h: 1, color: "#16a34a" },
+    { id: "bottom", name: "Bottom edge", x: 11, y: 0, w: 10, h: 1, color: "#16a34a" },
+  ];
+  /** {region, i} for a sheet pixel, or null for the unused corners */
+  function regionAt(x, y) {
+    for (const r of REGIONS) if (x >= r.x && x < r.x + r.w && y >= r.y && y < r.y + r.h) return { region: r, i: (y - r.y) * r.w + (x - r.x) };
+    return null;
+  }
+  /** The edge strips follow the outside's border pixels until someone paints them */
+  function autoEdges(cape) {
     const o = cape.outside, at = (x, y) => o[y * W + x];
-    putPx(g, o, 1, 1);
-    putPx(g, cape.inside, 12, 1);
-    for (let y = 0; y < H; y++) {
-      if (at(0, y)) { g.fillStyle = at(0, y); g.fillRect(0, 1 + y, 1, 1); }
-      if (at(W - 1, y)) { g.fillStyle = at(W - 1, y); g.fillRect(11, 1 + y, 1, 1); }
-    }
-    for (let x = 0; x < W; x++) {
-      if (at(x, 0)) { g.fillStyle = at(x, 0); g.fillRect(1 + x, 0, 1, 1); }
-      if (at(x, H - 1)) { g.fillStyle = at(x, H - 1); g.fillRect(11 + x, 0, 1, 1); }
+    return {
+      east: Array.from({ length: H }, (_, y) => at(0, y)), west: Array.from({ length: H }, (_, y) => at(W - 1, y)),
+      top: Array.from({ length: W }, (_, x) => at(x, 0)), bottom: Array.from({ length: W }, (_, x) => at(x, H - 1)),
+    };
+  }
+  function regionArray(cape, id, forWrite) {
+    if (id === "outside" || id === "inside") return cape[id];
+    if (!cape.edges && forWrite) cape.edges = autoEdges(cape);
+    return (cape.edges || autoEdges(cape))[id];
+  }
+  function getSheet(cape, x, y) { const r = regionAt(x, y); return r ? regionArray(cape, r.region.id, false)[r.i] || "" : ""; }
+  function setSheet(cape, x, y, v) { const r = regionAt(x, y); if (r) regionArray(cape, r.region.id, true)[r.i] = v; }
+  /** The matching pixel on the other half (for Mirror): left and right edges swap */
+  function mirrorSheet(x, y) {
+    const r = regionAt(x, y); if (!r) return null;
+    if (r.region.id === "east") return [11, y];
+    if (r.region.id === "west") return [0, y];
+    return [r.region.x + r.region.w - 1 - (x - r.region.x), y];
+  }
+
+  /** 64×32 cape texture, exactly as it goes in the add-on */
+  function drawCapeTexture(g, cape) {
+    for (let y = 0; y < SHEET_H; y++) for (let x = 0; x < SHEET_W; x++) {
+      const h = getSheet(cape, x, y); if (h) { g.fillStyle = h; g.fillRect(x, y, 1, 1); }
     }
   }
   /** 16×16 item icon: the design shrunk into a cape outline, as it shows in the hotbar */
@@ -2307,7 +3015,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     return repair(JSON.parse(await f.async("string")));
   }
 
-  G.CapePack = { W, H, N, MAX_CAPES, PATTERNS, fromPattern, newCape, newProject, repair, drawCapeTexture, drawIcon, canvasOf, designCheck,
+  G.CapePack = { SHEET_W, SHEET_H, REGIONS, regionAt, getSheet, setSheet, mirrorSheet, autoEdges, W, H, N, MAX_CAPES, PATTERNS, fromPattern, newCape, newProject, repair, drawCapeTexture, drawIcon, canvasOf, designCheck,
     problems, slugs, itemId, buildAddon, bumpVersion, versionUp, readAddon, shortId, shade, dominant };
 })(typeof window !== "undefined" ? window : globalThis);
 
@@ -2329,7 +3037,6 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   const history = {};          // cape key -> {undo: [], redo: []}
   let unsaved = false;
   const cape = () => project.capes[sel];
-  const px = () => cape()[side];
 
   // ------------------------------------------------------------------ preferences
   let prefs = { lang: null, theme: "system", text: "normal" };
@@ -2344,12 +3051,12 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     if (prefs.text === "large") root.dataset.text = "large"; else root.removeAttribute("data-text");
     document.querySelectorAll("[data-theme-opt]").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.themeOpt === prefs.theme)));
     document.querySelectorAll("[data-text-opt]").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.textOpt === prefs.text)));
-    readColors(); drawPaint(); if (preview) preview.setColors(css.stage, css.stageLine);
+    readColors(); drawPaint(); drawFlat(); if (preview) preview.setColors(css.stage, css.stageLine);
   }
   const css = {};
   function readColors() {
     const s = getComputedStyle(document.documentElement), v = (n) => s.getPropertyValue(n).trim();
-    Object.assign(css, { checkA: v("--check-a"), checkB: v("--check-b"), grid: v("--grid-line"), major: v("--grid-major"), accent: v("--accent"), stage: v("--stage"), stageLine: v("--stage-line") });
+    Object.assign(css, { unused: v("--unused"), checkA: v("--check-a"), checkB: v("--check-b"), grid: v("--grid-line"), major: v("--grid-major"), accent: v("--accent"), stage: v("--stage"), stageLine: v("--stage-line") });
   }
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => applyPrefs());
 
@@ -2381,7 +3088,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   // ------------------------------------------------------------------ 3D preview
   let preview = null;
   const skin = { slim: false, custom: null };
-  function updatePreviewCape() { if (preview) preview.setCape((g) => P.drawCapeTexture(g, cape())); }
+  function updatePreviewCape() { if (preview) preview.setCape((g) => { P.drawCapeTexture(g, cape()); highlight(g); }); }
   async function applySkin() {
     if (!preview) return;
     const cv = skin.custom || await G.CapePreview.loadDefaultSkin(skin.slim);
@@ -2395,11 +3102,18 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     if (!G.THREE) return;
     try { preview = G.CapePreview.createPreview($("#stage"), G.THREE); } catch { preview = null; return; }
     preview.setColors(css.stage, css.stageLine);
+    preview.onPoint((p) => { point3d = p && P.regionAt(...p) ? p : null; pointChanged(); });
     applySkin(); updatePreviewCape();
   }
   const setMove = (walk) => { preview && preview.setWalking(walk); $("#move-stand").setAttribute("aria-pressed", String(!walk)); $("#move-walk").setAttribute("aria-pressed", String(walk)); };
   $("#move-stand").addEventListener("click", () => setMove(false));
   $("#move-walk").addEventListener("click", () => setMove(true));
+  // pixel grid on the 3D cape: shows that every square of the texture lands on the model
+  $("#grid-toggle").addEventListener("click", () => {
+    const on = $("#grid-toggle").getAttribute("aria-pressed") !== "true";
+    $("#grid-toggle").setAttribute("aria-pressed", String(on));
+    if (preview) { preview.setPixelGrid(on); updatePreviewCape(); }
+  });
   $("#turn").addEventListener("click", () => preview && preview.turnAround());
   $("#reset-view").addEventListener("click", () => preview && preview.resetView());
   $("#arms-classic").addEventListener("click", () => { skin.slim = false; applySkin(); });
@@ -2422,71 +3136,119 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   });
 
   // ------------------------------------------------------------------ painter
-  const paint = $("#paint"), pg = paint.getContext("2d");
-  const CELL = paint.width / P.W;
-  let hover = -1, stroke = null;
+  /* Every view paints the cape's texture sheet (see CapePack.REGIONS). "Outside" and "Inside" show one region
+   * of it; "Texture file" shows the whole sheet, edges included. Pixels are addressed as [x, y] in the sheet. */
+  const paint = $("#paint"), sheetCv = $("#sheet-paint"), sheetPanel = $("#sheet-panel");
+  const VIEWS = { outside: { x: 1, y: 1, w: 10, h: 16 }, inside: { x: 12, y: 1, w: 10, h: 16 }, sheet: { x: 0, y: 0, w: P.SHEET_W, h: P.SHEET_H } };
+  // two painting surfaces share every tool: the cape grid in the Design panel and the whole texture file in its pop-out
+  const SURFACES = [
+    { cv: paint, view: () => VIEWS[side], frames: false, on: () => true },
+    { cv: sheetCv, view: () => VIEWS.sheet, frames: true, on: () => sheetPanel.open },
+  ];
+  let hover = null, stroke = null, point3d = null, blink = false;
+  const same = (a, b) => !!a && !!b && a[0] === b[0] && a[1] === b[1];
+  const pointAt = () => hover || point3d;
 
-  function drawPaint() {
-    if (!project.capes.length) return;
-    const data = px(), half = CELL / 2;
-    pg.clearRect(0, 0, paint.width, paint.height);
-    for (let i = 0; i < P.N; i++) {
-      const x = (i % P.W) * CELL, y = ((i / P.W) | 0) * CELL;
-      if (data[i]) { pg.fillStyle = data[i]; pg.fillRect(x, y, CELL, CELL); }
-      else {
-        for (let k = 0; k < 4; k++) { pg.fillStyle = (k === 0 || k === 3) ? css.checkA : css.checkB; pg.fillRect(x + (k % 2) * half, y + (k >> 1) * half, half, half); }
+  // Cells are drawn on whole device pixels (edges rounded), so the grid stays crisp at any size or zoom.
+  const R = Math.round;
+  function cellRect(g, x0, y0, x1, y1, fill) { g.fillStyle = fill; g.fillRect(x0, y0, x1 - x0, y1 - y0); }
+  function drawChecker(g, x0, y0, x1, y1) {
+    const xm = R((x0 + x1) / 2), ym = R((y0 + y1) / 2);
+    cellRect(g, x0, y0, xm, ym, css.checkA); cellRect(g, xm, y0, x1, ym, css.checkB);
+    cellRect(g, x0, ym, xm, y1, css.checkB); cellRect(g, xm, ym, x1, y1, css.checkA);
+  }
+  /** Draw a part of the sheet onto a canvas: pixels, see-through checks, unused corners, grid and region frames */
+  function drawSheet(g, cp, v, s, frames) {
+    for (let cy = 0; cy < v.h; cy++) for (let cx = 0; cx < v.w; cx++) {
+      const sx = v.x + cx, sy = v.y + cy, x0 = R(cx * s), y0 = R(cy * s), x1 = R((cx + 1) * s), y1 = R((cy + 1) * s);
+      if (!P.regionAt(sx, sy)) { cellRect(g, x0, y0, x1, y1, css.unused); continue; }
+      const h = P.getSheet(cp, sx, sy);
+      if (h) cellRect(g, x0, y0, x1, y1, h); else drawChecker(g, x0, y0, x1, y1);
+    }
+    if (s >= 8) {
+      const lw = Math.max(1, R(s / 24)), off = lw % 2 ? 0.5 : 0;
+      g.strokeStyle = css.grid; g.lineWidth = lw; g.beginPath();
+      for (let x = 1; x < v.w; x++) { const X = R(x * s) + off; g.moveTo(X, 0); g.lineTo(X, R(v.h * s)); }
+      for (let y = 1; y < v.h; y++) { const Y = R(y * s) + off; g.moveTo(0, Y); g.lineTo(R(v.w * s), Y); }
+      g.stroke();
+    }
+    if (frames) for (const r of P.REGIONS) {
+      const lw = Math.max(2, R(s / 6));
+      g.strokeStyle = r.color; g.lineWidth = lw;
+      g.strokeRect(R((r.x - v.x) * s) + lw / 2, R((r.y - v.y) * s) + lw / 2, R(r.w * s) - lw, R(r.h * s) - lw);
+    }
+  }
+  /** Match a painting canvas to its on-screen size × device pixel ratio, so nothing gets squeezed */
+  function fitCanvas(cv, v) {
+    const r = cv.getBoundingClientRect(); if (!r.width) return;
+    const dpr = G.devicePixelRatio || 1, w = R(r.width * dpr), h = R(w * v.h / v.w);
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+  }
+  function drawPaint() { if (project.capes.length) for (const sf of SURFACES) if (sf.on()) drawSurface(sf); }
+  function drawSurface(sf) {
+    const v = sf.view(); fitCanvas(sf.cv, v);
+    const pg = sf.cv.getContext("2d"), s = sf.cv.width / v.w;
+    pg.clearRect(0, 0, sf.cv.width, sf.cv.height);
+    drawSheet(pg, cape(), v, s, sf.frames);
+    if (mirror) {
+      pg.strokeStyle = css.accent; pg.lineWidth = 2 * Math.max(1, s / 24); pg.setLineDash([6 * Math.max(1, s / 24), 4 * Math.max(1, s / 24)]); pg.beginPath();
+      for (const id of sf.frames ? ["outside", "inside", "top", "bottom"] : [side]) {
+        const r = P.REGIONS.find((q) => q.id === id), mx = (r.x - v.x + r.w / 2) * s;
+        pg.moveTo(mx, (r.y - v.y) * s); pg.lineTo(mx, (r.y - v.y + r.h) * s);
       }
+      pg.stroke(); pg.setLineDash([]);
     }
-    pg.strokeStyle = css.grid; pg.lineWidth = 1; pg.beginPath();
-    for (let x = 1; x < P.W; x++) { pg.moveTo(x * CELL + 0.5, 0); pg.lineTo(x * CELL + 0.5, paint.height); }
-    for (let y = 1; y < P.H; y++) { pg.moveTo(0, y * CELL + 0.5); pg.lineTo(paint.width, y * CELL + 0.5); }
-    pg.stroke();
-    if (mirror) { pg.strokeStyle = css.accent; pg.lineWidth = 2; pg.setLineDash([6, 4]); pg.beginPath(); pg.moveTo(paint.width / 2, 0); pg.lineTo(paint.width / 2, paint.height); pg.stroke(); pg.setLineDash([]); }
-    if (hover >= 0) {
-      pg.strokeStyle = css.accent; pg.lineWidth = 2;
-      for (const i of targets(hover)) pg.strokeRect((i % P.W) * CELL + 1, ((i / P.W) | 0) * CELL + 1, CELL - 2, CELL - 2);
-    }
+    const mark = (p, color, w) => {
+      if (!p || p[0] < v.x || p[1] < v.y || p[0] >= v.x + v.w || p[1] >= v.y + v.h) return;
+      const x0 = R((p[0] - v.x) * s), y0 = R((p[1] - v.y) * s), lw = w * Math.max(1, s / 24);
+      pg.strokeStyle = color; pg.lineWidth = lw; pg.strokeRect(x0 + lw / 2, y0 + lw / 2, R((p[0] - v.x + 1) * s) - x0 - lw, R((p[1] - v.y + 1) * s) - y0 - lw);
+    };
+    if (hover && P.regionAt(...hover)) for (const p of targets(hover)) mark(p, css.accent, 2);
+    if (point3d && !hover) { mark(point3d, blink ? "#ffffff" : "#000000", 3); }
   }
-  const mirrorIndex = (i) => ((i / P.W) | 0) * P.W + (P.W - 1 - (i % P.W));
-  const targets = (i) => (mirror && mirrorIndex(i) !== i ? [i, mirrorIndex(i)] : [i]);
-  function cellAt(e) {
-    const r = paint.getBoundingClientRect();
-    const x = Math.floor((e.clientX - r.left) / r.width * P.W), y = Math.floor((e.clientY - r.top) / r.height * P.H);
-    return x >= 0 && y >= 0 && x < P.W && y < P.H ? y * P.W + x : -1;
+  const targets = (p) => { const m = mirror && P.mirrorSheet(p[0], p[1]); return m && !same(m, p) ? [p, m] : [p]; };
+  function cellAt(e, sf) {
+    const r = sf.cv.getBoundingClientRect(), v = sf.view();
+    const x = Math.floor((e.clientX - r.left) / r.width * v.w), y = Math.floor((e.clientY - r.top) / r.height * v.h);
+    return x >= 0 && y >= 0 && x < v.w && y < v.h ? [v.x + x, v.y + y] : null;
   }
 
-  // history
+  // history (the outside, inside and edge strips together)
   const hist = () => (history[cape().key] = history[cape().key] || { undo: [], redo: [] });
+  const state = () => ({ outside: cape().outside.slice(), inside: cape().inside.slice(), edges: cape().edges ? JSON.parse(JSON.stringify(cape().edges)) : null });
   function snapshot() {
-    const h = hist(); h.undo.push({ outside: cape().outside.slice(), inside: cape().inside.slice() });
+    const h = hist(); h.undo.push(state());
     if (h.undo.length > 60) h.undo.shift();
     h.redo.length = 0; updateHistoryButtons();
   }
   function restore(from, to) {
     const h = hist(); const s = h[from].pop(); if (!s) return;
-    h[to].push({ outside: cape().outside.slice(), inside: cape().inside.slice() });
-    cape().outside = s.outside; cape().inside = s.inside;
+    h[to].push(state());
+    Object.assign(cape(), s);
     changed(); afterDesignChange(true);
   }
-  function updateHistoryButtons() { const h = hist(); $("#undo").disabled = !h.undo.length; $("#redo").disabled = !h.redo.length; }
+  function updateHistoryButtons() { const h = hist(); for (const s of ["", "2"]) { $("#undo" + s).disabled = !h.undo.length; $("#redo" + s).disabled = !h.redo.length; } }
 
-  function setPixel(i, value) { for (const k of targets(i)) px()[k] = value; }
+  function setPixel(p, value) { for (const q of targets(p)) P.setSheet(cape(), q[0], q[1], value); }
   function line(a, b, value) {
-    let x0 = a % P.W, y0 = (a / P.W) | 0; const x1 = b % P.W, y1 = (b / P.W) | 0;
+    let [x0, y0] = a; const [x1, y1] = b;
     const dx = Math.abs(x1 - x0), dy = -Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
     let err = dx + dy;
-    for (;;) { setPixel(y0 * P.W + x0, value); if (x0 === x1 && y0 === y1) break; const e2 = 2 * err; if (e2 >= dy) { err += dy; x0 += sx; } if (e2 <= dx) { err += dx; y0 += sy; } }
+    for (;;) { setPixel([x0, y0], value); if (x0 === x1 && y0 === y1) break; const e2 = 2 * err; if (e2 >= dy) { err += dy; x0 += sx; } if (e2 <= dx) { err += dx; y0 += sy; } }
   }
+  /** Fill stays inside one side of the cape: each region is its own face of the model */
   function flood(start, value) {
-    const data = px(), from = data[start];
-    if (from === value) return;
-    const stack = [start], seen = new Set();
+    const cp = cape(), reg = P.regionAt(...start); if (!reg) return;
+    const from = P.getSheet(cp, ...start); if (from === value) return;
+    const stack = [start], seen = new Set(), cells = [];
     while (stack.length) {
-      const i = stack.pop(); if (seen.has(i) || data[i] !== from) continue; seen.add(i);
-      const x = i % P.W, y = (i / P.W) | 0;
-      if (x > 0) stack.push(i - 1); if (x < P.W - 1) stack.push(i + 1); if (y > 0) stack.push(i - P.W); if (y < P.H - 1) stack.push(i + P.W);
+      const [x, y] = stack.pop(), k = x + "," + y;
+      if (seen.has(k)) continue; seen.add(k);
+      const r = P.regionAt(x, y);
+      if (!r || r.region !== reg.region || P.getSheet(cp, x, y) !== from) continue;
+      cells.push([x, y]); stack.push([x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]);
     }
-    for (const i of seen) setPixel(i, value);
+    for (const c of cells) setPixel(c, value);
   }
   function addRecent(c) {
     if (!c || PALETTE.includes(c)) return;
@@ -2494,43 +3256,63 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     recent.unshift(c); recent.length = Math.min(recent.length, 10); renderSwatches();
   }
 
-  paint.addEventListener("contextmenu", (e) => e.preventDefault());
-  paint.addEventListener("pointerdown", (e) => {
-    const i = cellAt(e); if (i < 0) return;
-    e.preventDefault(); paint.setPointerCapture(e.pointerId);
+  for (const sf of SURFACES) new ResizeObserver(() => { if (sf.on()) drawSurface(sf); }).observe(sf.cv);
+  matchMedia(`(resolution: ${G.devicePixelRatio || 1}dppx)`).addEventListener("change", () => drawPaint());
+  for (const sf of SURFACES) {
+  const cv = sf.cv;
+  cv.addEventListener("contextmenu", (e) => e.preventDefault());
+  cv.addEventListener("pointerdown", (e) => {
+    const p = cellAt(e, sf); if (!p || !P.regionAt(...p)) return;
+    e.preventDefault(); cv.setPointerCapture(e.pointerId);
     const erase = e.button === 2 || tool === "eraser";
-    if (tool === "picker" && !erase) { const c = px()[i]; if (c) { setColor(c); setTool("pencil"); } return; }
+    if (tool === "picker" && !erase) { const c = P.getSheet(cape(), ...p); if (c) { setColor(c); setTool("pencil"); } return; }
     snapshot();
-    if (tool === "fill" && !erase) { flood(i, color); addRecent(color); stroke = null; changed(); afterDesignChange(true); return; }
-    stroke = { last: i, value: erase ? "" : color, id: e.pointerId };
+    if (tool === "fill" && !erase) { flood(p, color); addRecent(color); stroke = null; changed(); afterDesignChange(true); return; }
+    stroke = { last: p, value: erase ? "" : color, id: e.pointerId };
     if (!erase) addRecent(color);
-    setPixel(i, stroke.value); changed(); afterDesignChange(false);
+    setPixel(p, stroke.value); changed(); afterDesignChange(false);
   });
-  paint.addEventListener("pointermove", (e) => {
-    const i = cellAt(e);
-    if (stroke && e.pointerId === stroke.id && i >= 0 && i !== stroke.last) { line(stroke.last, i, stroke.value); stroke.last = i; afterDesignChange(false); }
-    if (i !== hover) { hover = i; drawPaint(); }
+  cv.addEventListener("pointermove", (e) => {
+    const p = cellAt(e, sf);
+    if (stroke && e.pointerId === stroke.id && p && !same(p, stroke.last)) { line(stroke.last, p, stroke.value); stroke.last = p; afterDesignChange(false); }
+    if (!same(p, hover)) { hover = p && P.regionAt(...p) ? p : null; pointChanged(); }
   });
   const endStroke = () => { if (stroke) { stroke = null; afterDesignChange(true); } };
-  paint.addEventListener("pointerup", endStroke); paint.addEventListener("pointercancel", endStroke);
-  paint.addEventListener("pointerleave", () => { hover = -1; drawPaint(); });
+  cv.addEventListener("pointerup", endStroke); cv.addEventListener("pointercancel", endStroke);
+  cv.addEventListener("pointerleave", () => { hover = null; pointChanged(); });
+  }
+
+  // ---- pointing: a square in the painter blinks on the 3D cape, and pointing at the 3D cape marks the square
+  function pointChanged() {
+    const p = pointAt(), r = p && P.regionAt(...p);
+    for (const [id, idle] of [["#where", "Point at the 3D cape to find that square here."], ["#where2", "Point at a square to see where it goes on the 3D cape."]]) {
+      if (r) $(id).innerHTML = t("Pointing at: <b>{place}</b>", { place: t(r.region.name) }); else $(id).textContent = t(idle);
+    }
+    drawPaint(); updatePreviewCape(); drawFlat();
+  }
+  setInterval(() => { if (pointAt()) { blink = !blink; drawPaint(); updatePreviewCape(); drawFlat(); } }, 320);
+  function highlight(g) {
+    const p = pointAt(); if (!p || !P.regionAt(...p)) return;
+    g.fillStyle = blink ? "#ffffff" : "#000000"; g.fillRect(p[0], p[1], 1, 1);
+  }
 
   /** Redraw after pixels change. full = the stroke is finished (run checks, refresh the list). */
   function afterDesignChange(full) {
-    drawPaint(); updatePreviewCape(); drawIcons();
-    if (full) { runDesignCheck(); renderList(); renderProblems(); updateHistoryButtons(); }
+    drawPaint(); updatePreviewCape(); drawIcons(); drawFlat();
+    if (full) { runDesignCheck(); renderList(); renderProblems(); updateHistoryButtons(); $("#edges-auto").hidden = !cape().edges; }
   }
 
   function setTool(name) {
     tool = name;
-    document.querySelectorAll("#tools [data-tool]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tool === name)));
+    document.querySelectorAll("[data-tool]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tool === name)));
   }
-  document.querySelectorAll("#tools [data-tool]").forEach((b) => b.addEventListener("click", () => setTool(b.dataset.tool)));
-  $("#mirror").addEventListener("change", (e) => { mirror = e.target.checked; drawPaint(); });
+  document.querySelectorAll("[data-tool]").forEach((b) => b.addEventListener("click", () => setTool(b.dataset.tool)));
+  function setMirror(on) { mirror = !!on; document.querySelectorAll(".mirror-box").forEach((m) => { m.checked = mirror; }); drawPaint(); }
+  document.querySelectorAll(".mirror-box").forEach((m) => m.addEventListener("change", () => setMirror(m.checked)));
 
   function setColor(c) {
     color = c.toLowerCase(); $("#color").value = color; $("#color-hex").textContent = color;
-    document.querySelectorAll("#palette button, #recent button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.c === color)));
+    document.querySelectorAll("#palette button, #palette2 button, #recent button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.c === color)));
   }
   $("#color").addEventListener("input", (e) => setColor(e.target.value));
   function swatch(c) {
@@ -2541,7 +3323,14 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   }
   function renderSwatches() {
     $("#palette").replaceChildren(...PALETTE.map(swatch));
+    $("#palette2").replaceChildren(...[...recent, ...PALETTE.filter((c) => !recent.includes(c))].map(swatch));
     $("#recent").replaceChildren(...recent.map(swatch));
+  }
+  function renderLegend() {
+    $("#legend").replaceChildren(...P.REGIONS.map((r) => {
+      const li = document.createElement("li"), i = document.createElement("i");
+      i.style.setProperty("--c", r.color); li.append(i, document.createTextNode(t(r.name))); return li;
+    }));
   }
 
   function setSide(s) {
@@ -2549,20 +3338,114 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     $("#side-out").setAttribute("aria-pressed", String(s === "outside"));
     $("#side-in").setAttribute("aria-pressed", String(s === "inside"));
     $("#copy-out").hidden = s !== "inside";
-    $("#clear").dataset.tip = s === "inside" ? "Erase the inside of the cape." : "Erase the outside of the cape.";
-    $("#paint").setAttribute("aria-label", t(s === "inside" ? "Pixel drawing grid for the inside of the cape" : "Pixel drawing grid for the outside of the cape"));
-    drawPaint();
+    $("#edges-auto").hidden = !cape().edges;
+    $("#clear").dataset.tip = { inside: "Erase the inside of the cape.", outside: "Erase the outside of the cape." }[s];
+    $("#paint").setAttribute("aria-label", t({ inside: "Pixel drawing grid for the inside of the cape", outside: "Pixel drawing grid for the outside of the cape" }[s]));
+    hover = null; pointChanged();
   }
   $("#side-out").addEventListener("click", () => setSide("outside"));
   $("#side-in").addEventListener("click", () => setSide("inside"));
-  $("#undo").addEventListener("click", () => restore("undo", "redo"));
-  $("#redo").addEventListener("click", () => restore("redo", "undo"));
+  for (const id of ["#undo", "#undo2"]) $(id).addEventListener("click", () => restore("undo", "redo"));
+  for (const id of ["#redo", "#redo2"]) $(id).addEventListener("click", () => restore("redo", "undo"));
   $("#clear").addEventListener("click", () => { snapshot(); cape()[side] = new Array(P.N).fill(""); changed(); afterDesignChange(true); });
+  $("#clear2").addEventListener("click", () => { snapshot(); const c = cape(); c.outside = new Array(P.N).fill(""); c.inside = new Array(P.N).fill(""); c.edges = null; changed(); afterDesignChange(true); });
+
+  // the whole texture file, in a panel that floats beside the 3D preview
+  function openSheet() {
+    if (!sheetPanel.open) sheetPanel.show();
+    $("#edges-auto").hidden = !cape().edges;
+    if (preview) preview.showBack();
+    drawPaint(); pointChanged(); $("#sheet-close").focus();
+  }
+  $("#open-sheet").addEventListener("click", openSheet);
+  $("#sheet-close").addEventListener("click", () => { sheetPanel.close(); $("#open-sheet").focus(); });
+  sheetPanel.addEventListener("keydown", (e) => { if (e.key === "Escape" && pop.hidden) { e.preventDefault(); sheetPanel.close(); $("#open-sheet").focus(); } });
   $("#copy-out").addEventListener("click", () => {
-    snapshot(); const o = cape().outside;
+    snapshot(); const o = cape().outside, mi = (i) => ((i / P.W) | 0) * P.W + (P.W - 1 - (i % P.W));
     // the inside faces the other way, so it is mirrored to line up with the outside like real fabric
-    cape().inside = o.map((_, i) => o[mirrorIndex(i)]);
+    cape().inside = o.map((_, i) => o[mi(i)]);
     changed(); afterDesignChange(true);
+  });
+  $("#edges-auto").addEventListener("click", () => { snapshot(); cape().edges = null; changed(); afterDesignChange(true); });
+
+  // ------------------------------------------------------------------ model vs texture (stage)
+  let show = "both", learnText = "";
+  const flat = $("#flat"), fg = flat.getContext("2d");
+  function drawFlat() {
+    if (show !== "texture" || !project.capes.length) return;
+    const wrap = $("#stage-wrap").getBoundingClientRect();
+    const s = Math.max(2, Math.floor(Math.min((wrap.width - 40) / 64, (wrap.height - 90) / 32)));
+    if (flat.width !== 64 * s) { flat.width = 64 * s; flat.height = 32 * s; }
+    fg.clearRect(0, 0, flat.width, flat.height);
+    drawSheet(fg, cape(), { x: 0, y: 0, w: 64, h: 32 }, s, true);
+    const p = pointAt(); if (p && P.regionAt(...p)) { fg.strokeStyle = blink ? "#ffffff" : "#000000"; fg.lineWidth = 3; fg.strokeRect(p[0] * s + 1.5, p[1] * s + 1.5, s - 3, s - 3); }
+    $("#flat-name").textContent = `${cape().key}.png`;
+  }
+  flat.addEventListener("pointermove", (e) => {
+    const r = flat.getBoundingClientRect(), x = Math.floor((e.clientX - r.left) / r.width * 64), y = Math.floor((e.clientY - r.top) / r.height * 32);
+    const p = P.regionAt(x, y) ? [x, y] : null; if (!same(p, point3d)) { point3d = p; pointChanged(); }
+  });
+  flat.addEventListener("pointerleave", () => { point3d = null; pointChanged(); });
+  new ResizeObserver(() => drawFlat()).observe($("#stage-wrap"));
+
+  // ---- lightbulbs: short explanations that pop up when clicked
+  const INFO = {
+    capes: ["Every cape becomes its own item in Minecraft. They all share one model, and each one has its own texture."],
+    join: ["Each player gets every cape the first time they join, and any new ones after an update."],
+    sides: ["<b>Outside</b> is the side everyone sees on your back.", "<b>Inside</b> is the side against your back. You see it when the cape lifts."],
+    texture: ["<b>This is the texture file.</b> It is one flat picture with every side of the cape in it.", "Each colored box is one side. Point at a square to see where it goes on the 3D cape."],
+  };
+  const pop = $("#pop"); let popFor = null;
+  function infoHtml(key) {
+    if (key === "learn") return `<p>${t(learnText)}</p>`;
+    return INFO[key].map((s) => `<p>${t(s)}</p>`).join("");
+  }
+  function closePop() { if (popFor) popFor.setAttribute("aria-expanded", "false"); popFor = null; pop.hidden = true; }
+  function openPop(btn) {
+    closePop(); popFor = btn; btn.setAttribute("aria-expanded", "true"); btn.classList.remove("fresh");
+    $("#pop-body").innerHTML = infoHtml(btn.dataset.info);
+    const host = btn.closest("dialog[open]") || document.body; if (pop.parentNode !== host) host.appendChild(pop);
+    pop.hidden = false;
+    const r = btn.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight, vw = document.documentElement.clientWidth;
+    let top = r.bottom + 8; if (top + h > innerHeight - 8) top = Math.max(8, r.top - h - 8);
+    pop.style.left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, vw - w - 8)) + "px"; pop.style.top = top + "px";
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest(".bulb");
+    if (b) { if (popFor === b) closePop(); else openPop(b); return; }
+    if (popFor && !pop.contains(e.target)) closePop();
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && popFor) { const b = popFor; closePop(); b.focus(); } });
+  addEventListener("resize", closePop); document.addEventListener("scroll", closePop, true);
+
+  function renderLearn() {
+    const unfolded = preview && preview.unfolded;
+    for (const m of ["model", "texture", "both"]) $("#show-" + m).setAttribute("aria-pressed", String(show === m));
+    $("#flat-view").hidden = show !== "texture";
+    $("#unfold").textContent = t(unfolded ? "Fold it back up" : "Unfold the cape");
+    $("#unfold").setAttribute("aria-pressed", String(!!unfolded));
+    const text = unfolded
+      ? "<b>Unfolded!</b> The cape is a thin box with 6 sides. Lay the sides flat and you get the texture picture. Each colored frame is one side."
+      : { both: "<b>Model + texture = what you see in the game.</b> Minecraft wraps your picture around the shape, like wrapping paper around a box. Point at the cape to find that square in your picture.",
+          model: "<b>This is the model.</b> A model is a shape, like a plain cardboard box. It has a size, but no colors. The cape is a thin box, and the player is a model too!",
+          texture: "<b>This is the texture.</b> A texture is a flat picture, like wrapping paper before you wrap a present. Only the boxes with colored frames are used. The rest of the picture stays empty." }[show];
+    if (text !== learnText) { learnText = text; const b = document.querySelector('.bulb[data-info="learn"]'); if (b) { b.classList.remove("fresh"); void b.offsetWidth; b.classList.add("fresh"); } }
+    if (popFor && popFor.dataset.info === "learn") $("#pop-body").innerHTML = infoHtml("learn");
+    drawFlat();
+  }
+  function setShow(m) {
+    show = m;
+    if (preview) { preview.setModelView(m === "model"); if (m === "texture" && preview.unfolded) preview.setUnfolded(false); }
+    if (m !== "texture") point3d = null;
+    renderLearn();
+  }
+  $("#show-model").addEventListener("click", () => setShow("model"));
+  $("#show-texture").addEventListener("click", () => setShow("texture"));
+  $("#show-both").addEventListener("click", () => setShow("both"));
+  $("#unfold").addEventListener("click", () => {
+    if (!preview) return;
+    if (show === "texture") setShow("both");
+    preview.setUnfolded(!preview.unfolded); renderLearn();
   });
 
   // keyboard shortcuts (not while typing)
@@ -2575,7 +3458,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     const map = { b: "pencil", e: "eraser", g: "fill", i: "picker" };
     if (map[k]) { setTool(map[k]); e.preventDefault(); }
-    else if (k === "m") { const m = $("#mirror"); m.checked = !m.checked; mirror = m.checked; drawPaint(); e.preventDefault(); }
+    else if (k === "m") { setMirror(!mirror); e.preventDefault(); }
   });
 
   // patterns
@@ -2659,7 +3542,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   }
   $("#add-cape").addEventListener("click", () => {
     if (project.capes.length >= P.MAX_CAPES) return;
-    project.capes.push(P.newCape(project, uniqueName("Cape {n}"), "blank"));
+    project.capes.push(P.newCape(project, uniqueName("Cape {n}"), "plain"));
     changed(); select(project.capes.length - 1); renderProblems();
     $("#cape-name").focus(); $("#cape-name").select();
   });
@@ -2773,6 +3656,100 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     }
   });
 
+  // ------------------------------------------------------------------ look inside the add-on
+  /* A guided tour of the files the download will contain, in words a young student can follow.
+   * Paths match CapePack.buildAddon. */
+  const FILE_INFO = {
+    model: { tag: "model", tagText: "Model", title: "The model",
+      text: ["This is the model. It is the shape of the cape: a thin box, 10 squares wide, 16 squares tall and 1 square thick.",
+        "A model has no colors at all! Every cape in your pack uses this same shape."] },
+    texture: { tag: "texture", tagText: "Texture", title: "The texture",
+      text: ["This is the texture. It is the picture you painted, laid out flat.",
+        "Minecraft wraps it around the model, like wrapping paper around a box. Each cape has its own texture, but they all share one model."] },
+    link: { tag: "link", tagText: "Connector", title: "The connector",
+      text: ["This file connects the other two. It tells Minecraft: use this model, color it with this texture, and put it on the player's back."] },
+    motion: { tag: "other", tagText: "Movement", title: "The movement",
+      text: ["This file makes the cape move. When you walk, it tips the cape back so it flutters behind you.", "It moves the model. It doesn't change the picture."] },
+    icon: { tag: "texture", tagText: "Texture", title: "The item icon",
+      text: ["This tiny picture shows your cape in the hotbar. It is a texture too, just a very small one: 16 × 16 pixels."] },
+    item: { tag: "other", tagText: "Item", title: "The item",
+      text: ["This file makes each cape an item you can hold. It gives the cape its name and says it goes in the chestplate slot."] },
+    script: { tag: "other", tagText: "Program", title: "The helper program",
+      text: ["This is a tiny computer program. When a player joins the world for the first time, it puts the capes in their inventory."] },
+    fn: { tag: "other", tagText: "Commands", title: "The command list",
+      text: ["This is a list of commands. Typing {cmd} runs them and gives you every cape."] },
+    save: { tag: "other", tagText: "Your work", title: "Your saved work",
+      text: ["This is your saved work. When you open the add-on with this tool again, it reads this file so you can keep painting."] },
+    helper: { tag: "other", tagText: "Helpers", title: "Helper files",
+      text: ["Small files that help Minecraft find everything: the pack's name tag, the pack picture, and lists of where things are. You don't need to change them."] },
+  };
+  let fileSel = "model";
+  function fileEntries() {
+    const dir = `capes_${project.pid}`, sl = P.slugs(project), c = cape(), n = project.capes.length;
+    const rp = [
+      { id: "model", path: `models/entity/${dir}.geo.json` },
+      { id: "texture", path: `textures/models/${dir}/${c.key}.png`, n },
+      { id: "link", path: `attachables/${dir}/${sl[c.key]}.json`, n },
+      { id: "motion", path: `animations/${dir}.animation.json` },
+      { id: "icon", path: `textures/items/${dir}/${c.key}.png`, n },
+      { id: "helper", path: "manifest.json, pack_icon.png, …" },
+    ];
+    const bp = [
+      { id: "item", path: `items/${dir}/${sl[c.key]}.json`, n },
+      ...(project.giveOnJoin ? [{ id: "script", path: "scripts/main.js" }] : []),
+      { id: "fn", path: `functions/${dir}/all.mcfunction` },
+      { id: "save", path: "cape_project.json" },
+    ];
+    return [
+      { folder: `${folderName()} RP`, sub: "Resource pack: how things look", files: rp },
+      { folder: `${folderName()} BP`, sub: "Behavior pack: how things work", files: bp },
+    ];
+  }
+  const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+  function renderFiles() {
+    const groups = fileEntries(), tree = $("#file-tree");
+    tree.replaceChildren();
+    for (const g of groups) {
+      const head = document.createElement("li"); head.className = "folder";
+      head.innerHTML = `<span>${esc(g.folder)}</span><small>${esc(t(g.sub))}</small>`;
+      tree.appendChild(head);
+      for (const f of g.files) {
+        const li = document.createElement("li"), b = document.createElement("button"), info = FILE_INFO[f.id];
+        b.type = "button"; b.setAttribute("aria-current", String(f.id === fileSel));
+        b.innerHTML = `<span class="chip tag-${info.tag}">${esc(t(info.tagText))}</span><span class="fname">${esc(f.path.split("/").pop())}</span>` +
+          (f.n > 1 ? `<span class="count">${esc(t("× {n}", { n: f.n }))}</span>` : "");
+        b.addEventListener("click", () => { fileSel = f.id; renderFiles(); });
+        li.appendChild(b); tree.appendChild(li);
+      }
+    }
+    const all = groups.flatMap((g) => g.files.map((f) => ({ ...f, folder: g.folder })));
+    const f = all.find((x) => x.id === fileSel) || all[0], info = FILE_INFO[f.id], box = $("#file-info");
+    const cmd = `/function capes_${project.pid}/all`;
+    let html = `<span class="chip tag-${info.tag}" style="justify-self:start">${esc(t(info.tagText))}</span><h3>${esc(t(info.title))}</h3>` +
+      `<p class="path">${esc(f.folder)}/${esc(f.path)}</p>` + info.text.map((s) => `<p>${esc(t(s, { cmd }))}</p>`).join("");
+    if (f.n > 1) html += `<p class="muted">${esc(t("There is one of these for each cape ({n} in this pack).", { n: f.n }))}</p>`;
+    const mk = (s) => `<mark>${esc(s)}</mark>`;
+    if (f.id === "model") html += `<pre>"cubes": [{\n  "origin": [-5, 8, 2],\n  ${mk('"size": [10, 16, 1]')}\n}]</pre><p class="muted">${esc(t("size = how wide, how tall and how thick the box is."))}</p>`;
+    if (f.id === "link") html += `<pre>"geometry": { "default": ${mk(`"geometry.cape_${project.pid}"`)} },\n"textures": { "default": ${mk(`"textures/models/capes_${project.pid}/${cape().key}"`)} }</pre><p class="muted">${esc(t("geometry = which model to use. textures = which picture to wrap on it."))}</p>`;
+    if (f.id === "item") html += `<pre>"display_name": { "value": ${mk(JSON.stringify(cape().name))} },\n"wearable": { "slot": ${mk('"slot.armor.chest"')} }</pre>`;
+    box.innerHTML = html;
+    if (f.id === "texture" || f.id === "icon") {
+      const big = f.id === "texture", cv = document.createElement("canvas"), s = big ? 6 : 10;
+      cv.width = (big ? 64 : 16) * s; cv.height = (big ? 32 : 16) * s;
+      const g = cv.getContext("2d");
+      if (big) drawSheet(g, cape(), { x: 0, y: 0, w: 64, h: 32 }, s, true);
+      else { const ic = P.canvasOf(16, 16, (h) => P.drawIcon(h, cape())); for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) drawChecker(g, x * s, y * s, s); g.imageSmoothingEnabled = false; g.drawImage(ic, 0, 0, cv.width, cv.height); }
+      cv.setAttribute("aria-label", t(big ? "The texture file for {name}" : "The item icon for {name}", { name: cape().name }));
+      const cap = document.createElement("p"); cap.className = "muted";
+      cap.textContent = t(big ? "{name}: 64 × 32 pixels. Only the boxes with colored frames are used." : "{name}: 16 × 16 pixels.", { name: cape().name });
+      box.append(cv, cap);
+    }
+  }
+  const filesDlg = $("#files-dialog");
+  $("#look-inside").addEventListener("click", () => { renderFiles(); filesDlg.showModal(); });
+  $("#files-close").addEventListener("click", () => filesDlg.close());
+  filesDlg.addEventListener("click", (e) => { if (e.target === filesDlg) filesDlg.close(); });
+
   // ------------------------------------------------------------------ render
   function renderDesigner() {
     capeName.refresh();
@@ -2780,7 +3757,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     setSide(side); drawIcons(); runDesignCheck(); updateHistoryButtons();
   }
   function renderAll() {
-    I.applyStatic(); renderSwatches(); renderPatterns(); renderPack(); renderList(); renderDesigner(); renderProblems(); renderSteps();
+    I.applyStatic(); renderSwatches(); renderLegend(); renderPatterns(); renderPack(); renderList(); renderDesigner(); renderProblems(); renderSteps(); renderLearn();
   }
 
   readColors(); applyPrefs(); setColor(color); renderAll(); initPreview();
