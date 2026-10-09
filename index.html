@@ -3126,14 +3126,15 @@ window.CapeStrings = {
     { id: "checker", name: "Checker", px: grid((x, y) => ((x >> 1) + (y >> 1)) % 2 ? "#3f3f3f" : "#ffffff") },
     { id: "split", name: "Split", px: grid((x) => (x < 5 ? "#ed287f" : "#00aef0")) },
     { id: "forest", name: "Forest", px: grid((x, y) => y > 11 ? "#5a2d0c" : (Math.abs(x - 4.5) <= (y % 6) * 0.9 && y % 6 > 0) ? "#80c71f" : "#5e7c16") },
-    { id: "plain", name: "Plain blue", px: grid(() => "#10499c") },
+    // the starting cape: Cleverlike blue with a slightly darker 1-pixel border, the same on both sides
+    { id: "plain", name: "Plain blue", same: true, px: grid((x, y) => (x === 0 || y === 0 || x === W - 1 || y === H - 1 ? "#0e3e86" : "#10499c")) },
     { id: "blank", name: "Blank", px: grid(() => "#ffffff") },
   ];
   /** Both sides from a pattern: the inside is a darker plain version of the main colour */
   function fromPattern(p) {
     const outside = p.px.slice();
     const main = dominant(outside) || "#3f3f3f";
-    return { outside, inside: new Array(N).fill(shade(main, 0.62)), edges: null };
+    return { outside, inside: p.same ? outside.slice() : new Array(N).fill(shade(main, 0.62)), edges: null };
   }
 
   // ------------------------------------------------------------------ project
