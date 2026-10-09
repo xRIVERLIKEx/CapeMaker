@@ -359,6 +359,131 @@ dialog.sheet-panel[open] { display: grid; }
 .toolset.row .btn { padding: 6px 10px; font-size: 0.84rem; justify-content: center; gap: 6px; }
 @media (max-width: 520px) { .toolset.row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
+/* ---------- look inside: a short slideshow ---------- */
+dialog.story { border: 1px solid var(--line); border-radius: 12px; padding: 0; background: var(--panel); color: var(--ink); width: min(820px, calc(100% - 24px)); max-height: calc(100% - 24px); box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35); overflow: hidden; }
+dialog.story[open] { display: flex; flex-direction: column; }
+dialog.story::backdrop { background: rgba(15, 23, 42, 0.6); }
+.story-head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.story-head .label { margin-right: auto; }
+.story-voice b { font-size: 0.9rem; }
+.story-slide { flex: 1; min-height: 0; overflow: auto; display: grid; grid-template-rows: auto minmax(220px, 1fr); gap: 6px; padding: 18px 22px 10px; text-align: center; }
+.story-words { display: grid; gap: 6px; justify-items: center; }
+.story-big { margin: 0; font: 900 clamp(1.7rem, 4.2vw, 2.6rem)/1.15 var(--f-display); color: var(--ink); }
+.story-big .num { color: var(--accent); }
+.story-small { margin: 0; max-width: 34ch; font-size: clamp(1.05rem, 2.2vw, 1.3rem); line-height: 1.45; font-weight: 600; color: var(--soft); }
+.story-art { position: relative; display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap; min-height: 220px; padding: 10px 0; }
+.story-foot { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--line); }
+.story-foot .btn { min-width: 92px; font-size: 1rem; }
+.story-foot .speak { min-width: 0; }
+.story-dots { display: flex; gap: 8px; justify-content: center; flex: 1; }
+.story-dots button { all: unset; cursor: pointer; width: 12px; height: 12px; border-radius: 50%; background: var(--line-strong); }
+.story-dots button[aria-current="true"] { background: var(--accent); transform: scale(1.25); }
+.story-dots button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.tag-big { display: inline-block; padding: 3px 12px; border-radius: 99px; font: 800 0.95rem/1.4 var(--f-display); }
+.tag-big.model { background: color-mix(in srgb, #64748b 25%, var(--panel)); }
+.tag-big.texture { background: color-mix(in srgb, #ed287f 22%, var(--panel)); }
+.art-col { display: grid; justify-items: center; gap: 8px; }
+.art-op { font: 900 2.2rem/1 var(--f-display); color: var(--muted); }
+
+/* the cape as a little 3D box made of six faces */
+.box3d { --u: 9px; perspective: 700px; width: calc(var(--u) * 12); height: calc(var(--u) * 18); display: grid; place-items: center; }
+.box3d .spin { position: relative; width: calc(var(--u) * 10); height: calc(var(--u) * 16); transform-style: preserve-3d; animation: box-rock 2.8s ease-in-out infinite alternate; animation-delay: calc(var(--i, 0) * -0.7s); }
+.box3d.still .spin { animation: none; transform: rotateX(-12deg) rotateY(-28deg); }
+@keyframes box-rock { from { transform: rotateX(-10deg) rotateY(-38deg); } to { transform: rotateX(-10deg) rotateY(38deg); } }
+.box3d .f { position: absolute; left: 50%; top: 50%; background: #c9ced6; border: 1px solid #334155; box-sizing: border-box; background-size: 100% 100%; image-rendering: pixelated; }
+.box3d .f i { position: absolute; inset: 0; background-size: 100% 100%; image-rendering: pixelated; opacity: 0; transition: opacity 0.9s ease; }
+.box3d.textured .f i { opacity: 1; }
+.box3d.textured .f { border-color: transparent; }
+.box3d .front, .box3d .back { width: calc(var(--u) * 10); height: calc(var(--u) * 16); margin: calc(var(--u) * -8) 0 0 calc(var(--u) * -5); }
+.box3d .front { transform: translateZ(calc(var(--u) * 0.5)); }
+.box3d .back { transform: rotateY(180deg) translateZ(calc(var(--u) * 0.5)); }
+.box3d .left, .box3d .right { width: var(--u); height: calc(var(--u) * 16); margin: calc(var(--u) * -8) 0 0 calc(var(--u) * -0.5); }
+.box3d .left { transform: rotateY(-90deg) translateZ(calc(var(--u) * 5)); }
+.box3d .right { transform: rotateY(90deg) translateZ(calc(var(--u) * 5)); }
+.box3d .top, .box3d .bottom { width: calc(var(--u) * 10); height: var(--u); margin: calc(var(--u) * -0.5) 0 0 calc(var(--u) * -5); }
+.box3d .top { transform: rotateX(90deg) translateZ(calc(var(--u) * 8)); }
+.box3d .bottom { transform: rotateX(-90deg) translateZ(calc(var(--u) * 8)); }
+.box3d.big { --u: 13px; }
+.box3d.small { --u: 5px; }
+
+.tex-card { display: grid; justify-items: center; gap: 6px; font-weight: 800; font-size: 0.85rem; }
+.tex-card img { width: calc(22px * var(--k, 6)); height: calc(17px * var(--k, 6)); image-rendering: pixelated; border-radius: 4px; box-shadow: 0 0 0 2px #ed287f, 0 6px 16px rgba(15, 23, 42, 0.25); background: repeating-conic-gradient(var(--check-a) 0 25%, var(--check-b) 0 50%) 0 0 / 12px 12px; }
+.tex-card .count { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #ed287f; color: #fff; font: 900 1rem/1 var(--f-display); }
+.fan { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.fan .tex-card { animation: deal 0.5s ease both; animation-delay: calc(var(--i) * 0.35s); }
+@keyframes deal { from { opacity: 0; transform: translateY(30px) rotate(-8deg) scale(0.7); } to { opacity: 1; transform: none; } }
+.pop-in { animation: pop-in 0.55s cubic-bezier(.2,1.4,.4,1) both; animation-delay: calc(var(--i, 0) * 0.3s + 0.35s); }
+@keyframes pop-in { from { opacity: 0; transform: translateY(40px) scale(0.4); } to { opacity: 1; transform: none; } }
+
+/* slide 1: a cardboard box with the files popping out */
+.crate { position: relative; width: 210px; height: 110px; margin-top: 90px; }
+.crate .body { position: absolute; inset: 0; background: #c98e4b; border: 3px solid #8b5a2b; border-radius: 6px; display: grid; place-items: center; color: #4a2f12; font: 900 0.95rem/1.2 var(--f-display); padding: 0 10px; text-align: center; overflow-wrap: anywhere; }
+.crate .flap { position: absolute; top: -3px; width: 108px; height: 26px; background: #d9a066; border: 3px solid #8b5a2b; border-radius: 4px; transform-origin: bottom; }
+.crate .flap.l { left: -3px; transform-origin: 0 100%; animation: flap-l 0.6s ease 0.15s both; }
+.crate .flap.r { right: -3px; transform-origin: 100% 100%; animation: flap-r 0.6s ease 0.15s both; }
+@keyframes flap-l { to { transform: rotate(-150deg); } }
+@keyframes flap-r { to { transform: rotate(150deg); } }
+.crate .out { position: absolute; left: 50%; bottom: 70%; transform: translateX(-50%); display: flex; gap: 10px; align-items: flex-end; }
+.crate .out > * { flex: none; }
+.crate .out .tex-card { --k: 2.6; }
+.crate .out .tex-card img { box-shadow: 0 0 0 2px #ed287f; }
+.more { font: 900 1.1rem/1 var(--f-display); color: var(--muted); align-self: center; }
+
+/* slide 6: quick check */
+.quiz { display: grid; gap: 16px; justify-items: center; width: 100%; }
+.quiz .q { display: grid; gap: 8px; justify-items: center; }
+.quiz .q p { margin: 0; font: 800 1.2rem/1.3 var(--f-display); }
+.quiz .choices { display: flex; gap: 10px; }
+.quiz .choices button { all: unset; cursor: pointer; min-width: 58px; padding: 10px 0; text-align: center; border-radius: 10px; border: 2px solid var(--line-strong); background: var(--sunk); font: 900 1.5rem/1 var(--f-display); }
+.quiz .choices button:hover { border-color: var(--hover-line); background: var(--hover); }
+.quiz .choices button:focus-visible { outline: 3px solid var(--cyan); outline-offset: 2px; }
+.quiz .choices button.right { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.quiz .choices button.wrong { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
+.quiz .fb { min-height: 1.4em; margin: 0; font-weight: 800; font-size: 1.05rem; }
+.quiz .fb.ok { color: var(--ok); } .quiz .fb.no { color: var(--warn); }
+.cheer { font: 900 1.4rem/1.2 var(--f-display); color: var(--ok); animation: pop-in 0.5s cubic-bezier(.2,1.4,.4,1) both; }
+details.teacher { width: 100%; max-width: 560px; text-align: left; font-size: 0.86rem; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 6px; }
+details.teacher summary { cursor: pointer; font-weight: 700; color: var(--muted); }
+details.teacher ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; }
+details.teacher li { display: flex; gap: 8px; align-items: center; }
+details.teacher .fname { font-family: var(--f-mono); font-size: 0.78rem; overflow-wrap: anywhere; }
+details.teacher .folder { font-weight: 800; margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) {
+  .box3d .spin { animation: none; transform: rotateX(-12deg) rotateY(-28deg); }
+  .fan .tex-card, .pop-in, .crate .flap, .cheer { animation-duration: 0.01s; animation-delay: 0s; }
+}
+@media (max-width: 560px) { .story-slide { padding: 14px 12px 8px; } .wrap-scene { gap: 30px; } .story-foot .btn { min-width: 0; } }
+
+/* ---------- "Wrap it!": the texture file folds around the model ---------- */
+.wrap3d { --u: 11px; perspective: 1100px; width: min(100%, calc(var(--u) * 46)); height: calc(var(--u) * 26); display: grid; place-items: center; }
+.wrap3d .wv { position: relative; left: calc(var(--u) * -6); width: 0; height: 0; transform-style: preserve-3d; transform: rotateX(-16deg) rotateY(-32deg); transition: transform 1.2s ease, left 1s ease; }
+.wrap3d.s3 .wv { left: 0; }
+.wrap3d.s4 .wv { animation: wrap-show 5s ease-in-out 0.2s infinite alternate; }
+@keyframes wrap-show { 0% { transform: rotateX(-16deg) rotateY(-32deg); } 50% { transform: rotateX(-16deg) rotateY(150deg); } 100% { transform: rotateX(-16deg) rotateY(330deg); } }
+.wrap3d .box3d.wm { position: absolute; left: 0; top: 0; width: 0; height: 0; perspective: none; transform-style: preserve-3d; --u: inherit; }
+.wrap3d .box3d.wm .spin { position: absolute; left: calc(var(--u) * -5); top: calc(var(--u) * -8); animation: none; transform: scale3d(0.96, 0.98, 0.9); }
+.wrap3d .net { position: absolute; left: calc(var(--u) * -5); top: calc(var(--u) * -8); width: calc(var(--u) * 10); height: calc(var(--u) * 16); transform-style: preserve-3d;
+  opacity: 0; transform: translate3d(calc(var(--u) * 13), calc(var(--u) * -2), calc(var(--u) * 6)); transition: transform 1.1s cubic-bezier(.3,.1,.3,1), opacity 0.5s ease; }
+.wrap3d.s0 .net { opacity: 1; }
+.wrap3d.s1 .net { transform: translate3d(0, 0, calc(var(--u) * 0.5 + 0.5px)); }
+.wrap3d .wp { position: absolute; background-size: 100% 100%; image-rendering: pixelated; transform-style: preserve-3d; transition: transform 0.9s cubic-bezier(.4,.1,.3,1); box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.35); }
+.wrap3d.s4 .wp { box-shadow: none; }
+.wrap3d .p-out { left: 0; top: 0; width: calc(var(--u) * 10); height: calc(var(--u) * 16); }
+.wrap3d .p-west { left: 100%; top: 0; width: var(--u); height: calc(var(--u) * 16); transform-origin: left center; }
+.wrap3d .p-in { left: 100%; top: 0; width: calc(var(--u) * 10); height: calc(var(--u) * 16); transform-origin: left center; }
+.wrap3d .p-east { right: 100%; top: 0; width: var(--u); height: calc(var(--u) * 16); transform-origin: right center; }
+.wrap3d .p-top { left: 0; bottom: 100%; width: calc(var(--u) * 10); height: var(--u); transform-origin: center bottom; }
+.wrap3d .p-bottom { left: calc(var(--u) * 10); top: calc(var(--u) * -1); width: calc(var(--u) * 10); height: var(--u); transform-origin: center top; transform: translate(0, 0) rotateX(0deg); }
+.wrap3d.s2 .p-west { transform: rotateY(90deg); }
+.wrap3d.s2 .p-east { transform: rotateY(-90deg); }
+.wrap3d.s2 .p-top { transform: rotateX(90deg); }
+.wrap3d.s3 .p-in { transform: rotateY(90deg); }
+.wrap3d.s3 .p-bottom { transform: translate(calc(var(--u) * -10), calc(var(--u) * 17)) rotateX(-90deg); }
+.story-art .again { font-size: 0.9rem; padding: 6px 12px; align-self: end; }
+@media (max-width: 560px) { .wrap3d { --u: 8px; } }
+@media (prefers-reduced-motion: reduce) { .wrap3d .net, .wrap3d .wp, .wrap3d .wv { transition-duration: 0.01s; } .wrap3d.s4 .wv { animation: none; } }
+.voice-pick { width: auto; max-width: 180px; padding: 4px 8px; font-size: 0.84rem; }
+
 </style>
 </head>
 <body>
@@ -429,7 +554,7 @@ dialog.sheet-panel[open] { display: grid; }
         <ul class="problems" id="problems" hidden></ul>
         <button class="btn primary big" type="button" id="download" data-tip="Build the add-on with all your capes and save it." data-i18n>Download add-on</button>
         <p class="muted" id="export-status" style="margin:0;font-size:.82rem" aria-live="polite"></p>
-        <button class="btn" type="button" id="look-inside" data-tip="See the files in your add-on and what each one does." data-i18n>Look inside the add-on</button>
+        <button class="btn" type="button" id="look-inside" data-tip="A short show about what is inside your add-on." data-i18n>Look inside the add-on</button>
         <details class="help" id="install-help">
           <summary data-i18n>How to install in Minecraft Education</summary>
           <ol class="steps" id="install-steps"></ol>
@@ -560,26 +685,19 @@ dialog.sheet-panel[open] { display: grid; }
   </div>
 </main>
 
-<dialog class="files-dialog" id="files-dialog" aria-labelledby="files-h">
-  <header class="dlg-head">
-    <h2 class="label" id="files-h" data-i18n>What's inside your add-on?</h2>
-    <p class="muted" data-i18n>Your add-on is a bundle of files. Click a file to learn what it does.</p>
+<dialog class="story" id="story" aria-labelledby="story-h">
+  <header class="story-head">
+    <h2 class="label" id="story-h" data-i18n>Look inside your add-on</h2>
+    <label class="switch story-voice" id="story-voice" hidden data-tip="Read every slide out loud."><input type="checkbox" id="read-aloud" checked><span><b data-i18n>Read to me</b></span></label>
+    <select id="voice-pick" class="voice-pick" hidden aria-label="Voice" data-i18n-attr="aria-label" data-tip="Pick the voice that reads to you."></select>
+    <button class="btn ghost icon" type="button" id="story-close" data-tip="Close this panel." aria-label="Close" data-i18n-attr="aria-label">✕</button>
   </header>
-  <div class="big-idea">
-    <div class="idea-row" aria-hidden="true">
-      <span class="chip tag-model" data-i18n>Model</span><span class="plus">+</span>
-      <span class="chip tag-texture" data-i18n>Texture</span><span class="plus">→</span>
-      <span class="chip tag-link" data-i18n>Connector</span><span class="plus">→</span>
-      <span class="chip tag-done" data-i18n>Cape on your back</span>
-    </div>
-    <p data-i18n="html"><b>The big idea:</b> the model is the shape, and the texture is the picture. They are kept in different files. A third file connects them.</p>
-  </div>
-  <div class="dlg-body files-body">
-    <ul class="file-tree" id="file-tree"></ul>
-    <div class="file-info" id="file-info" aria-live="polite"></div>
-  </div>
-  <footer class="dlg-foot">
-    <button class="btn primary" type="button" id="files-close" data-i18n>Close</button>
+  <div class="story-slide" id="story-slide" aria-live="polite"></div>
+  <footer class="story-foot">
+    <button class="btn" type="button" id="story-back" data-i18n>Back</button>
+    <div class="story-dots" id="story-dots"></div>
+    <button class="btn speak" type="button" id="story-speak" hidden data-tip="Read this slide out loud." aria-label="Read this slide out loud" data-i18n-attr="aria-label"><svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2z" fill="currentColor"/><path d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.5a6 6 0 0 1 0 9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+    <button class="btn primary" type="button" id="story-next" data-i18n>Next</button>
   </footer>
 </dialog>
 
@@ -937,7 +1055,40 @@ window.CapeStrings = {
 "Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "Cada recuadro de color es un lado. Señala un cuadro para ver dónde va en la capa 3D.",
 "Plain blue": "Azul liso",
 "Pixel grid": "Cuadrícula",
-"Draw lines between the texture's squares on the 3D cape.": "Dibuja líneas entre los cuadros de la textura en la capa 3D."
+"Draw lines between the texture's squares on the 3D cape.": "Dibuja líneas entre los cuadros de la textura en la capa 3D.",
+"Look inside your add-on": "Mira dentro de tu complemento",
+"A short show about what is inside your add-on.": "Una presentación corta sobre lo que hay dentro de tu complemento.",
+"Read to me": "Léemelo",
+"Read every slide out loud.": "Lee cada diapositiva en voz alta.",
+"Read this slide out loud.": "Lee esta diapositiva en voz alta.",
+"Read this slide out loud": "Leer esta diapositiva en voz alta",
+"Back": "Atrás",
+"Next": "Siguiente",
+"Done": "Listo",
+"Slide {n}": "Diapositiva {n}",
+"The texture for {name}": "La textura de {name}",
+"Your add-on is like a box.": "Tu complemento es como una caja.",
+"Let's open it and look inside!": "¡Vamos a abrirla y mirar dentro!",
+"{n} model": "{n} modelo",
+"A model is a shape. It has no colors. All your capes use this one shape.": "Un modelo es una forma. No tiene colores. Todas tus capas usan esta misma forma.",
+"{n} texture|{n} textures": "{n} textura|{n} texturas",
+"A texture is a flat picture. You painted one for each cape.": "Una textura es una imagen plana. Pintaste una para cada capa.",
+"Wrap it!": "¡Envuélvela!",
+"Minecraft wraps the texture around the model, like wrapping paper on a box.": "Minecraft envuelve la textura alrededor del modelo, como papel de regalo en una caja.",
+"1 model + {n} texture = {n} cape|1 model + {n} textures = {n} capes": "1 modelo + {n} textura = {n} capa|1 modelo + {n} texturas = {n} capas",
+"One shape and one picture make your cape.|One shape and many pictures make many different capes.": "Una forma y una imagen forman tu capa.|Una forma y muchas imágenes forman muchas capas distintas.",
+"Quick check!": "¡Comprobación rápida!",
+"How many models are in your add-on?": "¿Cuántos modelos hay en tu complemento?",
+"How many textures are in your add-on?": "¿Cuántas texturas hay en tu complemento?",
+"Yes! All your capes share one shape.": "¡Sí! Todas tus capas comparten una forma.",
+"Not quite. Look back: every cape uses the same shape.": "Casi. Mira atrás: todas las capas usan la misma forma.",
+"Yes! One picture for each cape.": "¡Sí! Una imagen para cada capa.",
+"Not quite. Count your capes: each one has its own picture.": "Casi. Cuenta tus capas: cada una tiene su propia imagen.",
+"You've got it! A model is the shape. A texture is the picture.": "¡Lo lograste! Un modelo es la forma. Una textura es la imagen.",
+"For teachers: show the files": "Para docentes: mostrar los archivos",
+"Wrap it again": "Envolver otra vez",
+"Voice": "Voz",
+"Pick the voice that reads to you.": "Elige la voz que te lee."
 },
 "fr": {
 "(no name)": "(sans nom)",
@@ -1194,7 +1345,40 @@ window.CapeStrings = {
 "Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "Chaque cadre de couleur est un côté. Pointe un carré pour voir où il va sur la cape 3D.",
 "Plain blue": "Bleu uni",
 "Pixel grid": "Grille de pixels",
-"Draw lines between the texture's squares on the 3D cape.": "Trace des lignes entre les carrés de la texture sur la cape 3D."
+"Draw lines between the texture's squares on the 3D cape.": "Trace des lignes entre les carrés de la texture sur la cape 3D.",
+"Look inside your add-on": "Regarde dans ton add-on",
+"A short show about what is inside your add-on.": "Une petite présentation de ce qu’il y a dans ton add-on.",
+"Read to me": "Lis-moi",
+"Read every slide out loud.": "Lit chaque diapositive à voix haute.",
+"Read this slide out loud.": "Lis cette diapositive à voix haute.",
+"Read this slide out loud": "Lire cette diapositive à voix haute",
+"Back": "Retour",
+"Next": "Suivant",
+"Done": "Terminé",
+"Slide {n}": "Diapositive {n}",
+"The texture for {name}": "La texture de {name}",
+"Your add-on is like a box.": "Ton add-on est comme une boîte.",
+"Let's open it and look inside!": "Ouvrons-la et regardons dedans !",
+"{n} model": "{n} modèle",
+"A model is a shape. It has no colors. All your capes use this one shape.": "Un modèle est une forme. Il n’a pas de couleurs. Toutes tes capes utilisent cette seule forme.",
+"{n} texture|{n} textures": "{n} texture|{n} textures",
+"A texture is a flat picture. You painted one for each cape.": "Une texture est une image plate. Tu en as peint une pour chaque cape.",
+"Wrap it!": "Emballe-la !",
+"Minecraft wraps the texture around the model, like wrapping paper on a box.": "Minecraft enroule la texture autour du modèle, comme du papier cadeau sur une boîte.",
+"1 model + {n} texture = {n} cape|1 model + {n} textures = {n} capes": "1 modèle + {n} texture = {n} cape|1 modèle + {n} textures = {n} capes",
+"One shape and one picture make your cape.|One shape and many pictures make many different capes.": "Une forme et une image font ta cape.|Une forme et beaucoup d’images font beaucoup de capes différentes.",
+"Quick check!": "Petit test !",
+"How many models are in your add-on?": "Combien de modèles y a-t-il dans ton add-on ?",
+"How many textures are in your add-on?": "Combien de textures y a-t-il dans ton add-on ?",
+"Yes! All your capes share one shape.": "Oui ! Toutes tes capes partagent une seule forme.",
+"Not quite. Look back: every cape uses the same shape.": "Pas tout à fait. Regarde en arrière : chaque cape utilise la même forme.",
+"Yes! One picture for each cape.": "Oui ! Une image pour chaque cape.",
+"Not quite. Count your capes: each one has its own picture.": "Pas tout à fait. Compte tes capes : chacune a sa propre image.",
+"You've got it! A model is the shape. A texture is the picture.": "Bravo ! Un modèle est la forme. Une texture est l’image.",
+"For teachers: show the files": "Pour les enseignants : afficher les fichiers",
+"Wrap it again": "Emballer encore",
+"Voice": "Voix",
+"Pick the voice that reads to you.": "Choisis la voix qui te lit."
 },
 "pt": {
 "(no name)": "(sem nome)",
@@ -1451,7 +1635,40 @@ window.CapeStrings = {
 "Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "Cada moldura colorida é um lado. Aponte para um quadrado para ver onde ele fica na capa 3D.",
 "Plain blue": "Azul liso",
 "Pixel grid": "Grade de pixels",
-"Draw lines between the texture's squares on the 3D cape.": "Desenha linhas entre os quadrados da textura na capa 3D."
+"Draw lines between the texture's squares on the 3D cape.": "Desenha linhas entre os quadrados da textura na capa 3D.",
+"Look inside your add-on": "Veja por dentro do seu complemento",
+"A short show about what is inside your add-on.": "Uma apresentação curta sobre o que tem dentro do seu complemento.",
+"Read to me": "Leia para mim",
+"Read every slide out loud.": "Lê cada slide em voz alta.",
+"Read this slide out loud.": "Lê este slide em voz alta.",
+"Read this slide out loud": "Ler este slide em voz alta",
+"Back": "Voltar",
+"Next": "Próximo",
+"Done": "Pronto",
+"Slide {n}": "Slide {n}",
+"The texture for {name}": "A textura de {name}",
+"Your add-on is like a box.": "Seu complemento é como uma caixa.",
+"Let's open it and look inside!": "Vamos abrir e olhar dentro!",
+"{n} model": "{n} modelo",
+"A model is a shape. It has no colors. All your capes use this one shape.": "Um modelo é uma forma. Ele não tem cores. Todas as suas capas usam esta mesma forma.",
+"{n} texture|{n} textures": "{n} textura|{n} texturas",
+"A texture is a flat picture. You painted one for each cape.": "Uma textura é uma imagem plana. Você pintou uma para cada capa.",
+"Wrap it!": "Embrulhe!",
+"Minecraft wraps the texture around the model, like wrapping paper on a box.": "O Minecraft embrulha a textura no modelo, como papel de presente numa caixa.",
+"1 model + {n} texture = {n} cape|1 model + {n} textures = {n} capes": "1 modelo + {n} textura = {n} capa|1 modelo + {n} texturas = {n} capas",
+"One shape and one picture make your cape.|One shape and many pictures make many different capes.": "Uma forma e uma imagem fazem a sua capa.|Uma forma e muitas imagens fazem muitas capas diferentes.",
+"Quick check!": "Teste rápido!",
+"How many models are in your add-on?": "Quantos modelos tem no seu complemento?",
+"How many textures are in your add-on?": "Quantas texturas tem no seu complemento?",
+"Yes! All your capes share one shape.": "Isso! Todas as suas capas usam uma só forma.",
+"Not quite. Look back: every cape uses the same shape.": "Quase. Volte e veja: todas as capas usam a mesma forma.",
+"Yes! One picture for each cape.": "Isso! Uma imagem para cada capa.",
+"Not quite. Count your capes: each one has its own picture.": "Quase. Conte suas capas: cada uma tem sua própria imagem.",
+"You've got it! A model is the shape. A texture is the picture.": "Você entendeu! Um modelo é a forma. Uma textura é a imagem.",
+"For teachers: show the files": "Para professores: mostrar os arquivos",
+"Wrap it again": "Embrulhar de novo",
+"Voice": "Voz",
+"Pick the voice that reads to you.": "Escolha a voz que lê para você."
 },
 "de": {
 "(no name)": "(kein Name)",
@@ -1708,7 +1925,40 @@ window.CapeStrings = {
 "Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "Jeder farbige Rahmen ist eine Seite. Zeige auf ein Feld, um zu sehen, wo es auf dem 3D-Umhang landet.",
 "Plain blue": "Einfarbig blau",
 "Pixel grid": "Pixelraster",
-"Draw lines between the texture's squares on the 3D cape.": "Zeichnet Linien zwischen den Feldern der Textur auf den 3D-Umhang."
+"Draw lines between the texture's squares on the 3D cape.": "Zeichnet Linien zwischen den Feldern der Textur auf den 3D-Umhang.",
+"Look inside your add-on": "Schau in dein Add-on",
+"A short show about what is inside your add-on.": "Eine kurze Show darüber, was in deinem Add-on steckt.",
+"Read to me": "Vorlesen",
+"Read every slide out loud.": "Liest jede Folie laut vor.",
+"Read this slide out loud.": "Liest diese Folie vor.",
+"Read this slide out loud": "Diese Folie vorlesen",
+"Back": "Zurück",
+"Next": "Weiter",
+"Done": "Fertig",
+"Slide {n}": "Folie {n}",
+"The texture for {name}": "Die Textur von {name}",
+"Your add-on is like a box.": "Dein Add-on ist wie eine Kiste.",
+"Let's open it and look inside!": "Lass sie uns öffnen und hineinschauen!",
+"{n} model": "{n} Modell",
+"A model is a shape. It has no colors. All your capes use this one shape.": "Ein Modell ist eine Form. Es hat keine Farben. Alle deine Umhänge benutzen diese eine Form.",
+"{n} texture|{n} textures": "{n} Textur|{n} Texturen",
+"A texture is a flat picture. You painted one for each cape.": "Eine Textur ist ein flaches Bild. Du hast für jeden Umhang eins gemalt.",
+"Wrap it!": "Einwickeln!",
+"Minecraft wraps the texture around the model, like wrapping paper on a box.": "Minecraft wickelt die Textur um das Modell, wie Geschenkpapier um eine Kiste.",
+"1 model + {n} texture = {n} cape|1 model + {n} textures = {n} capes": "1 Modell + {n} Textur = {n} Umhang|1 Modell + {n} Texturen = {n} Umhänge",
+"One shape and one picture make your cape.|One shape and many pictures make many different capes.": "Eine Form und ein Bild ergeben deinen Umhang.|Eine Form und viele Bilder ergeben viele verschiedene Umhänge.",
+"Quick check!": "Kurzer Check!",
+"How many models are in your add-on?": "Wie viele Modelle sind in deinem Add-on?",
+"How many textures are in your add-on?": "Wie viele Texturen sind in deinem Add-on?",
+"Yes! All your capes share one shape.": "Ja! Alle deine Umhänge teilen sich eine Form.",
+"Not quite. Look back: every cape uses the same shape.": "Nicht ganz. Schau zurück: Jeder Umhang benutzt dieselbe Form.",
+"Yes! One picture for each cape.": "Ja! Ein Bild für jeden Umhang.",
+"Not quite. Count your capes: each one has its own picture.": "Nicht ganz. Zähl deine Umhänge: Jeder hat sein eigenes Bild.",
+"You've got it! A model is the shape. A texture is the picture.": "Geschafft! Ein Modell ist die Form. Eine Textur ist das Bild.",
+"For teachers: show the files": "Für Lehrkräfte: Dateien anzeigen",
+"Wrap it again": "Nochmal einwickeln",
+"Voice": "Stimme",
+"Pick the voice that reads to you.": "Wähle die Stimme, die dir vorliest."
 },
 "zh": {
 "(no name)": "（未命名）",
@@ -1965,7 +2215,40 @@ window.CapeStrings = {
 "Each colored box is one side. Point at a square to see where it goes on the 3D cape.": "每个彩色方框就是一面。指向一个方格，看看它在 3D 披风上的位置。",
 "Plain blue": "纯蓝",
 "Pixel grid": "像素网格",
-"Draw lines between the texture's squares on the 3D cape.": "在 3D 披风上画出纹理方格之间的线。"
+"Draw lines between the texture's squares on the 3D cape.": "在 3D 披风上画出纹理方格之间的线。",
+"Look inside your add-on": "看看你的附加包里面",
+"A short show about what is inside your add-on.": "一个小演示，介绍你的附加包里有什么。",
+"Read to me": "读给我听",
+"Read every slide out loud.": "大声朗读每一页。",
+"Read this slide out loud.": "朗读这一页。",
+"Read this slide out loud": "朗读这一页",
+"Back": "上一页",
+"Next": "下一页",
+"Done": "完成",
+"Slide {n}": "第 {n} 页",
+"The texture for {name}": "{name} 的纹理",
+"Your add-on is like a box.": "你的附加包就像一个盒子。",
+"Let's open it and look inside!": "我们打开看看里面有什么！",
+"{n} model": "{n} 个模型",
+"A model is a shape. It has no colors. All your capes use this one shape.": "模型是一个形状，没有颜色。你所有的披风都用这一个形状。",
+"{n} texture|{n} textures": "{n} 个纹理",
+"A texture is a flat picture. You painted one for each cape.": "纹理是一张平面图片。你为每件披风都画了一张。",
+"Wrap it!": "包起来！",
+"Minecraft wraps the texture around the model, like wrapping paper on a box.": "Minecraft 把纹理包在模型外面，就像用包装纸包盒子。",
+"1 model + {n} texture = {n} cape|1 model + {n} textures = {n} capes": "1 个模型 + {n} 个纹理 = {n} 件披风",
+"One shape and one picture make your cape.|One shape and many pictures make many different capes.": "一个形状加上图片，就能做出不同的披风。",
+"Quick check!": "小测验！",
+"How many models are in your add-on?": "你的附加包里有几个模型？",
+"How many textures are in your add-on?": "你的附加包里有几个纹理？",
+"Yes! All your capes share one shape.": "对！你所有的披风共用一个形状。",
+"Not quite. Look back: every cape uses the same shape.": "差一点。往回看看：每件披风都用同一个形状。",
+"Yes! One picture for each cape.": "对！每件披风一张图片。",
+"Not quite. Count your capes: each one has its own picture.": "差一点。数一数你的披风：每件都有自己的图片。",
+"You've got it! A model is the shape. A texture is the picture.": "你学会了！模型是形状，纹理是图片。",
+"For teachers: show the files": "教师专用：显示文件",
+"Wrap it again": "再包一次",
+"Voice": "声音",
+"Pick the voice that reads to you.": "选择给你朗读的声音。"
 }
 };
 
@@ -3028,7 +3311,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   const cape = () => project.capes[sel];
 
   // ------------------------------------------------------------------ preferences
-  let prefs = { lang: null, theme: "system", text: "normal" };
+  let prefs = { lang: null, theme: "system", text: "normal", readAloud: true, voice: {} };
   try { Object.assign(prefs, JSON.parse(localStorage.getItem(PREFS) || "{}")); } catch { /* not kept */ }
   const savePrefs = () => { try { localStorage.setItem(PREFS, JSON.stringify(prefs)); } catch { /* not kept */ } };
   I.setLang(prefs.lang || I.guess());
@@ -3621,6 +3904,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
       P.bumpVersion(project); unsaved = false; renderPack();
       toast(t("Downloaded version {v}. Open it on the computer with Minecraft Education.", { v }));
       $("#install-help").open = true;
+      if (!storyShown) { storyShown = true; setTimeout(openStory, 600); }
     } catch (e) {
       toast(t("Something went wrong building the add-on. Please try again."));
     }
@@ -3645,99 +3929,267 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
     }
   });
 
-  // ------------------------------------------------------------------ look inside the add-on
-  /* A guided tour of the files the download will contain, in words a young student can follow.
-   * Paths match CapePack.buildAddon. */
-  const FILE_INFO = {
-    model: { tag: "model", tagText: "Model", title: "The model",
-      text: ["This is the model. It is the shape of the cape: a thin box, 10 squares wide, 16 squares tall and 1 square thick.",
-        "A model has no colors at all! Every cape in your pack uses this same shape."] },
-    texture: { tag: "texture", tagText: "Texture", title: "The texture",
-      text: ["This is the texture. It is the picture you painted, laid out flat.",
-        "Minecraft wraps it around the model, like wrapping paper around a box. Each cape has its own texture, but they all share one model."] },
-    link: { tag: "link", tagText: "Connector", title: "The connector",
-      text: ["This file connects the other two. It tells Minecraft: use this model, color it with this texture, and put it on the player's back."] },
-    motion: { tag: "other", tagText: "Movement", title: "The movement",
-      text: ["This file makes the cape move. When you walk, it tips the cape back so it flutters behind you.", "It moves the model. It doesn't change the picture."] },
-    icon: { tag: "texture", tagText: "Texture", title: "The item icon",
-      text: ["This tiny picture shows your cape in the hotbar. It is a texture too, just a very small one: 16 × 16 pixels."] },
-    item: { tag: "other", tagText: "Item", title: "The item",
-      text: ["This file makes each cape an item you can hold. It gives the cape its name and says it goes in the chestplate slot."] },
-    script: { tag: "other", tagText: "Program", title: "The helper program",
-      text: ["This is a tiny computer program. When a player joins the world for the first time, it puts the capes in their inventory."] },
-    fn: { tag: "other", tagText: "Commands", title: "The command list",
-      text: ["This is a list of commands. Typing {cmd} runs them and gives you every cape."] },
-    save: { tag: "other", tagText: "Your work", title: "Your saved work",
-      text: ["This is your saved work. When you open the add-on with this tool again, it reads this file so you can keep painting."] },
-    helper: { tag: "other", tagText: "Helpers", title: "Helper files",
-      text: ["Small files that help Minecraft find everything: the pack's name tag, the pack picture, and lists of where things are. You don't need to change them."] },
-  };
-  let fileSel = "model";
+  // ------------------------------------------------------------------ look inside the add-on: a short slideshow
+  /* Six short slides, made from the student's own capes: 1 model (the shape) + 1 texture per cape (the pictures).
+   * Big words, one idea per slide, simple CSS animation, optional read-aloud with the browser's own voice. */
   function fileEntries() {
-    const dir = `capes_${project.pid}`, sl = P.slugs(project), c = cape(), n = project.capes.length;
-    const rp = [
-      { id: "model", path: `models/entity/${dir}.geo.json` },
-      { id: "texture", path: `textures/models/${dir}/${c.key}.png`, n },
-      { id: "link", path: `attachables/${dir}/${sl[c.key]}.json`, n },
-      { id: "motion", path: `animations/${dir}.animation.json` },
-      { id: "icon", path: `textures/items/${dir}/${c.key}.png`, n },
-      { id: "helper", path: "manifest.json, pack_icon.png, …" },
-    ];
-    const bp = [
-      { id: "item", path: `items/${dir}/${sl[c.key]}.json`, n },
-      ...(project.giveOnJoin ? [{ id: "script", path: "scripts/main.js" }] : []),
-      { id: "fn", path: `functions/${dir}/all.mcfunction` },
-      { id: "save", path: "cape_project.json" },
-    ];
+    const dir = `capes_${project.pid}`, sl = P.slugs(project);
     return [
-      { folder: `${folderName()} RP`, sub: "Resource pack: how things look", files: rp },
-      { folder: `${folderName()} BP`, sub: "Behavior pack: how things work", files: bp },
+      { folder: `${folderName()} RP`, files: [
+        { tag: "model", text: "Model", names: [`${dir}.geo.json`] },
+        { tag: "texture", text: "Texture", names: project.capes.map((c) => `${c.key}.png`) },
+        { tag: "link", text: "Connector", names: project.capes.map((c) => `${sl[c.key]}.json`) },
+        { tag: "other", text: "Movement", names: [`${dir}.animation.json`] },
+        { tag: "texture", text: "Item icon", names: project.capes.map((c) => `${c.key}.png`) },
+      ] },
+      { folder: `${folderName()} BP`, files: [
+        { tag: "other", text: "Item", names: project.capes.map((c) => `${sl[c.key]}.json`) },
+        ...(project.giveOnJoin ? [{ tag: "other", text: "Program", names: ["main.js"] }] : []),
+        { tag: "other", text: "Commands", names: ["all.mcfunction"] },
+      ] },
     ];
   }
   const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
-  function renderFiles() {
-    const groups = fileEntries(), tree = $("#file-tree");
-    tree.replaceChildren();
-    for (const g of groups) {
-      const head = document.createElement("li"); head.className = "folder";
-      head.innerHTML = `<span>${esc(g.folder)}</span><small>${esc(t(g.sub))}</small>`;
-      tree.appendChild(head);
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html !== undefined) e.innerHTML = html; return e; };
+
+  /** Images of one cape: the texture picture (the 22×17 part that is used) and each side of the model */
+  function capeImages(c) {
+    const tex = P.canvasOf(64, 32, (g) => P.drawCapeTexture(g, c));
+    const crop = (x, y, w, h) => P.canvasOf(w, h, (g) => g.drawImage(tex, x, y, w, h, 0, 0, w, h)).toDataURL();
+    return { sheet: crop(0, 0, P.SHEET_W, P.SHEET_H), front: crop(1, 1, 10, 16), back: crop(12, 1, 10, 16),
+      left: crop(0, 1, 1, 16), right: crop(11, 1, 1, 16), top: crop(1, 0, 10, 1), bottom: crop(11, 0, 10, 1) };
+  }
+  /** A small 3D cape box. textured=false shows the plain gray model. */
+  function box3d(c, { size = "", textured = false, still = false } = {}) {
+    const imgs = c ? capeImages(c) : null;
+    const b = el("div", `box3d ${size}${textured ? " textured" : ""}${still ? " still" : ""}`), spin = el("div", "spin");
+    for (const f of ["front", "back", "left", "right", "top", "bottom"]) {
+      const face = el("div", "f " + f), skin = el("i");
+      if (imgs) skin.style.backgroundImage = `url(${imgs[f]})`;
+      face.appendChild(skin); spin.appendChild(face);
+    }
+    b.appendChild(spin); b.setAttribute("aria-hidden", "true");
+    return b;
+  }
+  function texCard(c, i, label) {
+    const card = el("div", "tex-card"); card.style.setProperty("--i", i);
+    const img = el("img"); img.src = capeImages(c).sheet; img.alt = t("The texture for {name}", { name: c.name });
+    card.appendChild(img);
+    if (label !== undefined) card.appendChild(el("span", label === "count" ? "count" : "", label === "count" ? String(i + 1) : esc(label)));
+    return card;
+  }
+
+  /** "Wrap it!": the flat texture file folds up around the gray model, side by side, like wrapping paper.
+   *  The outside lands on the front; the edges fold back on their hinges; the inside wraps round to the back;
+   *  the bottom strip (which sits elsewhere in the file) flies down to the bottom. */
+  function wrapScene(c) {
+    const imgs = capeImages(c);
+    const root = el("div", "wrap3d"), view = el("div", "wv"), model = box3d(null, { still: true });
+    model.classList.add("wm");
+    const piece = (cls, img) => { const d = el("div", "wp " + cls); d.style.backgroundImage = `url(${img})`; return d; };
+    const net = el("div", "net");
+    const out = piece("p-out", imgs.front), west = piece("p-west", imgs.right), inside = piece("p-in", imgs.back);
+    const east = piece("p-east", imgs.left), top = piece("p-top", imgs.top), bottom = piece("p-bottom", imgs.bottom);
+    west.appendChild(inside); out.append(west, east, top, bottom); net.appendChild(out);
+    view.append(model, net); root.appendChild(view); root.setAttribute("aria-hidden", "true");
+    let timers = [];
+    function play() {
+      timers.forEach(clearTimeout); timers = [];
+      root.className = "wrap3d";                     // flat, floating in front
+      void root.offsetWidth;
+      const at = (ms, cls) => timers.push(setTimeout(() => root.isConnected && root.classList.add(cls), ms));
+      at(60, "s0");     // the texture file appears beside the plain gray model
+      at(1300, "s1");   // it moves onto the front of the model
+      at(2500, "s2");   // the edges fold round
+      at(3400, "s3");   // the inside wraps to the back, the bottom drops into place
+      at(4500, "s4");   // turn it around to show it's wrapped
+    }
+    return { el: root, play };
+  }
+
+  const SHOW_MAX = 6;   // cards drawn on a slide; more are summed up as "+N"
+  function slides() {
+    const n = project.capes.length, caps = project.capes.slice(0, SHOW_MAX), extra = n - caps.length;
+    const num = (x) => `<span class="num">${x}</span>`;
+    return [
+      { big: t("Your add-on is like a box."), small: t("Let's open it and look inside!"),
+        art(a) {
+          const crate = el("div", "crate");
+          crate.append(el("div", "flap l"), el("div", "flap r"), el("div", "body", esc(folderName())));
+          const out = el("div", "out");
+          const m = box3d(null, { size: "small", still: true }); m.classList.add("pop-in"); m.style.setProperty("--i", 0); out.appendChild(m);
+          caps.slice(0, 4).forEach((c, i) => { const k = texCard(c, i); k.classList.add("pop-in"); k.style.setProperty("--i", i + 1); out.appendChild(k); });
+          if (n > 4) out.appendChild(el("span", "more pop-in", "+" + (n - 4)));
+          crate.appendChild(out); a.appendChild(crate);
+        } },
+      { big: t("{n} model", { n: 1 }).replace("1", num(1)), small: t("A model is a shape. It has no colors. All your capes use this one shape."), tag: ["model", "Model"],
+        art(a) { a.appendChild(box3d(null, { size: "big" })); } },
+      { big: t("{n} texture|{n} textures", { n }).replace(String(n), num(n)), tag: ["texture", "Texture"],
+        small: t("A texture is a flat picture. You painted one for each cape."),
+        art(a) {
+          const fan = el("div", "fan");
+          caps.forEach((c, i) => { const k = texCard(c, i, "count"); k.style.setProperty("--k", n > 3 ? 3.4 : 5); fan.appendChild(k); });
+          if (extra > 0) fan.appendChild(el("span", "more", "+" + extra));
+          a.appendChild(fan);
+        } },
+      { big: t("Wrap it!"), small: t("Minecraft wraps the texture around the model, like wrapping paper on a box."),
+        art(a) {
+          const scene = wrapScene(cape());
+          const again = el("button", "btn again", esc(t("Wrap it again"))); again.type = "button";
+          again.addEventListener("click", () => scene.play());
+          a.append(scene.el, again); setTimeout(() => scene.play(), 700);
+        } },
+      { big: t("1 model + {n} texture = {n} cape|1 model + {n} textures = {n} capes", { n }),
+        small: t("One shape and one picture make your cape.|One shape and many pictures make many different capes.", { n }),
+        art(a) {
+          const col = (child, label, cls) => { const d = el("div", "art-col"); d.append(child, el("span", "tag-big " + cls, esc(label))); return d; };
+          a.appendChild(col(box3d(null, { size: "small" }), t("Model"), "model"));
+          a.appendChild(el("span", "art-op", "+"));
+          const fan = el("div", "fan"); caps.slice(0, 3).forEach((c, i) => { const k = texCard(c, i); k.style.setProperty("--k", 2.4); fan.appendChild(k); });
+          a.appendChild(col(fan, t("{n} texture|{n} textures", { n }), "texture"));
+          a.appendChild(el("span", "art-op", "="));
+          const row = el("div", "fan"); caps.slice(0, 3).forEach((c, i) => { const b = box3d(c, { textured: true }); b.style.setProperty("--i", i); b.style.setProperty("--u", "6px"); row.appendChild(b); });
+          if (n > 3) row.appendChild(el("span", "more", "+" + (n - 3)));
+          a.appendChild(row);
+        } },
+      { big: t("Quick check!"), small: "", quiz: true },
+    ];
+  }
+
+  // ---- read aloud (the browser's built-in voices; hidden when there is no voice for the language)
+  const synth = G.speechSynthesis;
+  const LOCALE = { en: "en", es: "es", fr: "fr", pt: "pt", de: "de", zh: "zh" };
+  // Most natural-sounding voices first: neural/online voices (Edge "Natural", Chrome "Google", Apple "Premium/Enhanced"),
+  // then known friendly voices; the old robotic desktop voices last.
+  const FRIENDLY = /(Aria|Jenny|Ava|Emma|Ana|Michelle|Samantha|Allison|Joanna|Salli|Libby|Sonia|Natasha|Clara|Elvira|Paloma|Dalia|Francisca|Denise|Vivienne|Katja|Amala|Seraphina|Xiaoxiao|Xiaoyi|Raquel|Francisca|Thalita|Helena|Amélie|Amelie|Paulina|Luciana|Anna|Tingting|Meijia)/i;
+  function voiceScore(v, lang) {
+    let s = 0;
+    if (/natural|neural|premium|enhanced|wavenet|online/i.test(v.name)) s += 50;
+    if (/^Google/i.test(v.name)) s += 35;
+    if (FRIENDLY.test(v.name)) s += 25;
+    if (/espeak|desktop|compact|robot|novelty|whisper|bad news|bells|boing|bubbles|cellos|zarvox|trinoids|albert|fred|junior|ralph|jester|organ|superstar|wobble|hysterical/i.test(v.name)) s -= 60;
+    const region = (navigator.language || "").toLowerCase();
+    if (region.startsWith(lang) && v.lang.toLowerCase().replace("_", "-") === region) s += 10;
+    if (lang === "zh" && /zh[-_]cn|cmn/i.test(v.lang)) s += 10;
+    if (v.default) s += 3;
+    return s;
+  }
+  function voicesFor(lang) {
+    if (!synth) return [];
+    return synth.getVoices().filter((v) => v.lang.toLowerCase().startsWith(lang)).sort((a, b) => voiceScore(b, lang) - voiceScore(a, lang));
+  }
+  function voiceFor(lang) {
+    const list = voicesFor(lang), saved = (prefs.voice || {})[lang];
+    return list.find((v) => v.name === saved) || list[0] || null;
+  }
+  function speak(text) {
+    if (!synth) return;
+    synth.cancel();
+    const v = voiceFor(I.lang); if (!v || !text) return;
+    const u = new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim());
+    // a touch brighter and a touch slower than normal: friendly and easy to follow
+    u.voice = v; u.lang = v.lang; u.rate = 0.92; u.pitch = 1.08; synth.speak(u);
+  }
+  function updateVoiceUi() {
+    const list = voicesFor(I.lang), ok = list.length > 0, sel = $("#voice-pick");
+    $("#story-voice").hidden = !ok; $("#story-speak").hidden = !ok; sel.hidden = list.length < 2;
+    const cur = voiceFor(I.lang);
+    sel.replaceChildren(...list.slice(0, 10).map((v) => { const o = el("option"); o.value = v.name; o.textContent = v.name.replace(/^Microsoft\s+/, "").replace(/\s+-\s+.*$/, "").replace(/\s+Online/, "").trim() || v.name; o.selected = cur && v.name === cur.name; return o; }));
+  }
+  if (synth) synth.addEventListener?.("voiceschanged", updateVoiceUi);
+  $("#read-aloud").checked = prefs.readAloud !== false;
+  $("#read-aloud").addEventListener("change", (e) => { prefs.readAloud = e.target.checked; savePrefs(); if (e.target.checked) speakSlide(); else synth && synth.cancel(); });
+  $("#voice-pick").addEventListener("change", (e) => { prefs.voice = { ...(prefs.voice || {}), [I.lang]: e.target.value }; savePrefs(); speakSlide(); });
+
+  const story = $("#story");
+  let slideAt = 0, slideList = [], quizState = {};
+  const slideSpeech = () => { const s = slideList[slideAt]; const end = (x) => (/[.!?。！？]$/.test(x.replace(/<[^>]+>/g, "").trim()) ? x : x + "."); return s.quiz ? t("Quick check!") + " " + t("How many models are in your add-on?") : `${end(s.big)} ${s.small}`; };
+  function speakSlide() { speak(slideSpeech()); }
+
+  function renderQuiz(box) {
+    const n = project.capes.length;
+    const opts = (right, cands) => [...new Set([right, ...cands])].filter((x) => x >= 1).slice(0, 3).sort((a, b) => a - b);
+    const qs = [
+      { id: "models", q: t("How many models are in your add-on?"), right: 1, choices: opts(1, [2, n + 1, 3]),
+        yes: t("Yes! All your capes share one shape."), no: t("Not quite. Look back: every cape uses the same shape.") },
+      { id: "textures", q: t("How many textures are in your add-on?"), right: n, choices: opts(n, n === 1 ? [2, 3] : [1, n + 1]),
+        yes: t("Yes! One picture for each cape."), no: t("Not quite. Count your capes: each one has its own picture.") },
+    ];
+    const quiz = el("div", "quiz");
+    for (const q of qs) {
+      const wrap = el("div", "q"), fb = el("p", "fb"); fb.setAttribute("aria-live", "polite");
+      wrap.appendChild(el("p", "", esc(q.q)));
+      const row = el("div", "choices");
+      for (const c of q.choices) {
+        const b = el("button", "", String(c)); b.type = "button";
+        b.addEventListener("click", () => {
+          const ok = c === q.right;
+          row.querySelectorAll("button").forEach((x) => x.classList.remove("right", "wrong"));
+          b.classList.add(ok ? "right" : "wrong");
+          fb.className = "fb " + (ok ? "ok" : "no"); fb.textContent = ok ? q.yes : q.no;
+          quizState[q.id] = ok;
+          if (prefs.readAloud !== false) speak(fb.textContent + (ok && q.id === "models" ? " " + qs[1].q : ""));
+          if (quizState.models && quizState.textures && !quiz.querySelector(".cheer")) {
+            quiz.appendChild(el("p", "cheer", esc(t("You've got it! A model is the shape. A texture is the picture."))));
+          }
+        });
+        row.appendChild(b);
+      }
+      wrap.append(row, fb); quiz.appendChild(wrap);
+    }
+    // for teachers: the real file names, no code
+    const d = el("details", "teacher"); d.appendChild(el("summary", "", esc(t("For teachers: show the files"))));
+    const ul = el("ul");
+    for (const g of fileEntries()) {
+      ul.appendChild(el("li", "folder", esc(g.folder)));
       for (const f of g.files) {
-        const li = document.createElement("li"), b = document.createElement("button"), info = FILE_INFO[f.id];
-        b.type = "button"; b.setAttribute("aria-current", String(f.id === fileSel));
-        b.innerHTML = `<span class="chip tag-${info.tag}">${esc(t(info.tagText))}</span><span class="fname">${esc(f.path.split("/").pop())}</span>` +
-          (f.n > 1 ? `<span class="count">${esc(t("× {n}", { n: f.n }))}</span>` : "");
-        b.addEventListener("click", () => { fileSel = f.id; renderFiles(); });
-        li.appendChild(b); tree.appendChild(li);
+        const li = el("li"); li.append(el("span", `chip tag-${f.tag}`, esc(t(f.text))), el("span", "fname", esc(f.names.slice(0, 3).join(", ") + (f.names.length > 3 ? ` … (${f.names.length})` : ""))));
+        ul.appendChild(li);
       }
     }
-    const all = groups.flatMap((g) => g.files.map((f) => ({ ...f, folder: g.folder })));
-    const f = all.find((x) => x.id === fileSel) || all[0], info = FILE_INFO[f.id], box = $("#file-info");
-    const cmd = `/function capes_${project.pid}/all`;
-    let html = `<span class="chip tag-${info.tag}" style="justify-self:start">${esc(t(info.tagText))}</span><h3>${esc(t(info.title))}</h3>` +
-      `<p class="path">${esc(f.folder)}/${esc(f.path)}</p>` + info.text.map((s) => `<p>${esc(t(s, { cmd }))}</p>`).join("");
-    if (f.n > 1) html += `<p class="muted">${esc(t("There is one of these for each cape ({n} in this pack).", { n: f.n }))}</p>`;
-    const mk = (s) => `<mark>${esc(s)}</mark>`;
-    if (f.id === "model") html += `<pre>"cubes": [{\n  "origin": [-5, 8, 2],\n  ${mk('"size": [10, 16, 1]')}\n}]</pre><p class="muted">${esc(t("size = how wide, how tall and how thick the box is."))}</p>`;
-    if (f.id === "link") html += `<pre>"geometry": { "default": ${mk(`"geometry.cape_${project.pid}"`)} },\n"textures": { "default": ${mk(`"textures/models/capes_${project.pid}/${cape().key}"`)} }</pre><p class="muted">${esc(t("geometry = which model to use. textures = which picture to wrap on it."))}</p>`;
-    if (f.id === "item") html += `<pre>"display_name": { "value": ${mk(JSON.stringify(cape().name))} },\n"wearable": { "slot": ${mk('"slot.armor.chest"')} }</pre>`;
-    box.innerHTML = html;
-    if (f.id === "texture" || f.id === "icon") {
-      const big = f.id === "texture", cv = document.createElement("canvas"), s = big ? 6 : 10;
-      cv.width = (big ? 64 : 16) * s; cv.height = (big ? 32 : 16) * s;
-      const g = cv.getContext("2d");
-      if (big) drawSheet(g, cape(), { x: 0, y: 0, w: 64, h: 32 }, s, true);
-      else { const ic = P.canvasOf(16, 16, (h) => P.drawIcon(h, cape())); for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) drawChecker(g, x * s, y * s, s); g.imageSmoothingEnabled = false; g.drawImage(ic, 0, 0, cv.width, cv.height); }
-      cv.setAttribute("aria-label", t(big ? "The texture file for {name}" : "The item icon for {name}", { name: cape().name }));
-      const cap = document.createElement("p"); cap.className = "muted";
-      cap.textContent = t(big ? "{name}: 64 × 32 pixels. Only the boxes with colored frames are used." : "{name}: 16 × 16 pixels.", { name: cape().name });
-      box.append(cv, cap);
-    }
+    d.appendChild(ul); quiz.appendChild(d);
+    box.appendChild(quiz);
   }
-  const filesDlg = $("#files-dialog");
-  $("#look-inside").addEventListener("click", () => { renderFiles(); filesDlg.showModal(); });
-  $("#files-close").addEventListener("click", () => filesDlg.close());
-  filesDlg.addEventListener("click", (e) => { if (e.target === filesDlg) filesDlg.close(); });
+
+  function showSlide(i) {
+    slideAt = Math.max(0, Math.min(slideList.length - 1, i));
+    const s = slideList[slideAt], host = $("#story-slide");
+    host.replaceChildren();
+    const words = el("div", "story-words");
+    if (s.tag) words.appendChild(el("span", "tag-big " + s.tag[0], esc(t(s.tag[1]))));
+    words.appendChild(el("p", "story-big", s.big));
+    if (s.small) words.appendChild(el("p", "story-small", esc(s.small)));
+    const art = el("div", "story-art");
+    host.append(words, art);
+    if (s.quiz) { quizState = {}; renderQuiz(art); } else s.art(art);
+    $("#story-back").disabled = slideAt === 0;
+    $("#story-next").textContent = t(slideAt === slideList.length - 1 ? "Done" : "Next");
+    $("#story-dots").querySelectorAll("button").forEach((b, k) => b.setAttribute("aria-current", String(k === slideAt)));
+    if (prefs.readAloud !== false) speakSlide(); else synth && synth.cancel();
+  }
+  function openStory() {
+    slideList = slides();
+    $("#story-dots").replaceChildren(...slideList.map((_, k) => {
+      const b = el("button"); b.type = "button"; b.setAttribute("aria-label", t("Slide {n}", { n: k + 1 }));
+      b.addEventListener("click", () => showSlide(k)); return b;
+    }));
+    updateVoiceUi();
+    if (!story.open) story.showModal();
+    showSlide(0); $("#story-next").focus();
+  }
+  $("#look-inside").addEventListener("click", openStory);
+  $("#story-next").addEventListener("click", () => { if (slideAt === slideList.length - 1) story.close(); else showSlide(slideAt + 1); });
+  $("#story-back").addEventListener("click", () => showSlide(slideAt - 1));
+  $("#story-speak").addEventListener("click", speakSlide);
+  $("#story-close").addEventListener("click", () => story.close());
+  story.addEventListener("close", () => synth && synth.cancel());
+  story.addEventListener("click", (e) => { if (e.target === story) story.close(); });
+  story.addEventListener("keydown", (e) => {
+    if (e.target.closest("button, summary, input") && (e.key === " " || e.key === "Enter")) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); showSlide(slideAt + 1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); showSlide(slideAt - 1); }
+  });
+  let storyShown = false;   // shown by itself once, right after the first download
 
   // ------------------------------------------------------------------ render
   function renderDesigner() {
